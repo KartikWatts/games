@@ -39,7 +39,7 @@ $(function () {
 		// check the pattern of both flipped card 0.7s later.
 
 		if ($(".card-flipped").length === 2) {
-			setTimeout(checkPattern, 7000);
+			setTimeout(checkPattern, 700);
 		}
 	}
 
