@@ -5,12 +5,22 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="style.css" />
+		<link
+			href="http://fonts.googleapis.com/css?family=Rock+Salt"
+			rel="stylesheet"
+			type="text/css"
+		/>
 		<title>Untangle</title>
 	</head>
 	<body>
-		<canvas id="game" width="1000" height="500">
+		<canvas id="game" width="800" height="400">
 			This is an interactive game with circles and lines connecting them.
 		</canvas>
+		<p>
+			Puzzle <span id="level">0</span>, Completeness:
+
+			<span id="progress">0</span>%
+		</p>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="script.js"></script>
 	</body>

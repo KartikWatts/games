@@ -8,9 +8,10 @@ body {
 	height: 100vh;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+	gap: 2rem;
 }
 
 canvas {
-	background: grey;
 	-webkit-tap-highlight-color: transparent;
 }

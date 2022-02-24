@@ -15,6 +15,144 @@ untangleGame.Circle = function (x, y, radius) {
 	this.radius = radius;
 };
 
+untangleGame.levels = [
+	{
+		circles: [
+			{ x: 400, y: 156 },
+
+			{ x: 381, y: 241 },
+
+			{ x: 84, y: 233 },
+
+			{ x: 88, y: 73 },
+		],
+
+		relationship: [
+			{ connectedPoints: [1, 2] },
+
+			{ connectedPoints: [0, 3] },
+
+			{ connectedPoints: [0, 3] },
+
+			{ connectedPoints: [1, 2] },
+		],
+	},
+
+	{
+		circles: [
+			{ x: 401, y: 73 },
+
+			{ x: 400, y: 240 },
+
+			{ x: 88, y: 241 },
+
+			{ x: 84, y: 72 },
+		],
+
+		relationship: [
+			{ connectedPoints: [1, 2, 3] },
+
+			{ connectedPoints: [0, 2, 3] },
+
+			{ connectedPoints: [0, 1, 3] },
+
+			{ connectedPoints: [0, 1, 2] },
+		],
+	},
+
+	{
+		circles: [
+			{ x: 192, y: 155 },
+
+			{ x: 353, y: 109 },
+
+			{ x: 493, y: 156 },
+
+			{ x: 490, y: 236 },
+
+			{ x: 348, y: 276 },
+
+			{ x: 195, y: 228 },
+		],
+
+		relationship: [
+			{ connectedPoints: [2, 3, 4] },
+
+			{ connectedPoints: [3, 5] },
+
+			{ connectedPoints: [0, 4, 5] },
+
+			{ connectedPoints: [0, 1, 5] },
+
+			{ connectedPoints: [0, 2] },
+
+			{ connectedPoints: [1, 2, 3] },
+		],
+	},
+];
+
+untangleGame.currentLevel = 0;
+
+untangleGame.levelProgress = 0;
+
+untangleGame.setupCurrentLevel = function () {
+	untangleGame.circles = [];
+
+	var level = untangleGame.levels[untangleGame.currentLevel];
+
+	for (var i = 0; i < level.circles.length; i++) {
+		untangleGame.circles.push(
+			new untangleGame.Circle(level.circles[i].x, level.circles[i].y, 10)
+		);
+	}
+
+	untangleGame.levelProgress = 0;
+
+	untangleGame.connectCircles();
+
+	untangleGame.updateLineIntersection();
+
+	untangleGame.checkLevelCompleteness();
+
+	untangleGame.updateLevelProgress();
+};
+
+untangleGame.checkLevelCompleteness = function () {
+	if (untangleGame.levelProgress === 100) {
+		if (untangleGame.currentLevel + 1 < untangleGame.levels.length) {
+			untangleGame.currentLevel += 1;
+		}
+
+		untangleGame.setupCurrentLevel();
+	}
+};
+
+untangleGame.updateLevelProgress = function () {
+	// check the untangle progress of the level
+
+	var progress = 0;
+
+	for (var i = 0; i < untangleGame.lines.length; i++) {
+		if (
+			untangleGame.lines[i].thickness === untangleGame.thinLineThickness
+		) {
+			progress += 1;
+		}
+	}
+
+	var progressPercentage = Math.floor(
+		(progress / untangleGame.lines.length) * 100
+	);
+
+	untangleGame.levelProgress = progressPercentage;
+
+	$("#progress").text(progressPercentage);
+
+	// display the current level
+
+	$("#level").text(untangleGame.currentLevel);
+};
+
 untangleGame.Line = function (startPoint, endPoint, thickness) {
 	this.startPoint = startPoint;
 
@@ -71,32 +209,25 @@ untangleGame.createRandomCircles = function (width, height) {
 };
 
 untangleGame.connectCircles = function () {
-	// connect the circles to each other with lines
+	// set up all lines based on the circles relationship
+
+	var level = untangleGame.levels[untangleGame.currentLevel];
 
 	untangleGame.lines.length = 0;
 
-	for (var i = 0; i < untangleGame.circles.length; i++) {
+	for (var i in level.relationship) {
+		var connectedPoints = level.relationship[i].connectedPoints;
+
 		var startPoint = untangleGame.circles[i];
 
-		for (var j = 0; j < i; j++) {
-			var endPoint = untangleGame.circles[j];
-
-			untangleGame.drawLine(
-				startPoint.x,
-				startPoint.y,
-
-				endPoint.x,
-
-				endPoint.y,
-				1
-			);
+		for (var j in connectedPoints) {
+			var endPoint = untangleGame.circles[connectedPoints[j]];
 
 			untangleGame.lines.push(
 				new untangleGame.Line(
 					startPoint,
 
 					endPoint,
-
 					untangleGame.thinLineThickness
 				)
 			);
@@ -148,11 +279,12 @@ function gameloop() {
 	// clear the Canvas before re-drawing.
 
 	untangleGame.clear();
+	untangleGame.drawBackground();
 
 	untangleGame.drawAllLines();
 
 	untangleGame.drawAllCircles();
-	untangleGame.updateLineIntersection();
+	untangleGame.drawLevelProgress();
 }
 
 untangleGame.handleInput = function () {
@@ -227,12 +359,15 @@ untangleGame.handleInput = function () {
 		}
 
 		untangleGame.connectCircles();
+		untangleGame.updateLineIntersection();
+		untangleGame.updateLevelProgress();
 	});
 
 	// We clear the dragging circle data when mouse is up
 
 	$("#game").bind("mouseup touchend", function (e) {
 		untangleGame.targetCircleIndex = undefined;
+		untangleGame.checkLevelCompleteness();
 	});
 };
 
@@ -333,6 +468,46 @@ untangleGame.updateLineIntersection = function () {
 	}
 };
 
+untangleGame.drawLevelProgress = function () {
+	var ctx = untangleGame.ctx;
+
+	ctx.font = "26px Rock Salt";
+
+	ctx.fillStyle = "WHITE";
+
+	ctx.textAlign = "left";
+
+	ctx.textBaseline = "bottom";
+
+	ctx.fillText(
+		"Puzzle " +
+			untangleGame.currentLevel +
+			", Completeness: " +
+			untangleGame.levelProgress +
+			"%",
+		60,
+		ctx.canvas.height - 60
+	);
+};
+
+untangleGame.loadImages = function () {
+	// load the background image
+
+	untangleGame.background = new Image();
+
+	untangleGame.background.onerror = function () {
+		console.log("Error loading the image.");
+	};
+
+	untangleGame.background.src = "board.png";
+};
+
+untangleGame.drawBackground = function () {
+	// draw the image background
+
+	untangleGame.ctx.drawImage(untangleGame.background, 0, 0);
+};
+
 $(document).ready(function () {
 	var canvas = document.getElementById("game");
 
@@ -342,9 +517,9 @@ $(document).ready(function () {
 
 	var height = canvas.height;
 
-	untangleGame.createRandomCircles(width, height);
-	untangleGame.connectCircles();
+	untangleGame.setupCurrentLevel();
+
 	untangleGame.handleInput();
-	untangleGame.updateLineIntersection();
+	untangleGame.loadImages();
 	setInterval(gameloop, 30);
 });
