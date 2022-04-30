@@ -76,7 +76,7 @@ gameBtn.addEventListener("click", () => {
   }, 3000);
   setTimeout(() => {
     canBotMove = true;
-  }, 6500);
+  }, 3500);
 });
 
 let keysPressed = [];
