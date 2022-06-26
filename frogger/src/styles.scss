@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: black;
+}
+
+canvas {
+  background: white;
+  width: 100%;
+  max-width: 640px;
+  margin: 10vh auto;
+  display: block;
+}
