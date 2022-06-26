@@ -89,7 +89,9 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+
+# UNTIL ALL THE PROJECTS ARE COMBINED FOR SINGLE PARCEL BUILD, DIST FOLDER NEED TO BE DEPLOYED
+# dist
 
 # Gatsby files
 .cache/
