@@ -83,7 +83,7 @@ load("basic_level.png", "player.png", "enemy.png").then(() => {
       background: "black",
     },
     onDown() {
-      window.location.href = "/";
+      window.location.reload();
       this.y += 5;
     },
   });
