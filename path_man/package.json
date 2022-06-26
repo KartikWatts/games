@@ -1,6 +1,7 @@
 {
-  "name": "frogger",
+  "name": "path_man",
   "source": "src/index.html",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "parcel",
     "build": "rimraf dist && parcel build --no-source-maps --public-url ./",

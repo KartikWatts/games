@@ -1,3 +1,5 @@
+# ******* AS IN THIS SINGLE REPO, LOTS OF INDIVIDUAL PROJECTS ARE DEPLOYED, EITHER SINGLE PARCEL BUILD IS TO IMPLEMENTED COMBINING ALL THOSE INDIVIDUAL PROJECTS, WHICH COULD BE DONE IN FUTURE. FOR NOW, THE DIST FOLDER IS BEING PUSHED FOR PARCEL PROJECTS. UNTIL THEN, THIS WORKFLOW IS QUITE DISFUNCTIONAL**********
+
 # Workflow to deploy code on server with actions
 
 name: Build Parcel Packages
@@ -22,7 +24,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-    
+
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
