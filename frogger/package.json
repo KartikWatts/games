@@ -1,0 +1,16 @@
+{
+  "name": "frogger",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel --https",
+    "build": "rimraf dist && parcel build --no-source-maps --public-url ./",
+    "build:zip": "rimraf dist && parcel build --no-source-maps --public-url ./ && tar.exe -a -c -f game.zip dist && dir game.zip"
+  },
+  "devDependencies": {
+    "parcel": "^2.6.2",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "kontra": "^8.0.0"
+  }
+}
