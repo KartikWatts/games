@@ -519,6 +519,7 @@ tile_data = PoolIntArray( 7, 0, 4, 65543, 0, 131077, 65544, 0, 2, 65545, 0, 2, 6
 [node name="DirtCliffTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 7, 0, 0, 8, 0, 1, 9, 0, 2, 65543, 0, 131072, 65544, 0, 65544, 65545, 0, 131074, 131080, 0, 131075, 196613, 0, 0, 196614, 0, 2, 262147, 0, 196608, 262148, 0, 6, 262149, 0, 131078, 262150, 0, 65538, 327684, 0, 131072, 327685, 0, 131073, 327686, 0, 131074 )
 
@@ -542,6 +543,9 @@ position = Vector2( 184, 56 )
 
 [node name="Grass" parent="YSort/Grass" instance=ExtResource( 6 )]
 position = Vector2( 72, 144 )
+
+[node name="Grass7" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 56, 144 )
 
 [node name="Grass2" parent="YSort/Grass" instance=ExtResource( 6 )]
 position = Vector2( 24, 120 )
