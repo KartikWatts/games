@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 const ACCELERATION= 500
 const MAX_SPEED= 80
@@ -11,13 +11,13 @@ enum {
 
 var state= MOVE
 
-var velocity= Vector2.ZERO
+#var velocity= Vector2.ZERO
 var roll_vector= Vector2.LEFT
 
-onready var animationPlayer= $AnimationPlayer
-onready var animationTree= $AnimationTree
-onready var animationState= animationTree.get("parameters/playback")
-onready var swordHitBox= $HitBoxPivot/SwordHitBox
+@onready var animationPlayer= $AnimationPlayer
+@onready var animationTree= $AnimationTree
+@onready var animationState= animationTree.get("parameters/playback")
+@onready var swordHitBox= $HitBoxPivot/SwordHitBox
 
 func _ready():
 	animationTree.active= true
@@ -71,7 +71,7 @@ func attack_state(delta):
 	animationState.travel("Attack")
 
 func move():
-	velocity= move_and_slide(velocity)
+	move_and_slide()
 
 func roll_animation_finished():
 	velocity= velocity * 0.8

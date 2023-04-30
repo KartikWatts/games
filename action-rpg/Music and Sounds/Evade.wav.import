@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Evade.wav-cd612618661f05b5e39dccebc8901a0b.sample"
+type="AudioStreamWAV"
+uid="uid://dmouccql6i7br"
+path="res://.godot/imported/Evade.wav-cd612618661f05b5e39dccebc8901a0b.sample"
 
 [deps]
 
 source_file="res://Music and Sounds/Evade.wav"
-dest_files=[ "res://.import/Evade.wav-cd612618661f05b5e39dccebc8901a0b.sample" ]
+dest_files=["res://.godot/imported/Evade.wav-cd612618661f05b5e39dccebc8901a0b.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0
