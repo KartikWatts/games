@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpvf56fkx0wbe"]
+
+[ext_resource type="Texture2D" uid="uid://dyue25crupans" path="res://assets/sprites/gem/gem-1.png" id="1_i1wcm"]
+[ext_resource type="Texture2D" uid="uid://bni20bf7sjboc" path="res://assets/sprites/gem/gem-2.png" id="2_8t0qo"]
+[ext_resource type="Texture2D" uid="uid://cufpr2fkic10i" path="res://assets/sprites/gem/gem-3.png" id="3_g4pgy"]
+[ext_resource type="Texture2D" uid="uid://b0c6pm2ykoq7m" path="res://assets/sprites/gem/gem-4.png" id="4_ro73s"]
+[ext_resource type="Texture2D" uid="uid://dnm1l325t334c" path="res://assets/sprites/gem/gem-5.png" id="5_2a05p"]
+
+[sub_resource type="GDScript" id="GDScript_20yn5"]
+script/source = "extends Area2D
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		Game.gold += 1
+		var tween = get_tree().create_tween()
+		var tween1 = get_tree().create_tween()
+		tween.tween_property(self, \"position\", position - Vector2(0, 35), 0.35)
+		tween1.tween_property(self, \"modulate:a\", 0, 0.3)		
+		tween.tween_callback(queue_free)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n43be"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxxqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i1wcm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8t0qo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g4pgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ro73s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2a05p")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Gem" type="Area2D"]
+script = SubResource("GDScript_20yn5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n43be")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oxxqu")
+animation = &"Idle"
+autoplay = "Idle"
+frame = 2
+frame_progress = 0.882824
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

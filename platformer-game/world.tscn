@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://q0qlwnw7e8rl"]
+[gd_scene load_steps=11 format=3 uid="uid://q0qlwnw7e8rl"]
 
 [ext_resource type="Script" path="res://background/bg.gd" id="1_dg01i"]
 [ext_resource type="PackedScene" uid="uid://63kqfgh1fb5s" path="res://player/player.tscn" id="1_gh2rq"]
 [ext_resource type="Texture2D" uid="uid://bc8slkyhhasba" path="res://assets/environment/layers/tileset.png" id="1_s4ue2"]
 [ext_resource type="Texture2D" uid="uid://bwnxghm3xwbwd" path="res://assets/environment/layers/back.png" id="2_riku8"]
 [ext_resource type="PackedScene" uid="uid://b1njylnqnx864" path="res://mobs/frog.tscn" id="5_v3hoe"]
+[ext_resource type="PackedScene" uid="uid://bpvf56fkx0wbe" path="res://collectables/gem.tscn" id="6_2m32j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xtdvs"]
 texture = ExtResource("1_s4ue2")
@@ -493,3 +494,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Gold"
 script = SubResource("GDScript_83hdi")
+
+[node name="Collectables" type="Node2D" parent="."]
+
+[node name="Gem" parent="." instance=ExtResource("6_2m32j")]
+position = Vector2(272, 232)
