@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://q0qlwnw7e8rl"]
+[gd_scene load_steps=9 format=3 uid="uid://q0qlwnw7e8rl"]
 
 [ext_resource type="Script" path="res://background/bg.gd" id="1_dg01i"]
 [ext_resource type="PackedScene" uid="uid://63kqfgh1fb5s" path="res://player/player.tscn" id="1_gh2rq"]
@@ -406,6 +406,20 @@ texture = ExtResource("1_s4ue2")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_xtdvs")
 
+[sub_resource type="GDScript" id="GDScript_spkkk"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = \"HP: \" + str(get_node(\"../../Player/Player\").health)
+"
+
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -433,3 +447,26 @@ position = Vector2(200, 136)
 
 [node name="Frog" parent="Mobs" instance=ExtResource("5_v3hoe")]
 position = Vector2(376, 304)
+
+[node name="Frog2" parent="Mobs" instance=ExtResource("5_v3hoe")]
+position = Vector2(314, 304)
+
+[node name="Frog3" parent="Mobs" instance=ExtResource("5_v3hoe")]
+position = Vector2(448, 304)
+
+[node name="Frog4" parent="Mobs" instance=ExtResource("5_v3hoe")]
+position = Vector2(560, 304)
+
+[node name="Frog5" parent="Mobs" instance=ExtResource("5_v3hoe")]
+position = Vector2(656, 304)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HP" type="Label" parent="UI"]
+offset_left = 34.0
+offset_right = 100.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "HP"
+script = SubResource("GDScript_spkkk")
