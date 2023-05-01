@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bc8slkyhhasba" path="res://assets/environment/layers/tileset.png" id="1_s4ue2"]
 [ext_resource type="Texture2D" uid="uid://bwnxghm3xwbwd" path="res://assets/environment/layers/back.png" id="2_riku8"]
 [ext_resource type="PackedScene" uid="uid://b1njylnqnx864" path="res://mobs/frog.tscn" id="5_v3hoe"]
-[ext_resource type="PackedScene" uid="uid://bpvf56fkx0wbe" path="res://collectables/gem.tscn" id="6_2m32j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xtdvs"]
 texture = ExtResource("1_s4ue2")
@@ -435,6 +434,20 @@ func _process(delta):
 	text = \"Gold: \" + str(Game.gold)
 "
 
+[sub_resource type="GDScript" id="GDScript_gc1bj"]
+script/source = "extends Node2D
+
+var gem = preload(\"res://collectables/gem.tscn\")
+
+func _on_timer_timeout():
+	var gemInstance = gem.instantiate()
+	var randomGen = RandomNumberGenerator.new()
+	var randomX = randomGen.randi_range(20, 1600)
+	var randomY = randomGen.randi_range(200, 300)
+	gemInstance.position = Vector2(randomX, randomY)
+	get_node(\"Gems\").add_child(gemInstance)
+"
+
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -496,6 +509,11 @@ text = "Gold"
 script = SubResource("GDScript_83hdi")
 
 [node name="Collectables" type="Node2D" parent="."]
+script = SubResource("GDScript_gc1bj")
 
-[node name="Gem" parent="." instance=ExtResource("6_2m32j")]
-position = Vector2(272, 232)
+[node name="Gems" type="Node2D" parent="Collectables"]
+
+[node name="Timer" type="Timer" parent="Collectables"]
+autostart = true
+
+[connection signal="timeout" from="Collectables/Timer" to="Collectables" method="_on_timer_timeout"]
