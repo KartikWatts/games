@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://q0qlwnw7e8rl"]
+[gd_scene load_steps=8 format=3 uid="uid://q0qlwnw7e8rl"]
 
 [ext_resource type="Script" path="res://background/bg.gd" id="1_dg01i"]
 [ext_resource type="PackedScene" uid="uid://63kqfgh1fb5s" path="res://player/player.tscn" id="1_gh2rq"]
 [ext_resource type="Texture2D" uid="uid://bc8slkyhhasba" path="res://assets/environment/layers/tileset.png" id="1_s4ue2"]
 [ext_resource type="Texture2D" uid="uid://bwnxghm3xwbwd" path="res://assets/environment/layers/back.png" id="2_riku8"]
+[ext_resource type="PackedScene" uid="uid://b1njylnqnx864" path="res://mobs/frog.tscn" id="5_v3hoe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xtdvs"]
 texture = ExtResource("1_s4ue2")
@@ -423,5 +424,12 @@ position = Vector2(576, 291)
 scale = Vector2(3, 2.7)
 texture = ExtResource("2_riku8")
 
-[node name="Player" parent="." instance=ExtResource("1_gh2rq")]
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource("1_gh2rq")]
 position = Vector2(200, 136)
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Frog" parent="Mobs" instance=ExtResource("5_v3hoe")]
+position = Vector2(376, 304)
