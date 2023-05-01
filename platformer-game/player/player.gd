@@ -42,6 +42,6 @@ func _physics_process(delta):
 		
 	move_and_slide()
 	
-	if health <=0:
+	if Game.playerHP <=0:
 		queue_free()
 		get_tree().change_scene_to_file("res://main.tscn")
