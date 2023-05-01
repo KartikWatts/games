@@ -6,21 +6,29 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ae7wa")
 
-[node name="Play" type="Button" parent="."]
+[node name="LoadGame" type="Button" parent="."]
 offset_left = 448.0
-offset_top = 126.0
+offset_top = 124.0
 offset_right = 704.0
-offset_bottom = 272.0
-text = "Play"
+offset_bottom = 224.0
+text = "Load Game"
+
+[node name="NewGame" type="Button" parent="."]
+offset_left = 448.0
+offset_top = 246.0
+offset_right = 704.0
+offset_bottom = 346.0
+text = "New Game"
 
 [node name="Quit" type="Button" parent="."]
 offset_left = 451.0
 offset_top = 371.0
 offset_right = 704.0
-offset_bottom = 515.0
+offset_bottom = 471.0
 text = "Quit"
 
 [node name="BG" parent="." instance=ExtResource("2_s7md4")]
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

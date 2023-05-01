@@ -124,7 +124,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rivjn"]
-radius = 133.004
+radius = 196.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl21j"]
 size = Vector2(14.625, 15.5)
@@ -145,7 +145,6 @@ sprite_frames = SubResource("SpriteFrames_dwmr5")
 animation = &"Idle"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 shape = SubResource("CircleShape2D_rivjn")

@@ -6,7 +6,7 @@ func save_game():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	var data: Dictionary = {
 		"playerHP": Game.playerHP,
-		"gold": Game.gold,		
+		"gem": Game.gem,		
 	}
 
 	var jsonString = JSON.stringify(data)
@@ -19,6 +19,6 @@ func load_game():
 			var storedData = JSON.parse_string(file.get_line())
 			if storedData:
 				Game.playerHP = storedData["playerHP"]
-				Game.gold = storedData["gold"]
+				Game.gem = storedData["gem"]
 
 
