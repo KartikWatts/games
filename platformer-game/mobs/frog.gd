@@ -43,11 +43,13 @@ func _on_player_death_body_entered(body):
 func _on_player_collision_body_entered(body):
 	if body.name == "Player":
 		Game.playerHP -= 3
+		if Game.playerHP < 0:
+			Game.playerHP = 0
 		death()
 		
 func death():
 #	Game.gem += 5
-	if Game.playerHP >= 0:
+	if Game.playerHP > 0:
 		Utils.save_game()
 	chase = false
 	get_node("AnimatedSprite2D").play("Death")	
