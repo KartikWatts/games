@@ -5,6 +5,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player
 var chase = false
 
+const DAMAGE : int = 1
+
 func _ready():
 	get_node("AnimatedSprite2D").play("Idle")
 
@@ -42,7 +44,7 @@ func _on_player_death_body_entered(body):
 
 func _on_player_collision_body_entered(body):
 	if body.name == "Player":
-		Game.playerHP -= 3
+		Game.playerHP -= DAMAGE
 		if Game.playerHP < 0:
 			Game.playerHP = 0
 		death()
