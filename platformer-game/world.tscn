@@ -411,9 +411,13 @@ sources/1 = SubResource("TileSetAtlasSource_xtdvs")
 [sub_resource type="GDScript" id="GDScript_5v0g8"]
 script/source = "extends Node2D
 
+const MAX_FROG_COUNT = 35
+
 var frog = preload(\"res://mobs/frog.tscn\")
 
 func create_frog_mob():
+	if get_node(\"Frogs\").get_child_count() >= MAX_FROG_COUNT:
+		return
 	var frogInstance = frog.instantiate()
 	var randomGen = RandomNumberGenerator.new()
 	var randomX = randomGen.randi_range(60, 1600)
@@ -432,15 +436,32 @@ func _on_mob_timer_timeout():
 [sub_resource type="GDScript" id="GDScript_gc1bj"]
 script/source = "extends Node2D
 
+const MAX_CHERRY_COUNT = 2
+const MAX_GEM_COUNT = 5
+
 var gem = preload(\"res://collectables/gem.tscn\")
+var cherry = preload(\"res://collectables/cherry.tscn\")
 
 func _on_collectable_timer_timeout():
+	if get_node(\"Gems\").get_child_count() >= MAX_GEM_COUNT:
+		return
 	var gemInstance = gem.instantiate()
 	var randomGen = RandomNumberGenerator.new()
-	var randomX = randomGen.randi_range(20, 1600)
+	var randomX = randomGen.randi_range(100, 1400)
 	var randomY = randomGen.randi_range(200, 300)
 	gemInstance.position = Vector2(randomX, randomY)
 	get_node(\"Gems\").add_child(gemInstance)
+
+
+func _on_cherry_timer_timeout():
+	if get_node(\"Cherries\").get_child_count() >= MAX_CHERRY_COUNT:
+		return
+	var cherryInstance = cherry.instantiate()
+	var randomGen = RandomNumberGenerator.new()
+	var randomX = randomGen.randi_range(100, 1400)
+	var randomY = randomGen.randi_range(180, 200)
+	cherryInstance.position = Vector2(randomX, randomY)
+	get_node(\"Cherries\").add_child(cherryInstance)
 "
 
 [node name="World" type="Node2D"]
@@ -506,11 +527,18 @@ script = ExtResource("8_q7whi")
 [node name="Collectables" type="Node2D" parent="."]
 script = SubResource("GDScript_gc1bj")
 
+[node name="Cherries" type="Node2D" parent="Collectables"]
+
 [node name="Gems" type="Node2D" parent="Collectables"]
 
 [node name="CollectableTimer" type="Timer" parent="Collectables"]
 wait_time = 3.0
 autostart = true
 
+[node name="CherryTimer" type="Timer" parent="Collectables"]
+wait_time = 30.0
+autostart = true
+
 [connection signal="timeout" from="Mobs/MobTimer" to="Mobs" method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="Collectables/CollectableTimer" to="Collectables" method="_on_collectable_timer_timeout"]
+[connection signal="timeout" from="Collectables/CherryTimer" to="Collectables" method="_on_cherry_timer_timeout"]
