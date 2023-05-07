@@ -1,26 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmv2g32n22bo6"]
+[gd_scene load_steps=8 format=3 uid="uid://bmv2g32n22bo6"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_yo214"]
-[ext_resource type="Texture2D" uid="uid://bb6jrxvuybfgd" path="res://assets/idle.png" id="2_3ir7h"]
+[ext_resource type="Texture2D" uid="uid://dibgvbwcmovfk" path="res://assets/player_sprite_sheet.png" id="2_tyg8v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cim72"]
+radius = 17.0
+height = 122.0
 
-[sub_resource type="Animation" id="Animation_ws06q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_ph66e"]
+[sub_resource type="Animation" id="Animation_phnoh"]
 resource_name = "idle"
 length = 3.2
 loop_mode = 1
@@ -28,7 +15,7 @@ step = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,10 +25,44 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_72tx1"]
+[sub_resource type="Animation" id="Animation_3dexx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_gf2mm"]
+resource_name = "walk"
+length = 1.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hnm5t"]
 _data = {
-"RESET": SubResource("Animation_ws06q"),
-"idle": SubResource("Animation_ph66e")
+"RESET": SubResource("Animation_3dexx"),
+"idle": SubResource("Animation_phnoh"),
+"walk": SubResource("Animation_gf2mm")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -51,11 +72,14 @@ script = ExtResource("1_yo214")
 shape = SubResource("CapsuleShape2D_cim72")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_3ir7h")
+texture = ExtResource("2_tyg8v")
 hframes = 8
+vframes = 2
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+autoplay = "idle"
 libraries = {
-"": SubResource("AnimationLibrary_72tx1")
+"": SubResource("AnimationLibrary_hnm5t")
 }
