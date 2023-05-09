@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=4 format=3 uid="uid://rqdfcdplc5nt"]
 
 [ext_resource type="PackedScene" uid="uid://bmv2g32n22bo6" path="res://player/player.tscn" id="1_e28uy"]
+[ext_resource type="PackedScene" uid="uid://dd4ckfm6xvwhh" path="res://mobs/snake.tscn" id="2_3b0hr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(976, 44)
@@ -21,3 +22,8 @@ offset_left = -6.0
 offset_top = 274.0
 offset_right = 853.0
 offset_bottom = 314.0
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Snake" parent="Mobs" instance=ExtResource("2_3b0hr")]
+position = Vector2(664, 206)

@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd4ckfm6xvwhh"]
+
+[ext_resource type="Texture2D" uid="uid://dndig7efyxp3x" path="res://assets/snake.png" id="1_77v1g"]
+[ext_resource type="Script" path="res://mobs/snake.gd" id="1_kl32n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srex1"]
+radius = 63.9991
+height = 335.975
+
+[sub_resource type="Animation" id="Animation_q2d1r"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 2]
+}
+
+[sub_resource type="Animation" id="Animation_64qdo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n3odl"]
+_data = {
+"RESET": SubResource("Animation_64qdo"),
+"walk": SubResource("Animation_q2d1r")
+}
+
+[node name="Snake" type="CharacterBody2D"]
+script = ExtResource("1_kl32n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.57598
+shape = SubResource("CapsuleShape2D_srex1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_77v1g")
+hframes = 3
+vframes = 2
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n3odl")
+}
