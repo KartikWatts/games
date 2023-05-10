@@ -5,6 +5,7 @@ signal magic_ball_shoot(magic_ball_scene, location)
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
+const WAND_MAGIC_MARGIN = 25
 
 var magic_ball = preload("res://player/magic_ball.tscn")
 
@@ -16,10 +17,10 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
+var face_direction = 1
 
 func _ready():
-	print(_collision_shape.global_position)
-	print(_collision_shape.shape.get_rect().size)
+	set_wand_marker_position(1)
 
 func _process(delta):
 #	print(_shoot_timer.time_left)
@@ -41,9 +42,14 @@ func _physics_process(delta):
 	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction == -1:
+		face_direction = -1
 		_sprite_2d.flip_h = true
+		set_wand_marker_position(direction)
 	elif direction == 1:
+		face_direction = 1
+		set_wand_marker_position(direction)		
 		_sprite_2d.flip_h = false
+	
 	
 	if direction:
 		velocity.x = direction * SPEED
@@ -62,8 +68,11 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+func set_wand_marker_position(direction):
+	_wand_marker.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN) * direction, - WAND_MAGIC_MARGIN)
+
 func shoot():
-	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position)
+	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position, face_direction)
 
 
 func _on_shoot_timer_timeout():

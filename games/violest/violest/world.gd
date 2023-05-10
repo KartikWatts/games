@@ -11,7 +11,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_player_magic_ball_shoot(magic_ball_scene, location):
+func _on_player_magic_ball_shoot(magic_ball_scene, location, direction):
 	var magic_ball = magic_ball_scene.instantiate()
+	magic_ball.direction = direction
 	magic_ball.global_position = location
 	magic_ball_container.add_child(magic_ball)
