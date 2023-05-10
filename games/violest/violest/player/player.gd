@@ -1,13 +1,36 @@
 extends CharacterBody2D
 
+
+signal magic_ball_shoot(magic_ball_scene, location)
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var magic_ball = preload("res://player/magic_ball.tscn")
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite_2d = $Sprite2D
+@onready var _collision_shape = $CollisionShape2D
+@onready var _wand_marker = $WandMarker
+@onready var _shoot_timer = $ShootTimer
 
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var is_attack_initiated = false
+
+func _ready():
+	print(_collision_shape.global_position)
+	print(_collision_shape.shape.get_rect().size)
+
+func _process(delta):
+#	print(_shoot_timer.time_left)
+	if Input.is_action_pressed("player_attack"):
+		if not is_attack_initiated:
+			is_attack_initiated = true
+			_shoot_timer.start()
+	else:
+		is_attack_initiated = false
+		_shoot_timer.stop()
+		
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -38,3 +61,11 @@ func _physics_process(delta):
 		_animation_player.play("fall_down")
 	
 	move_and_slide()
+
+func shoot():
+	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position)
+
+
+func _on_shoot_timer_timeout():
+	shoot()
+	is_attack_initiated = false

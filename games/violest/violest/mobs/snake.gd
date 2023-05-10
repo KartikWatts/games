@@ -12,8 +12,8 @@ const ATTACK_RANGE = 450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = -1
 
-func _ready():
-	print($CollisionShape2D.shape.get_rect().size.y)
+#func _ready():
+#	print($CollisionShape2D.shape.get_rect().size.y)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -27,13 +27,13 @@ func _physics_process(delta):
 			_attack_timer.start()
 			velocity.x = 0
 			_animation_player.play("attack")
-			print(_animation_player.current_animation)
+#			print(_animation_player.current_animation)
 			await _animation_player.animation_finished
 			velocity.x = direction * SPEED / 4
 			_animation_player.play("walk")
-			print(_animation_player.current_animation)
+#			print(_animation_player.current_animation)
 	else:
-		print(_animation_player.current_animation)		
+#		print(_animation_player.current_animation)		
 		_attack_timer.stop()
 		velocity.x = direction * SPEED
 		_animation_player.play("walk")

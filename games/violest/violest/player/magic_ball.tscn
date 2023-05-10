@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c41w5pgra58dn"]
+
+[ext_resource type="Script" path="res://player/magic_ball.gd" id="1_3bx8h"]
+[ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="1_bhvkc"]
+[ext_resource type="PackedScene" uid="uid://q3u8jhehvod0" path="res://player/god_particle.tscn" id="3_up34l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvw1r"]
+radius = 18.2483
+
+[node name="MagicBall" type="Area2D"]
+script = ExtResource("1_3bx8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rvw1r")
+metadata/_edit_lock_ = true
+
+[node name="MagicBall" type="Sprite2D" parent="."]
+texture = ExtResource("1_bhvkc")
+
+[node name="GodParticle" parent="." instance=ExtResource("3_up34l")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 34)
+scale = Vector2(0.625, 0.4)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

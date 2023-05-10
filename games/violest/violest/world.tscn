@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=5 format=3 uid="uid://rqdfcdplc5nt"]
 
-[ext_resource type="PackedScene" uid="uid://bmv2g32n22bo6" path="res://player/player.tscn" id="1_e28uy"]
+[ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
+[ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
 [ext_resource type="PackedScene" uid="uid://dd4ckfm6xvwhh" path="res://mobs/snake.tscn" id="2_3b0hr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_2i1q4")
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
 position = Vector2(514, 184)
@@ -46,3 +48,5 @@ rotation = 0.00151026
 
 [node name="Snake" parent="Mobs" instance=ExtResource("2_3b0hr")]
 position = Vector2(134, 203)
+
+[node name="MagicBallContainer" type="Node2D" parent="."]
