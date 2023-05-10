@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd4ckfm6xvwhh"]
+[gd_scene load_steps=8 format=3 uid="uid://dd4ckfm6xvwhh"]
 
 [ext_resource type="Texture2D" uid="uid://dndig7efyxp3x" path="res://assets/snake.png" id="1_77v1g"]
 [ext_resource type="Script" path="res://mobs/snake.gd" id="1_kl32n"]
@@ -6,6 +6,21 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srex1"]
 radius = 63.9991
 height = 335.975
+
+[sub_resource type="Animation" id="Animation_64qdo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_q2d1r"]
 resource_name = "walk"
@@ -24,8 +39,9 @@ tracks/0/keys = {
 "values": [0, 1, 2, 2]
 }
 
-[sub_resource type="Animation" id="Animation_64qdo"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_vytk3"]
+resource_name = "attack"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,19 +49,22 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1]
+"values": [3, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n3odl"]
 _data = {
 "RESET": SubResource("Animation_64qdo"),
+"attack": SubResource("Animation_vytk3"),
 "walk": SubResource("Animation_q2d1r")
 }
 
 [node name="Snake" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_kl32n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -63,3 +82,12 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_n3odl")
 }
+
+[node name="FloorCheckRay" type="RayCast2D" parent="."]
+position = Vector2(-168, 0)
+target_position = Vector2(0, 80)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="PlayerCheckRay" type="RayCast2D" parent="."]
+target_position = Vector2(-450, 0)

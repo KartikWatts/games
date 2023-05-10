@@ -14,6 +14,12 @@ config/name="violest"
 run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Environment"
+2d_physics/layer_3="Mob"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

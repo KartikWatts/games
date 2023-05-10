@@ -4,24 +4,43 @@
 [ext_resource type="PackedScene" uid="uid://dd4ckfm6xvwhh" path="res://mobs/snake.tscn" id="2_3b0hr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
-size = Vector2(976, 44)
+size = Vector2(2746.51, 44)
 
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
-position = Vector2(237, 153)
+position = Vector2(889, 171)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(442, 296)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(1096.5, 296)
+shape = SubResource("RectangleShape2D_eshoh")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(2240, 34)
+rotation = -1.57047
 shape = SubResource("RectangleShape2D_eshoh")
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = -6.0
+offset_left = 2216.0
 offset_top = 274.0
-offset_right = 853.0
+offset_right = 3075.0
 offset_bottom = 314.0
+rotation = -1.57873
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = -263.0
+offset_top = 274.0
+offset_right = 2229.0
+offset_bottom = 314.0
+rotation = 0.00151026
 
 [node name="Mobs" type="Node2D" parent="."]
 
