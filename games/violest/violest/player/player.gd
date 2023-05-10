@@ -14,9 +14,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-#		print("jump up")
 		_animation_player.play("jump_up")
-
+	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction == -1:
 		_sprite_2d.flip_h = true

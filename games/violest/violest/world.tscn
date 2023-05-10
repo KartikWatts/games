@@ -9,7 +9,7 @@ size = Vector2(2746.51, 44)
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
-position = Vector2(889, 171)
+position = Vector2(514, 184)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -45,4 +45,4 @@ rotation = 0.00151026
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Snake" parent="Mobs" instance=ExtResource("2_3b0hr")]
-position = Vector2(664, 206)
+position = Vector2(134, 203)
