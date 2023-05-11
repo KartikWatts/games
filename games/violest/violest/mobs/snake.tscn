@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dd4ckfm6xvwhh"]
+[gd_scene load_steps=9 format=3 uid="uid://qeckl4fceqn1"]
 
 [ext_resource type="Texture2D" uid="uid://dndig7efyxp3x" path="res://assets/snake.png" id="1_77v1g"]
 [ext_resource type="Script" path="res://mobs/snake.gd" id="1_kl32n"]
+[ext_resource type="Script" path="res://mobs/snake_hurt_box.gd" id="3_w5rvu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srex1"]
-radius = 30.9996
+radius = 66.0
 height = 335.975
 
 [sub_resource type="Animation" id="Animation_64qdo"]
@@ -64,11 +65,10 @@ _data = {
 
 [node name="Snake" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_kl32n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 32)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_srex1")
 
@@ -96,3 +96,13 @@ target_position = Vector2(-450, 0)
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="SnakeHurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("3_w5rvu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SnakeHurtBox"]
+polygon = PackedVector2Array(-168, 6, -167, -21, -109, -71, -75, -71, -31, -30, -31, 3, 147, 3, 146, 64, -108, 66)
+
+[connection signal="area_entered" from="SnakeHurtBox" to="SnakeHurtBox" method="_on_area_entered"]

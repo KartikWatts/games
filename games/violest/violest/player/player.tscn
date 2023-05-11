@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpyxjvkwhg81l"]
+[gd_scene load_steps=13 format=3 uid="uid://dpyxjvkwhg81l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_yo214"]
 [ext_resource type="Texture2D" uid="uid://dibgvbwcmovfk" path="res://assets/player_sprite_sheet.png" id="2_tyg8v"]
+[ext_resource type="Script" path="res://player/player_hurt_box.gd" id="3_sni0i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cim72"]
 radius = 29.0
@@ -127,6 +128,7 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)
+position_smoothing_enabled = true
 
 [node name="WandMarker" type="Marker2D" parent="."]
 position = Vector2(29, -27)
@@ -144,5 +146,11 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_nboxd")
 step = 1.0
 rounded = true
 show_percentage = false
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+script = ExtResource("3_sni0i")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtBox"]
+shape = SubResource("CapsuleShape2D_cim72")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

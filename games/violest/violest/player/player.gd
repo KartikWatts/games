@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal magic_ball_shoot(magic_ball_scene, location)
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -600.0
+const JUMP_VELOCITY = -625.0
 const WAND_MAGIC_MARGIN = 25
 
 var magic_ball = preload("res://player/magic_ball.tscn")

@@ -8,6 +8,7 @@ const ATTACK_RANGE = 450
 @onready var _player_check_ray = $PlayerCheckRay
 @onready var _floor_check_ray = $FloorCheckRay
 @onready var _attack_timer = $AttackTimer
+@onready var _snake_hurt_box = $SnakeHurtBox
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = -1
@@ -41,10 +42,11 @@ func _physics_process(delta):
 	if direction == -1:
 		_sprite_2d.flip_h = false
 		_floor_check_ray.target_position.x= 0
+		_snake_hurt_box.scale = Vector2(1,1)		
 	elif direction == 1:
 		_sprite_2d.flip_h = true
+		_snake_hurt_box.scale = Vector2(-1,1)
 		
 	_player_check_ray.target_position.x = ATTACK_RANGE * direction
 		
 	move_and_slide()
-	

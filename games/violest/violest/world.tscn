@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
-[ext_resource type="PackedScene" uid="uid://dd4ckfm6xvwhh" path="res://mobs/snake.tscn" id="2_3b0hr"]
+[ext_resource type="PackedScene" uid="uid://qeckl4fceqn1" path="res://mobs/snake.tscn" id="2_3b0hr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
