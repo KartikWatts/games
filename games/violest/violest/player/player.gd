@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal magic_ball_shoot(magic_ball_scene, location)
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -500.0
+const JUMP_VELOCITY = -600.0
 const WAND_MAGIC_MARGIN = 25
 
 var magic_ball = preload("res://player/magic_ball.tscn")
@@ -14,6 +14,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 @onready var _collision_shape = $CollisionShape2D
 @onready var _wand_marker = $WandMarker
 @onready var _shoot_timer = $ShootTimer
+@onready var _attack_progress = $AttackProgress
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
@@ -21,20 +22,28 @@ var face_direction = 1
 
 func _ready():
 	set_wand_marker_position(1)
+	_attack_progress.position = _collision_shape.position - Vector2(_collision_shape.shape.get_rect().size.x/2, _collision_shape.shape.get_rect().size.y/2 + WAND_MAGIC_MARGIN)
 
 func _process(delta):
-#	print(_shoot_timer.time_left)
-	if Input.is_action_pressed("player_attack"):
+	if Input.is_action_just_pressed("player_attack"):
 		if not is_attack_initiated:
+			var tween = get_tree().create_tween()
 			is_attack_initiated = true
+			_attack_progress.show()
+			tween.tween_property(_attack_progress, "value", 100, 1)
 			_shoot_timer.start()
-	else:
-		is_attack_initiated = false
-		_shoot_timer.stop()
-		
+		else:
+			is_attack_initiated = false
+			_attack_progress.value = 0
+			_shoot_timer.stop()
+	
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	
+	if _shoot_timer.is_stopped():
+		_attack_progress.value = 0
+		_attack_progress.hide()
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
