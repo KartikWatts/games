@@ -54,7 +54,10 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		_animation_player.play("jump_up")
+		if is_attack_initiated:
+			_animation_player.play("attack_jump")
+		else:
+			_animation_player.play("jump_up")
 	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction == -1:
@@ -70,19 +73,29 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
-#			print("walk")
-			_animation_player.play("walk")
+			if is_attack_initiated:
+				_animation_player.play("attack_walk")
+			else:
+				_animation_player.play("walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
 			if is_sitting == true:
-				_animation_player.play("sit")
+				if is_attack_initiated:
+					_animation_player.play("attack_sit")
+				else:
+					_animation_player.play("sit")
 			else:
-				_animation_player.play("idle")
+				if is_attack_initiated:
+					_animation_player.play("attack_idle")
+				else:
+					_animation_player.play("idle")
 	
 	if velocity.y > 0:
-#		print("fall down")		
-		_animation_player.play("fall_down")
+		if is_attack_initiated:
+			_animation_player.play("attack_jump")
+		else:		
+			_animation_player.play("fall_down")
 	
 	move_and_slide()
 
