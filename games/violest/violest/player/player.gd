@@ -4,8 +4,9 @@ extends CharacterBody2D
 signal magic_ball_shoot(magic_ball_scene, location)
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -625.0
+const JUMP_VELOCITY = -615.0
 const WAND_MAGIC_MARGIN = 25
+const SIT_DOWN_MARGIN = 50
 
 var magic_ball = preload("res://player/magic_ball.tscn")
 
@@ -15,6 +16,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 @onready var _wand_marker = $WandMarker
 @onready var _shoot_timer = $ShootTimer
 @onready var _attack_progress = $AttackProgress
+@onready var _player_hurt_box = $PlayerHurtBox
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
@@ -46,12 +48,19 @@ func _physics_process(delta):
 		_attack_progress.value = 0
 		_attack_progress.hide()
 	
+	if Input.is_action_just_pressed("ui_up"):
+		is_sitting = false
 	if velocity == Vector2.ZERO:
 		if Input.is_action_just_pressed("ui_down"):
 			is_sitting = true
 	else:
 		is_sitting = false
 	
+	if is_sitting == true:
+		_player_hurt_box.position.y = SIT_DOWN_MARGIN
+	else:
+		_player_hurt_box.position.y = 0
+				
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		if is_attack_initiated:

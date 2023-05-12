@@ -64,6 +64,7 @@ _data = {
 }
 
 [node name="Snake" type="CharacterBody2D"]
+scale = Vector2(1.6, 1.387)
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_kl32n")
@@ -103,6 +104,6 @@ collision_mask = 9
 script = ExtResource("3_w5rvu")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SnakeHurtBox"]
-polygon = PackedVector2Array(-168, 6, -167, -21, -109, -71, -75, -71, -31, -30, -31, 3, 147, 3, 146, 64, -108, 66)
+polygon = PackedVector2Array(-130, -0.833333, -133.571, -46.6667, -110.714, -66.6667, -75, -66.6667, -37.8571, -29.1667, -37.1429, 0.833333, 66, 23.0769, 20, 65.3846, -85.7143, 65.8333)
 
 [connection signal="area_entered" from="SnakeHurtBox" to="SnakeHurtBox" method="_on_area_entered"]

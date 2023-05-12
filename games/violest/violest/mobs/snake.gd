@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 150.0
+const SPEED = 250.0
 const ATTACK_RANGE = 450
 
 @onready var _animation_player = $AnimationPlayer
