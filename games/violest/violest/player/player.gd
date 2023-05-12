@@ -19,6 +19,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
 var face_direction = 1
+var is_sitting = false
 
 func _ready():
 	set_wand_marker_position(1)
@@ -45,6 +46,12 @@ func _physics_process(delta):
 		_attack_progress.value = 0
 		_attack_progress.hide()
 	
+	if velocity == Vector2.ZERO:
+		if Input.is_action_just_pressed("ui_down"):
+			is_sitting = true
+	else:
+		is_sitting = false
+	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		_animation_player.play("jump_up")
@@ -68,8 +75,10 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
-#			print("idle")
-			_animation_player.play("idle")
+			if is_sitting == true:
+				_animation_player.play("sit")
+			else:
+				_animation_player.play("idle")
 	
 	if velocity.y > 0:
 #		print("fall down")		
