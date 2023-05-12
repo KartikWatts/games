@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 const SPEED = 250.0
 const ATTACK_RANGE = 450
+const POISON_MARKER_MARGIN = 50
+
+var poison_stream = preload("res://mobs/poison_stream.tscn")
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite_2d = $Sprite2D
@@ -9,6 +12,9 @@ const ATTACK_RANGE = 450
 @onready var _floor_check_ray = $FloorCheckRay
 @onready var _attack_timer = $AttackTimer
 @onready var _snake_hurt_box = $SnakeHurtBox
+@onready var _poison_marker = $PoisonMarker
+@onready var _poison_stream_container = $PoisonStreamContainer
+@onready var _collision_shape = $CollisionShape2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = -1
@@ -28,8 +34,8 @@ func _physics_process(delta):
 			_attack_timer.start()
 			velocity.x = 0
 			_animation_player.play("attack")
-#			print(_animation_player.current_animation)
 			await _animation_player.animation_finished
+			attack()
 			velocity.x = direction * SPEED / 4
 			_animation_player.play("walk")
 #			print(_animation_player.current_animation)
@@ -42,11 +48,22 @@ func _physics_process(delta):
 	if direction == -1:
 		_sprite_2d.flip_h = false
 		_floor_check_ray.target_position.x= 0
+		set_poison_marker_position(direction)
 		_snake_hurt_box.scale = Vector2(1,1)		
 	elif direction == 1:
 		_sprite_2d.flip_h = true
+		set_poison_marker_position(direction)
 		_snake_hurt_box.scale = Vector2(-1,1)
 		
 	_player_check_ray.target_position.x = ATTACK_RANGE * direction
 		
 	move_and_slide()
+
+func attack():
+	var poison_stream_instance = poison_stream.instantiate()
+	poison_stream_instance.direction = direction
+	poison_stream_instance.global_position = _poison_marker.position
+	_poison_stream_container.add_child(poison_stream_instance)
+
+func set_poison_marker_position(direction):
+	_poison_marker.position.x = (_collision_shape.shape.get_rect().size.x + POISON_MARKER_MARGIN) * direction

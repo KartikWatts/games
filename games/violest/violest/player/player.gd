@@ -5,7 +5,7 @@ signal magic_ball_shoot(magic_ball_scene, location)
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -615.0
-const WAND_MAGIC_MARGIN = 25
+const WAND_MAGIC_MARGIN = 35
 const SIT_DOWN_MARGIN = 50
 
 var magic_ball = preload("res://player/magic_ball.tscn")
