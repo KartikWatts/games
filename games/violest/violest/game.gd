@@ -9,7 +9,7 @@ const PLAYER_MAX_HEALTH := 5.0
 @export var player_jump_velocity := -620.0 
 @export var player_attack_launch_time := 1.0
 
-@export var magic_balls_amount := 20
+@export var magic_balls_count := 20
 
 @export var snake_health := 1.0 * self.game_difficulty
 @export var snake_speed := 250.0 * self.game_difficulty

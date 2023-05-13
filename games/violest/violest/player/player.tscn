@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dpyxjvkwhg81l"]
+[gd_scene load_steps=21 format=3 uid="uid://dpyxjvkwhg81l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_yo214"]
 [ext_resource type="Texture2D" uid="uid://dibgvbwcmovfk" path="res://assets/player_sprite_sheet.png" id="2_tyg8v"]
@@ -188,6 +188,21 @@ tracks/0/keys = {
 "values": [8, 9, 10, 11, 12, 13, 14]
 }
 
+[sub_resource type="Animation" id="Animation_irjgd"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hnm5t"]
 _data = {
 "RESET": SubResource("Animation_3dexx"),
@@ -195,6 +210,7 @@ _data = {
 "attack_jump": SubResource("Animation_wjbnd"),
 "attack_sit": SubResource("Animation_qp0jp"),
 "attack_walk": SubResource("Animation_6b2dx"),
+"die": SubResource("Animation_irjgd"),
 "fall_down": SubResource("Animation_ystly"),
 "idle": SubResource("Animation_phnoh"),
 "jump_up": SubResource("Animation_u1o4u"),

@@ -25,6 +25,7 @@ var is_attack_initiated = false
 var face_direction = 1
 var is_sitting = false
 var is_hurting = false
+var is_dead = false
 
 func _ready():
 	set_wand_marker_position(1)
@@ -57,65 +58,66 @@ func _physics_process(delta):
 		_magic_ball.hide()
 		_attack_progress.hide()
 	
-	if Input.is_action_just_pressed("ui_up"):
-		is_sitting = false
-	if velocity == Vector2.ZERO:
-		if Input.is_action_just_pressed("ui_down"):
-			is_sitting = true
-	else:
-		is_sitting = false
-	
-	if is_sitting == true:
-		_player_hurt_box.position.y = SIT_DOWN_MARGIN
-	else:
-		_player_hurt_box.position.y = 0
-				
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = player_jump_velocity
-		if is_attack_initiated:
-			_animation_player.play("attack_jump")
+	if not is_dead:
+		if Input.is_action_just_pressed("ui_up"):
+			is_sitting = false
+		if velocity == Vector2.ZERO:
+			if Input.is_action_just_pressed("ui_down"):
+				is_sitting = true
 		else:
-			_animation_player.play("jump_up")
-	
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction == -1:
-		face_direction = -1
-		_sprite_2d.flip_h = true
-		set_wand_marker_position(direction)
-	elif direction == 1:
-		face_direction = 1
-		set_wand_marker_position(direction)		
-		_sprite_2d.flip_h = false
-	
-	
-	if direction:
-		velocity.x = direction * player_speed
-		if velocity.y == 0:
+			is_sitting = false
+		
+		if is_sitting == true:
+			_player_hurt_box.position.y = SIT_DOWN_MARGIN
+		else:
+			_player_hurt_box.position.y = 0
+					
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = player_jump_velocity
 			if is_attack_initiated:
-				_animation_player.play("attack_walk")
+				_animation_player.play("attack_jump")
 			else:
-				_animation_player.play("walk")
-	else:
-		velocity.x = move_toward(velocity.x, 0, player_speed)
-		if velocity.y == 0:
-			if is_sitting == true:
+				_animation_player.play("jump_up")
+		
+		var direction = Input.get_axis("ui_left", "ui_right")
+		if direction == -1:
+			face_direction = -1
+			_sprite_2d.flip_h = true
+			set_wand_marker_position(direction)
+		elif direction == 1:
+			face_direction = 1
+			set_wand_marker_position(direction)		
+			_sprite_2d.flip_h = false
+		
+		
+		if direction:
+			velocity.x = direction * player_speed
+			if velocity.y == 0:
 				if is_attack_initiated:
-					_animation_player.play("attack_sit")
+					_animation_player.play("attack_walk")
 				else:
-					_animation_player.play("sit")
-			else:
-				if is_attack_initiated:
-					_animation_player.play("attack_idle")
+					_animation_player.play("walk")
+		else:
+			velocity.x = move_toward(velocity.x, 0, player_speed)
+			if velocity.y == 0:
+				if is_sitting == true:
+					if is_attack_initiated:
+						_animation_player.play("attack_sit")
+					else:
+						_animation_player.play("sit")
 				else:
-					_animation_player.play("idle")
-	
-	if velocity.y > 0:
-		if is_attack_initiated:
-			_animation_player.play("attack_jump")
-		else:		
-			_animation_player.play("fall_down")
-	
-	move_and_slide()
+					if is_attack_initiated:
+						_animation_player.play("attack_idle")
+					else:
+						_animation_player.play("idle")
+		
+		if velocity.y > 0:
+			if is_attack_initiated:
+				_animation_player.play("attack_jump")
+			else:		
+				_animation_player.play("fall_down")
+		
+		move_and_slide()
 
 func set_wand_marker_position(direction):
 	_wand_marker.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN) * direction, - WAND_MAGIC_MARGIN)
@@ -127,20 +129,30 @@ func shoot():
 
 func _on_shoot_timer_timeout():
 	shoot()
+	Game.magic_balls_count -= 1
 	is_attack_initiated = false
 	
 func hurt():
 	if not is_hurting:
 		print("HURT")
 		Game.player_health -= 1
-		is_hurting = true
-		position = position + Vector2(-40 * face_direction, -30)
-		self.modulate.a = 0.5
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 1
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 0.5
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 1
-		await get_tree().create_timer(0.5).timeout
-		is_hurting = false
+		if Game.player_health == 0:
+			die()
+		else:
+			is_hurting = true
+			position = position + Vector2(-40 * face_direction, -30)
+			self.modulate.a = 0.5
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 1
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 0.5
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 1
+			await get_tree().create_timer(0.5).timeout
+			is_hurting = false
+
+func die():
+	is_dead = true
+	_animation_player.play("die")
+	await _animation_player.animation_finished
+	queue_free()

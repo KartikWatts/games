@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=9 format=3 uid="uid://rqdfcdplc5nt"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
 [ext_resource type="PackedScene" uid="uid://qeckl4fceqn1" path="res://mobs/snake.tscn" id="2_3b0hr"]
+[ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="4_ad0ox"]
+[ext_resource type="Script" path="res://Label.gd" id="5_rkelv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
@@ -64,12 +66,26 @@ position = Vector2(134, 203)
 [node name="UILabel" type="CanvasLayer" parent="."]
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="UILabel"]
-offset_left = 49.0
-offset_top = 12.0
-offset_right = 285.0
-offset_bottom = 39.0
+offset_left = 50.0
+offset_top = 25.0
+offset_right = 300.0
+offset_bottom = 50.0
 theme_override_styles/background = SubResource("StyleBoxFlat_c8qh5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_y3243")
 max_value = 1.0
 step = 0.5
 show_percentage = false
+
+[node name="MagicBall" type="Sprite2D" parent="UILabel"]
+position = Vector2(336, 37)
+rotation = 1.57079
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ad0ox")
+
+[node name="MagicBallCount" type="Label" parent="UILabel"]
+offset_left = 352.0
+offset_top = 24.0
+offset_right = 392.0
+offset_bottom = 50.0
+text = "x 10"
+script = ExtResource("5_rkelv")
