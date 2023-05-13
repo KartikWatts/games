@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal magic_ball_shoot(magic_ball_scene, location)
 
+const CAMERA_MARGIN := 300
 const WAND_MAGIC_MARGIN = 35
 const SIT_DOWN_MARGIN = 50
 
@@ -19,6 +20,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 @onready var _attack_progress = $AttackProgress
 @onready var _player_hurt_box = $PlayerHurtBox
 @onready var _magic_ball = $MagicBall
+@onready var _main_camera = $MainCamera
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
@@ -84,9 +86,11 @@ func _physics_process(delta):
 			face_direction = -1
 			_sprite_2d.flip_h = true
 			set_wand_marker_position(direction)
+			set_camera_position(direction)
 		elif direction == 1:
 			face_direction = 1
 			set_wand_marker_position(direction)		
+			set_camera_position(direction)
 			_sprite_2d.flip_h = false
 		
 		Game.player_face_direction = face_direction
@@ -124,6 +128,10 @@ func set_wand_marker_position(direction):
 	_wand_marker.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN) * direction, - WAND_MAGIC_MARGIN)
 	_magic_ball.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN - 10) * direction, - WAND_MAGIC_MARGIN - 10)
 	
+func set_camera_position(direction):
+	var tween = get_tree().create_tween()
+	tween.tween_property(_main_camera, "position", Vector2(CAMERA_MARGIN * direction, 0), 2)
+
 func shoot():
 	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position, face_direction)
 

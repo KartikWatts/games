@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.0", "GL Compatibility")
 
 Game="*res://game.gd"
 
+[display]
+
+window/stretch/scale=1.5
+
 [input]
 
 player_attack={

@@ -81,7 +81,7 @@ _data = {
 }
 
 [node name="Snake" type="CharacterBody2D"]
-scale = Vector2(1.6, 1.387)
+scale = Vector2(0.75, 0.75)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_kl32n")

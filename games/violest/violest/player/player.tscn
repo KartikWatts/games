@@ -226,11 +226,12 @@ bg_color = Color(1, 0.337255, 0.317647, 1)
 bg_color = Color(1, 0.0431373, 0.854902, 1)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+scale = Vector2(0.5, 0.5)
 collision_mask = 18
 script = ExtResource("1_yo214")
 
 [node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2(215, -92)
+position = Vector2(200, 0)
 limit_left = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

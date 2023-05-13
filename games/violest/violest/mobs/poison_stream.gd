@@ -3,7 +3,7 @@ extends Area2D
 
 @onready var _animation_player = $AnimationPlayer
 
-@export var speed = 600
+@export var speed = Game.poison_stream_speed
 
 var direction = 1
 var is_blasting = false

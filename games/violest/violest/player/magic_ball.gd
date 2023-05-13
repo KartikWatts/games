@@ -1,8 +1,8 @@
 class_name MagicBall
 extends Area2D
 
-@export var speed = 700
-@export var rot_speed = rad_to_deg(1)
+@export var speed = Game.magic_ball_speed
+@export var rot_speed = rad_to_deg(0.5)
 
 @onready var _animation_player = $AnimationPlayer
 
