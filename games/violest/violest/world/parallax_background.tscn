@@ -1,20 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5dhuatvhswlr"]
+[gd_scene load_steps=7 format=3 uid="uid://bumsvvhcmgpmv"]
 
 [ext_resource type="Texture2D" uid="uid://dklpughx5q6y4" path="res://assets/Background/sky.png" id="1_rijua"]
 [ext_resource type="Texture2D" uid="uid://cvshxeejj5tf6" path="res://assets/Background/mountain2.png" id="2_nphp5"]
 [ext_resource type="Texture2D" uid="uid://gh0uuhm54hs3" path="res://assets/Background/cloud.png" id="3_4x6rc"]
-[ext_resource type="Script" path="res://world/Cloud.gd" id="3_ujv8w"]
+[ext_resource type="Script" path="res://world/cloud.gd" id="3_bq5yv"]
 [ext_resource type="Texture2D" uid="uid://cli6dr6cmssjs" path="res://assets/Background/pine1.png" id="4_fh0vi"]
 [ext_resource type="Texture2D" uid="uid://dsdl5de4x5df2" path="res://assets/Background/pine2.png" id="5_j8jom"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
 [node name="Sky" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.25, 1)
+motion_scale = Vector2(0.21, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sky" type="Sprite2D" parent="Sky"]
 position = Vector2(578.322, 179.25)
+scale = Vector2(1.68483, 1.68483)
+texture = ExtResource("1_rijua")
+
+[node name="Sky2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.21, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sky" type="Sprite2D" parent="Sky2"]
+position = Vector2(578.322, -175.75)
+rotation = 3.14159
 scale = Vector2(1.68483, 1.68483)
 texture = ExtResource("1_rijua")
 
@@ -30,7 +40,7 @@ texture = ExtResource("2_nphp5")
 [node name="Cloud" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0, 1)
 motion_mirroring = Vector2(1152, 0)
-script = ExtResource("3_ujv8w")
+script = ExtResource("3_bq5yv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cloud"]
 position = Vector2(576.397, 185)

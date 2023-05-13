@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
 [ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="4_ad0ox"]
 [ext_resource type="Script" path="res://Label.gd" id="5_rkelv"]
-[ext_resource type="PackedScene" uid="uid://c5dhuatvhswlr" path="res://world/parallax_background.tscn" id="6_5s4in"]
+[ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="6_5s4in"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
@@ -21,10 +21,6 @@ metadata/_edit_vertical_guides_ = [231.0]
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
 position = Vector2(514, 184)
-
-[node name="MainCamera" type="Camera2D" parent="Player"]
-position = Vector2(522, -108)
-limit_left = 0
 
 [node name="Floor" type="StaticBody2D" parent="."]
 collision_layer = 2

@@ -22,7 +22,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
-var face_direction = 1
+var face_direction = Game.player_face_direction
 var is_sitting = false
 var is_hurting = false
 var is_dead = false
@@ -89,6 +89,7 @@ func _physics_process(delta):
 			set_wand_marker_position(direction)		
 			_sprite_2d.flip_h = false
 		
+		Game.player_face_direction = face_direction
 		
 		if direction:
 			velocity.x = direction * player_speed

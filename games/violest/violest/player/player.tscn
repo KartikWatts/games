@@ -229,6 +229,10 @@ bg_color = Color(1, 0.0431373, 0.854902, 1)
 collision_mask = 18
 script = ExtResource("1_yo214")
 
+[node name="MainCamera" type="Camera2D" parent="."]
+position = Vector2(215, -92)
+limit_left = 0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cim72")
 

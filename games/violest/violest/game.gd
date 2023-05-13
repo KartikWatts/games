@@ -8,6 +8,7 @@ const PLAYER_MAX_HEALTH := 5.0
 @export var player_speed := 300.0
 @export var player_jump_velocity := -620.0 
 @export var player_attack_launch_time := 1.0
+@export var player_face_direction := 1
 
 @export var magic_balls_count := 20
 
