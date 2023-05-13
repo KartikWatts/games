@@ -22,8 +22,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
 var face_direction = 1
 var is_sitting = false
+var is_hurting = false
 
 func _ready():
+	print(Game.player_health)
 	set_wand_marker_position(1)
 	_attack_progress.position = _collision_shape.position - Vector2(_collision_shape.shape.get_rect().size.x/2, _collision_shape.shape.get_rect().size.y/2 + WAND_MAGIC_MARGIN)
 
@@ -118,3 +120,18 @@ func shoot():
 func _on_shoot_timer_timeout():
 	shoot()
 	is_attack_initiated = false
+	
+func hurt():
+	if not is_hurting:
+		print("HURT")
+		is_hurting = true
+		position = position + Vector2(-40 * face_direction, -30)
+		self.modulate.a = 0.5
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 1
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 0.5
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 1
+		await get_tree().create_timer(0.5).timeout
+		is_hurting = false

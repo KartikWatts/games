@@ -83,7 +83,7 @@ _data = {
 [node name="Snake" type="CharacterBody2D"]
 scale = Vector2(1.6, 1.387)
 collision_layer = 4
-collision_mask = 10
+collision_mask = 2
 script = ExtResource("1_kl32n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

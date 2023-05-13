@@ -18,10 +18,8 @@ var poison_stream = preload("res://mobs/poison_stream.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = -1
+var is_hurting = false
 var is_dead = false
-
-#func _ready():
-#	print($CollisionShape2D.shape.get_rect().size.y)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -71,7 +69,23 @@ func set_poison_marker_position(direction):
 	_poison_marker.position.x = (_collision_shape.shape.get_rect().size.x + POISON_MARKER_MARGIN) * direction
 
 func hurt():
+	if not is_hurting:
+		print("MOB HURT")
+		is_hurting = true
+		position = position + Vector2(40 * direction, -10)
+		self.modulate.a = 0.5
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 1
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 0.5
+		await get_tree().create_timer(0.2).timeout
+		self.modulate.a = 1
+		await get_tree().create_timer(0.5).timeout
+		is_hurting = false
+
+func die():
 	is_dead = true
 	_animation_player.play("die")
 	await _animation_player.animation_finished
 	queue_free()
+
