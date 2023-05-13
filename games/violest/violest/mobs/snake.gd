@@ -18,6 +18,7 @@ var poison_stream = preload("res://mobs/poison_stream.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = -1
+var is_dead = false
 
 #func _ready():
 #	print($CollisionShape2D.shape.get_rect().size.y)
@@ -29,35 +30,36 @@ func _physics_process(delta):
 	if is_on_wall() or not _floor_check_ray.is_colliding() and is_on_floor():
 		direction *= -1
 
-	if _player_check_ray.is_colliding():
-		if _attack_timer.time_left == 0:
-			_attack_timer.start()
-			velocity.x = 0
-			_animation_player.play("attack")
-			await _animation_player.animation_finished
-			attack()
-			velocity.x = direction * SPEED / 4
+	if not is_dead:
+		if _player_check_ray.is_colliding():
+			if _attack_timer.time_left == 0:
+				_attack_timer.start()
+				velocity.x = 0
+				_animation_player.play("attack")
+				await _animation_player.animation_finished
+				attack()
+				velocity.x = direction * SPEED / 4
+				_animation_player.play("walk")
+	#			print(_animation_player.current_animation)
+		else:
+	#		print(_animation_player.current_animation)		
+			_attack_timer.stop()
+			velocity.x = direction * SPEED
 			_animation_player.play("walk")
-#			print(_animation_player.current_animation)
-	else:
-#		print(_animation_player.current_animation)		
-		_attack_timer.stop()
-		velocity.x = direction * SPEED
-		_animation_player.play("walk")
-	
-	if direction == -1:
-		_sprite_2d.flip_h = false
-		_floor_check_ray.target_position.x= 0
-		set_poison_marker_position(direction)
-		_snake_hurt_box.scale = Vector2(1,1)		
-	elif direction == 1:
-		_sprite_2d.flip_h = true
-		set_poison_marker_position(direction)
-		_snake_hurt_box.scale = Vector2(-1,1)
 		
-	_player_check_ray.target_position.x = ATTACK_RANGE * direction
-		
-	move_and_slide()
+		if direction == -1:
+			_sprite_2d.flip_h = false
+			_floor_check_ray.target_position.x= 0
+			set_poison_marker_position(direction)
+			_snake_hurt_box.scale = Vector2(1,1)		
+		elif direction == 1:
+			_sprite_2d.flip_h = true
+			set_poison_marker_position(direction)
+			_snake_hurt_box.scale = Vector2(-1,1)
+			
+		_player_check_ray.target_position.x = ATTACK_RANGE * direction
+			
+		move_and_slide()
 
 func attack():
 	var poison_stream_instance = poison_stream.instantiate()
@@ -67,3 +69,9 @@ func attack():
 
 func set_poison_marker_position(direction):
 	_poison_marker.position.x = (_collision_shape.shape.get_rect().size.x + POISON_MARKER_MARGIN) * direction
+
+func hurt():
+	is_dead = true
+	_animation_player.play("die")
+	await _animation_player.animation_finished
+	queue_free()

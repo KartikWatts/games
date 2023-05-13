@@ -2,7 +2,7 @@ class_name Enemy
 extends Area2D
 	
 func hurt():
-	get_parent().queue_free()
+	get_parent().hurt()
 
 
 func _on_area_entered(body):

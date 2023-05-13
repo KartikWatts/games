@@ -1,12 +1,19 @@
 class_name PoisonStream
 extends Area2D
 
+@onready var _animation_player = $AnimationPlayer
+
 @export var speed = 600
 
 var direction = 1
+var is_blasting = false
+
+func _ready():
+	_animation_player.play("normal")
 
 func _physics_process(delta):
-	global_position.x += speed * delta * direction
+	if not is_blasting:
+		global_position.x += speed * delta * direction
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -18,6 +25,10 @@ func _on_area_entered(area):
 		blast()
 		
 func blast():
+	is_blasting = true
+	direction = 0
+	_animation_player.play("blast")
+	await  _animation_player.animation_finished	
 	queue_free()
 	
 

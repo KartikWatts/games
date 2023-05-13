@@ -1,11 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://c41w5pgra58dn"]
+[gd_scene load_steps=8 format=3 uid="uid://c41w5pgra58dn"]
 
 [ext_resource type="Script" path="res://player/magic_ball.gd" id="1_3bx8h"]
-[ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="1_bhvkc"]
 [ext_resource type="PackedScene" uid="uid://q3u8jhehvod0" path="res://player/god_particle.tscn" id="3_up34l"]
+[ext_resource type="Texture2D" uid="uid://covuiced6tvl8" path="res://assets/world.png" id="4_v7dmb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rvw1r"]
 radius = 26.0768
+
+[sub_resource type="Animation" id="Animation_s3ewb"]
+resource_name = "normal"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MagicBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fof2r"]
+resource_name = "blast"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MagicBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1cqlp"]
+_data = {
+"blast": SubResource("Animation_fof2r"),
+"normal": SubResource("Animation_s3ewb")
+}
 
 [node name="MagicBall" type="Area2D"]
 collision_layer = 8
@@ -15,14 +54,22 @@ script = ExtResource("1_3bx8h")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rvw1r")
 
-[node name="MagicBall" type="Sprite2D" parent="."]
-texture = ExtResource("1_bhvkc")
-
 [node name="GodParticle" parent="." instance=ExtResource("3_up34l")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 34)
 scale = Vector2(0.625, 0.4)
+
+[node name="MagicBall" type="Sprite2D" parent="."]
+texture = ExtResource("4_v7dmb")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1cqlp")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -4,11 +4,18 @@ extends Area2D
 @export var speed = 700
 @export var rot_speed = rad_to_deg(1)
 
+@onready var _animation_player = $AnimationPlayer
+
 var direction = 1
+var is_blasting = false
+
+func _ready():
+	_animation_player.play("normal")
 
 func _physics_process(delta):
-	global_position.x += speed * delta * direction
-	rotation += rot_speed * delta
+	if not is_blasting:
+		global_position.x += speed * delta * direction
+		rotation += rot_speed * delta
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -18,7 +25,16 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 func _on_area_entered(area):
 	if area is Enemy:
 		area.hurt()
-		queue_free()
+		blast()
 	if area is PoisonStream:
 		area.blast()
-		queue_free()
+		blast()
+	
+func blast():
+	is_blasting = true
+	direction = 0
+	rotation = 0
+	_animation_player.play("blast")
+	await  _animation_player.animation_finished	
+	queue_free()
+
