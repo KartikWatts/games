@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
-[ext_resource type="PackedScene" uid="uid://qeckl4fceqn1" path="res://mobs/snake.tscn" id="2_3b0hr"]
 [ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="4_ad0ox"]
 [ext_resource type="Script" path="res://Label.gd" id="5_rkelv"]
+[ext_resource type="PackedScene" uid="uid://c5dhuatvhswlr" path="res://world/parallax_background.tscn" id="6_5s4in"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
@@ -17,13 +17,14 @@ bg_color = Color(0.960784, 0, 0.12549, 1)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_2i1q4")
+metadata/_edit_vertical_guides_ = [231.0]
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
 position = Vector2(514, 184)
 
 [node name="MainCamera" type="Camera2D" parent="Player"]
-zoom = Vector2(0.7, 0.7)
-position_smoothing_enabled = true
+position = Vector2(522, -108)
+limit_left = 0
 
 [node name="Floor" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -38,15 +39,15 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(2240, 34)
+position = Vector2(-24, 15)
 rotation = -1.57047
 shape = SubResource("RectangleShape2D_eshoh")
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = 2216.0
-offset_top = 274.0
-offset_right = 3075.0
-offset_bottom = 314.0
+offset_left = -44.0
+offset_top = 305.0
+offset_right = 815.0
+offset_bottom = 345.0
 rotation = -1.57873
 
 [node name="Panel2" type="Panel" parent="."]
@@ -57,9 +58,6 @@ offset_bottom = 314.0
 rotation = 0.00151026
 
 [node name="Mobs" type="Node2D" parent="."]
-
-[node name="Snake" parent="Mobs" instance=ExtResource("2_3b0hr")]
-position = Vector2(134, 203)
 
 [node name="MagicBallContainer" type="Node2D" parent="."]
 
@@ -89,3 +87,7 @@ offset_right = 392.0
 offset_bottom = 50.0
 text = "x 10"
 script = ExtResource("5_rkelv")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("6_5s4in")]
+offset = Vector2(0, -500)
+transform = Transform2D(1, 0, 0, 1, 0, -500)
