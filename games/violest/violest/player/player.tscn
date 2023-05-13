@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dpyxjvkwhg81l"]
+[gd_scene load_steps=20 format=3 uid="uid://dpyxjvkwhg81l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_yo214"]
 [ext_resource type="Texture2D" uid="uid://dibgvbwcmovfk" path="res://assets/player_sprite_sheet.png" id="2_tyg8v"]
 [ext_resource type="Script" path="res://player/player_hurt_box.gd" id="3_sni0i"]
+[ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="4_rd7ii"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cim72"]
 radius = 29.0
@@ -41,7 +42,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_wjbnd"]
 resource_name = "attack_jump"
-length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -50,7 +50,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [43, 44]
@@ -229,10 +229,6 @@ libraries = {
 "": SubResource("AnimationLibrary_hnm5t")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.7, 0.7)
-position_smoothing_enabled = true
-
 [node name="WandMarker" type="Marker2D" parent="."]
 position = Vector2(29, -27)
 
@@ -256,5 +252,9 @@ script = ExtResource("3_sni0i")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtBox"]
 shape = SubResource("CapsuleShape2D_cim72")
+
+[node name="MagicBall" type="Sprite2D" parent="."]
+position = Vector2(37, -41)
+texture = ExtResource("4_rd7ii")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -27,6 +27,8 @@ func _on_area_entered(area):
 func blast():
 	is_blasting = true
 	direction = 0
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.2)
 	_animation_player.play("blast")
 	await  _animation_player.animation_finished	
 	queue_free()

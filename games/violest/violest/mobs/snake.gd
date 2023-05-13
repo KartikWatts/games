@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 250.0
-const ATTACK_RANGE = 450
 const POISON_MARKER_MARGIN = 50
 
+var snake_health := Game.snake_health
+var snake_speed := Game.snake_speed
+var snake_attack_range := Game.snake_attack_range
 var poison_stream = preload("res://mobs/poison_stream.tscn")
 
 @onready var _animation_player = $AnimationPlayer
@@ -21,6 +22,9 @@ var direction = -1
 var is_hurting = false
 var is_dead = false
 
+func _ready():
+	_attack_timer.wait_time = Game.snake_attack_launch_time
+
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -36,13 +40,13 @@ func _physics_process(delta):
 				_animation_player.play("attack")
 				await _animation_player.animation_finished
 				attack()
-				velocity.x = direction * SPEED / 4
+				velocity.x = direction * snake_speed / 4
 				_animation_player.play("walk")
 	#			print(_animation_player.current_animation)
 		else:
 	#		print(_animation_player.current_animation)		
 			_attack_timer.stop()
-			velocity.x = direction * SPEED
+			velocity.x = direction * snake_speed
 			_animation_player.play("walk")
 		
 		if direction == -1:
@@ -55,7 +59,7 @@ func _physics_process(delta):
 			set_poison_marker_position(direction)
 			_snake_hurt_box.scale = Vector2(-1,1)
 			
-		_player_check_ray.target_position.x = ATTACK_RANGE * direction
+		_player_check_ray.target_position.x = snake_attack_range * direction
 			
 		move_and_slide()
 

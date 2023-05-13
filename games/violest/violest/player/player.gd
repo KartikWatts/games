@@ -3,11 +3,12 @@ extends CharacterBody2D
 
 signal magic_ball_shoot(magic_ball_scene, location)
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -615.0
 const WAND_MAGIC_MARGIN = 35
 const SIT_DOWN_MARGIN = 50
 
+var player_health = Game.player_health
+var player_speed = Game.player_speed
+var player_jump_velocity = Game.player_jump_velocity
 var magic_ball = preload("res://player/magic_ball.tscn")
 
 @onready var _animation_player = $AnimationPlayer
@@ -17,6 +18,7 @@ var magic_ball = preload("res://player/magic_ball.tscn")
 @onready var _shoot_timer = $ShootTimer
 @onready var _attack_progress = $AttackProgress
 @onready var _player_hurt_box = $PlayerHurtBox
+@onready var _magic_ball = $MagicBall
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_attack_initiated = false
@@ -25,17 +27,21 @@ var is_sitting = false
 var is_hurting = false
 
 func _ready():
-	print(Game.player_health)
 	set_wand_marker_position(1)
 	_attack_progress.position = _collision_shape.position - Vector2(_collision_shape.shape.get_rect().size.x/2, _collision_shape.shape.get_rect().size.y/2 + WAND_MAGIC_MARGIN)
-
+	_magic_ball.hide()
+	_shoot_timer.wait_time = Game.player_attack_launch_time
+		
 func _process(delta):
 	if Input.is_action_just_pressed("player_attack"):
 		if not is_attack_initiated:
 			var tween = get_tree().create_tween()
 			is_attack_initiated = true
 			_attack_progress.show()
-			tween.tween_property(_attack_progress, "value", 100, 1)
+			_magic_ball.show()
+			_magic_ball.modulate = 0
+			tween.parallel().tween_property(_magic_ball, "modulate", Color(1,1,1,1), Game.player_attack_launch_time)
+			tween.parallel().tween_property(_attack_progress, "value", 100, Game.player_attack_launch_time)
 			_shoot_timer.start()
 		else:
 			is_attack_initiated = false
@@ -48,6 +54,7 @@ func _physics_process(delta):
 	
 	if _shoot_timer.is_stopped():
 		_attack_progress.value = 0
+		_magic_ball.hide()
 		_attack_progress.hide()
 	
 	if Input.is_action_just_pressed("ui_up"):
@@ -64,7 +71,7 @@ func _physics_process(delta):
 		_player_hurt_box.position.y = 0
 				
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = player_jump_velocity
 		if is_attack_initiated:
 			_animation_player.play("attack_jump")
 		else:
@@ -82,14 +89,14 @@ func _physics_process(delta):
 	
 	
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * player_speed
 		if velocity.y == 0:
 			if is_attack_initiated:
 				_animation_player.play("attack_walk")
 			else:
 				_animation_player.play("walk")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, player_speed)
 		if velocity.y == 0:
 			if is_sitting == true:
 				if is_attack_initiated:
@@ -112,7 +119,8 @@ func _physics_process(delta):
 
 func set_wand_marker_position(direction):
 	_wand_marker.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN) * direction, - WAND_MAGIC_MARGIN)
-
+	_magic_ball.position = Vector2((_collision_shape.shape.get_rect().size.x/2 + WAND_MAGIC_MARGIN - 10) * direction, - WAND_MAGIC_MARGIN - 10)
+	
 func shoot():
 	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position, face_direction)
 
@@ -124,6 +132,7 @@ func _on_shoot_timer_timeout():
 func hurt():
 	if not is_hurting:
 		print("HURT")
+		Game.player_health -= 1
 		is_hurting = true
 		position = position + Vector2(-40 * face_direction, -30)
 		self.modulate.a = 0.5

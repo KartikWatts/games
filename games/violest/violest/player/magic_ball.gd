@@ -34,6 +34,8 @@ func blast():
 	is_blasting = true
 	direction = 0
 	rotation = 0
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.4)
 	_animation_player.play("blast")
 	await  _animation_player.animation_finished	
 	queue_free()

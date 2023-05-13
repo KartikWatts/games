@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=7 format=3 uid="uid://rqdfcdplc5nt"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
@@ -7,11 +7,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eshoh"]
 size = Vector2(2746.51, 44)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8qh5"]
+bg_color = Color(0.898039, 0.415686, 0.584314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3243"]
+bg_color = Color(0.960784, 0, 0.12549, 1)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_2i1q4")
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
 position = Vector2(514, 184)
+
+[node name="MainCamera" type="Camera2D" parent="Player"]
+zoom = Vector2(0.7, 0.7)
+position_smoothing_enabled = true
 
 [node name="Floor" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -50,3 +60,16 @@ rotation = 0.00151026
 position = Vector2(134, 203)
 
 [node name="MagicBallContainer" type="Node2D" parent="."]
+
+[node name="UILabel" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="UILabel"]
+offset_left = 49.0
+offset_top = 12.0
+offset_right = 285.0
+offset_bottom = 39.0
+theme_override_styles/background = SubResource("StyleBoxFlat_c8qh5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y3243")
+max_value = 1.0
+step = 0.5
+show_percentage = false
