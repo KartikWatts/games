@@ -48,6 +48,10 @@ func _physics_process(delta):
 			_attack_timer.stop()
 			velocity.x = direction * snake_speed
 			_animation_player.play("walk")
+
+
+		if direction == 0:
+			direction = -Game.player_face_direction
 		
 		if direction == -1:
 			_sprite_2d.flip_h = false

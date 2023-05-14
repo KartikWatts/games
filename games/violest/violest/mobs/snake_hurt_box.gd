@@ -9,5 +9,5 @@ func _on_area_entered(body):
 	if body is Player:
 		body.hurt()
 	if body is MagicBall:
-		if get_parent().direction == body.direction:
-			get_parent().direction = - body.direction
+		if get_parent().direction != body.direction:
+			get_parent().direction = body.direction

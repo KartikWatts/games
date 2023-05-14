@@ -17,3 +17,11 @@ func _on_player_magic_ball_shoot(magic_ball_scene, location, direction):
 	magic_ball.direction = direction
 	magic_ball.global_position = location
 	_magic_ball_container.add_child(magic_ball)
+
+
+func _on_environment_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_environment_body_entered(body):
+	pass # Replace with function body.

@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 signal magic_ball_shoot(magic_ball_scene, location)
 
-const CAMERA_MARGIN := 300
+const CAMERA_MARGIN := 500
+const CAMERA_SHIFT_TIME := 1.5
 const WAND_MAGIC_MARGIN = 35
 const SIT_DOWN_MARGIN = 50
 
@@ -130,7 +131,7 @@ func set_wand_marker_position(direction):
 	
 func set_camera_position(direction):
 	var tween = get_tree().create_tween()
-	tween.tween_property(_main_camera, "position", Vector2(CAMERA_MARGIN * direction, 0), 2)
+	tween.tween_property(_main_camera, "position", Vector2(CAMERA_MARGIN * direction, 0), CAMERA_SHIFT_TIME)
 
 func shoot():
 	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position, face_direction)

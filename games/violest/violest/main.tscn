@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg3duhds5q7rv"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_5vljs"]
+[ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="1_shn21"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_5vljs")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 239.0
+offset_top = 64.0
+offset_right = 494.0
+offset_bottom = 143.0
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_shn21")]
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

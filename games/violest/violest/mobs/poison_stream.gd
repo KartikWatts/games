@@ -23,6 +23,12 @@ func _on_area_entered(area):
 	if area is Player:
 		area.hurt()
 		blast()
+
+
+func _on_body_entered(body):
+	if body is TileMap:
+		blast()
+
 		
 func blast():
 	is_blasting = true

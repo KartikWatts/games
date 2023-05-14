@@ -2,7 +2,7 @@ class_name MagicBall
 extends Area2D
 
 @export var speed = Game.magic_ball_speed
-@export var rot_speed = rad_to_deg(0.5)
+@export var rot_speed = rad_to_deg(0.25)
 
 @onready var _animation_player = $AnimationPlayer
 
@@ -29,6 +29,12 @@ func _on_area_entered(area):
 	if area is PoisonStream:
 		area.blast()
 		blast()
+
+
+func _on_body_entered(body):
+	if body is TileMap:
+		blast()
+
 	
 func blast():
 	is_blasting = true
@@ -39,4 +45,3 @@ func blast():
 	_animation_player.play("blast")
 	await  _animation_player.animation_finished	
 	queue_free()
-

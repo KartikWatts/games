@@ -10,7 +10,7 @@
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
 [node name="Sky" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.21, 1)
+motion_scale = Vector2(0.18, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sky" type="Sprite2D" parent="Sky"]
@@ -19,7 +19,7 @@ scale = Vector2(1.68483, 1.68483)
 texture = ExtResource("1_rijua")
 
 [node name="Sky2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.21, 1)
+motion_scale = Vector2(0.18, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sky" type="Sprite2D" parent="Sky2"]
@@ -29,7 +29,7 @@ scale = Vector2(1.68483, 1.68483)
 texture = ExtResource("1_rijua")
 
 [node name="Mountain" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.18, 1)
+motion_scale = Vector2(0.14, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Mountain"]
@@ -48,7 +48,7 @@ scale = Vector2(1.82353, 1.82353)
 texture = ExtResource("3_4x6rc")
 
 [node name="Pine1" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.15, 1)
+motion_scale = Vector2(0.125, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Pine1"]
