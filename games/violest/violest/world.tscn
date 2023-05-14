@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=22 format=3 uid="uid://rqdfcdplc5nt"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
 [ext_resource type="Texture2D" uid="uid://cj1xf4hychjjn" path="res://assets/World/Tiles.png" id="2_1e7e2"]
+[ext_resource type="Script" path="res://InstructionMarkers.gd" id="2_h06px"]
+[ext_resource type="FontFile" uid="uid://cvd206xxwx6q3" path="res://assets/vinque rg.otf" id="3_87tyu"]
 [ext_resource type="Texture2D" uid="uid://0rpc4yi8c0d8" path="res://assets/World/Tree-Assets.png" id="3_o7btb"]
 [ext_resource type="Texture2D" uid="uid://dxr74gl6x0yh7" path="res://assets/magic_ball.png" id="4_ad0ox"]
 [ext_resource type="Script" path="res://Label.gd" id="5_rkelv"]
@@ -2354,9 +2356,27 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahdnp"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_2i1q4")
 metadata/_edit_vertical_guides_ = [231.0]
+
+[node name="InstructionMarkers" type="Node2D" parent="."]
+script = ExtResource("2_h06px")
+
+[node name="Instruction1" type="VisibleOnScreenNotifier2D" parent="InstructionMarkers"]
+
+[node name="EnemySpawMarkers" type="Node2D" parent="."]
+
+[node name="SpikeMarkers" type="Node2D" parent="."]
+
+[node name="CheckpointMarkers" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lj3bg")
@@ -2365,14 +2385,6 @@ layer_0/tile_data = PackedInt32Array(917504, 65536, 1, 917505, 131072, 1, 917506
 
 [node name="Player" parent="." instance=ExtResource("1_e28uy")]
 position = Vector2(273, 169)
-
-[node name="EnemySpawMarkers" type="Node2D" parent="."]
-
-[node name="SpikeMarkers" type="Node2D" parent="."]
-
-[node name="CheckpointMarkers" type="Node2D" parent="."]
-
-[node name="InstructionMarkers" type="Node2D" parent="."]
 
 [node name="Mobs" type="Node2D" parent="."]
 
@@ -2451,12 +2463,41 @@ icon = ExtResource("8_rbn85")
 flat = true
 expand_icon = true
 
+[node name="InstructionPanel" type="Panel" parent="UILabel"]
+anchors_preset = -1
+anchor_left = -0.111245
+anchor_top = -0.000593574
+anchor_right = 0.282853
+anchor_bottom = 0.178419
+offset_left = 406.154
+offset_top = 75.3846
+offset_right = 697.154
+offset_bottom = 118.385
+theme_override_styles/panel = SubResource("StyleBoxFlat_ahdnp")
+metadata/_edit_use_anchors_ = true
+
+[node name="InstructionMessage" type="Label" parent="UILabel"]
+offset_left = 343.0
+offset_top = 77.0
+offset_right = 909.0
+offset_bottom = 197.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_87tyu")
+theme_override_font_sizes/font_size = 20
+text = "Jai SHree Ram jai Shree Ram Jai SHree Ram jai Shree Ram Jai SHree Ram jai Shree RamJai SHree Ram jai Shree RamJai SHree Ram jai Shree RamJai SHree Ram jai Shree Ram
+Ram Rammmm Rammm"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Node2D" type="Node2D" parent="UILabel"]
+
 [node name="ParallaxBackground" parent="." instance=ExtResource("6_5s4in")]
 offset = Vector2(0, -350)
 transform = Transform2D(1, 0, 0, 1, 0, -350)
 
 [node name="Sounds" parent="." instance=ExtResource("13_ce0ja")]
 
+[connection signal="screen_entered" from="InstructionMarkers/Instruction1" to="InstructionMarkers" method="_on_instruction_1_screen_entered"]
 [connection signal="pressed" from="UILabel/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="UILabel/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UILabel/NoSound" to="." method="_on_no_sound_pressed"]

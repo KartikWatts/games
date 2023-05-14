@@ -8,7 +8,6 @@ extends Node2D
 @onready var _sounds = $Sounds
 
 func _ready():
-	_sounds.play_bgm()
 	Game.update_game_difficulty(Game.game_difficulty)
 	_player.magic_ball_shoot.connect(_on_player_magic_ball_shoot)
 	_player_health_bar.max_value = Game.PLAYER_MAX_HEALTH
