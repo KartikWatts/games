@@ -1,0 +1,377 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1m81oncwt7gc"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_gxt3d"]
+[ext_resource type="FontFile" uid="uid://cvd206xxwx6q3" path="res://assets/vinque rg.otf" id="2_uo5tn"]
+[ext_resource type="Texture2D" uid="uid://c84xs0pr5vwrl" path="res://assets/Background/ahimsa-4205200_640.png" id="3_l04pd"]
+[ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="4_yo8pb"]
+[ext_resource type="StyleBox" uid="uid://t1bbo3gn0afp" path="res://menu/gen_style_btn.tres" id="5_wk47b"]
+[ext_resource type="StyleBox" uid="uid://dlntjo6iwxxo7" path="res://menu/gen_style_btn_hover.tres" id="6_qxul3"]
+[ext_resource type="Texture2D" uid="uid://chogqqng8xccr" path="res://assets/Background/back.png" id="7_du2r8"]
+[ext_resource type="Texture2D" uid="uid://b80wyxo8vm280" path="res://assets/Background/play.png" id="8_ij1mw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvmdl"]
+bg_color = Color(0.0470588, 0.623529, 1, 0.45098)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_gxt3d")
+metadata/_edit_vertical_guides_ = [755.0]
+metadata/_edit_horizontal_guides_ = [426.0]
+
+[node name="Title" type="Node2D" parent="."]
+position = Vector2(118, 0)
+scale = Vector2(0.6, 0.6)
+
+[node name="Main" type="Label" parent="Title"]
+offset_left = 204.0
+offset_top = 20.0
+offset_right = 580.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.8, 0.737255, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 80
+text = "VIOLEST"
+
+[node name="Sub" type="Label" parent="Title"]
+offset_left = 539.0
+offset_top = 111.0
+offset_right = 671.0
+offset_bottom = 139.0
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Less is More :)"
+
+[node name="Ahimsa-4205200640" type="Sprite2D" parent="Title"]
+position = Vector2(598, 35)
+scale = Vector2(0.170387, 0.170387)
+texture = ExtResource("3_l04pd")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("4_yo8pb")]
+
+[node name="Credits" type="Node2D" parent="."]
+
+[node name="Panel" type="Panel" parent="Credits"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+offset_left = 57.0
+offset_top = 96.0
+offset_right = 704.0
+offset_bottom = 380.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qvmdl")
+
+[node name="Label" type="Label" parent="Credits"]
+offset_left = 79.0
+offset_top = 116.0
+offset_right = 205.0
+offset_bottom = 144.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Developed by: "
+
+[node name="LinkButton" type="LinkButton" parent="Credits"]
+offset_left = 203.0
+offset_top = 121.0
+offset_right = 302.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Kartik Watts"
+underline = 1
+uri = "https://github.com/KartikWatts"
+
+[node name="Label2" type="Label" parent="Credits"]
+offset_left = 296.0
+offset_top = 117.0
+offset_right = 422.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "with"
+
+[node name="LinkButton" type="LinkButton" parent="Credits/Label2"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 5.0
+offset_right = 210.0
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Open Source"
+uri = "https://github.com/KartikWatts/games"
+
+[node name="LinkButton2" type="LinkButton" parent="Credits"]
+offset_left = 344.0
+offset_top = 122.0
+offset_right = 443.0
+offset_bottom = 162.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Godot 4"
+underline = 1
+uri = "https://godotengine.org"
+
+[node name="Label3" type="Label" parent="Credits"]
+offset_left = 85.0
+offset_top = 146.0
+offset_right = 187.0
+offset_bottom = 180.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 25
+text = "Arts:"
+
+[node name="Label4" type="Label" parent="Credits"]
+offset_left = 75.0
+offset_top = 180.0
+offset_right = 185.0
+offset_bottom = 208.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Characters: "
+horizontal_alignment = 2
+
+[node name="LinkButton3" type="LinkButton" parent="Credits/Label4"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 4.0
+offset_right = 213.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Kartik Watts"
+underline = 1
+uri = "https://github.com/KartikWatts"
+
+[node name="Label2" type="Label" parent="Credits/Label4"]
+layout_mode = 0
+offset_left = 207.0
+offset_right = 333.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "with"
+
+[node name="LinkButton2" type="LinkButton" parent="Credits/Label4"]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 5.0
+offset_right = 354.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "InkScape"
+underline = 1
+uri = "https://inkscape.org"
+
+[node name="Label5" type="Label" parent="Credits"]
+offset_left = 75.0
+offset_top = 204.0
+offset_right = 185.0
+offset_bottom = 232.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Backgroud: "
+horizontal_alignment = 2
+
+[node name="LinkButton3" type="LinkButton" parent="Credits/Label5"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 4.0
+offset_right = 213.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Forest Lite Pixel Art"
+underline = 1
+uri = "https://sanctumpixel.itch.io/forest-lite-pixel-art-tileset"
+
+[node name="Label2" type="Label" parent="Credits/Label5"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 3.0
+offset_right = 377.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "(asset reused)"
+
+[node name="Label6" type="Label" parent="Credits"]
+offset_left = 332.0
+offset_top = 180.0
+offset_right = 442.0
+offset_bottom = 208.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Environment: "
+horizontal_alignment = 2
+
+[node name="LinkButton3" type="LinkButton" parent="Credits/Label6"]
+layout_mode = 0
+offset_left = 122.857
+offset_top = 3.85709
+offset_right = 256.857
+offset_bottom = 43.8571
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Sidescroller Pixelart"
+underline = 1
+uri = "https://anokolisa.itch.io/sidescroller-pixelart-sprites-asset-pack-forest-16x16"
+
+[node name="Label2" type="Label" parent="Credits/Label6"]
+layout_mode = 0
+offset_left = 259.857
+offset_top = 2.85709
+offset_right = 385.857
+offset_bottom = 30.8571
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "(asset reused)"
+
+[node name="Label7" type="Label" parent="Credits"]
+offset_left = 331.0
+offset_top = 204.0
+offset_right = 455.0
+offset_bottom = 232.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Attacks: "
+horizontal_alignment = 2
+
+[node name="LinkButton3" type="LinkButton" parent="Credits/Label7"]
+layout_mode = 0
+offset_left = 122.857
+offset_top = 3.85709
+offset_right = 256.857
+offset_bottom = 43.8571
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Space Shooter Redux"
+underline = 1
+uri = "https://kenney.nl/assets/space-shooter-redux"
+
+[node name="Label2" type="Label" parent="Credits/Label7"]
+layout_mode = 0
+offset_left = 264.143
+offset_top = 2.85709
+offset_right = 390.143
+offset_bottom = 30.8571
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "(asset reused)"
+
+[node name="Arts" type="Node2D" parent="Credits"]
+
+[node name="Label3" type="Label" parent="Credits/Arts"]
+offset_left = 85.0
+offset_top = 227.0
+offset_right = 187.0
+offset_bottom = 261.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 25
+text = "Sounds:"
+
+[node name="Label4" type="Label" parent="Credits/Arts"]
+offset_left = 75.0
+offset_top = 261.0
+offset_right = 185.0
+offset_bottom = 289.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+text = "Background: "
+horizontal_alignment = 2
+
+[node name="LinkButton3" type="LinkButton" parent="Credits/Arts/Label4"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 4.0
+offset_right = 213.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "Endless"
+underline = 1
+uri = "https://pixabay.com/music/meditationspiritual-endless-by-prabajithk-118998/"
+
+[node name="Label2" type="Label" parent="Credits/Arts/Label4"]
+layout_mode = 0
+offset_left = 207.0
+offset_right = 333.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(1, 0.329412, 0.368627, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 20
+
+[node name="LinkButton2" type="LinkButton" parent="Credits/Arts/Label4"]
+layout_mode = 0
+offset_left = 174.286
+offset_top = 4.28571
+offset_right = 273.286
+offset_bottom = 44.2857
+theme_override_colors/font_color = Color(0.372549, 0.0431373, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 15
+text = "(license)"
+underline = 1
+uri = "https://drive.google.com/file/d/19GwOHDm6IMvHVrm2bjq8TPHe9-nN5Ysq/view?usp=sharing"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 218.0
+offset_top = 330.0
+offset_right = 365.0
+offset_bottom = 381.0
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_wk47b")
+theme_override_styles/hover = ExtResource("6_qxul3")
+theme_override_styles/pressed = ExtResource("6_qxul3")
+text = "Back"
+icon = ExtResource("7_du2r8")
+expand_icon = true
+
+[node name="Play" type="Button" parent="."]
+offset_left = 440.0
+offset_top = 330.0
+offset_right = 587.0
+offset_bottom = 381.0
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("2_uo5tn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_wk47b")
+theme_override_styles/hover = ExtResource("6_qxul3")
+theme_override_styles/pressed = ExtResource("6_qxul3")
+text = "Play"
+icon = ExtResource("8_ij1mw")
+expand_icon = true
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

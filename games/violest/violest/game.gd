@@ -18,3 +18,15 @@ const PLAYER_MAX_HEALTH := 5.0
 @export var snake_speed := 150.0 * self.game_difficulty
 @export var snake_attack_range := 550.0 * self.game_difficulty
 @export var snake_attack_launch_time := 2
+
+func load_game():
+	get_tree().change_scene_to_file("res://world.tscn")
+
+func load_main_menu():
+	get_tree().change_scene_to_file("res://main.tscn")
+
+func load_controls_screen():
+	get_tree().change_scene_to_file("res://menu/controls.tscn")
+
+func load_credits_screen():
+	get_tree().change_scene_to_file("res://menu/credits.tscn")

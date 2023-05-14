@@ -6,4 +6,16 @@ func _process(delta):
 
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://world.tscn")	
+	Game.load_game()	
+
+
+func _on_controls_pressed():
+	Game.load_controls_screen()
+
+
+func _on_credits_pressed():
+	Game.load_credits_screen()	
+
+
+func _on_back_pressed():
+	Game.load_main_menu()
