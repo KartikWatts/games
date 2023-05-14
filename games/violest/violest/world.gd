@@ -7,6 +7,7 @@ extends Node2D
 @onready var _game_no_sound_btn = $UILabel.get_node("NoSound")
 
 func _ready():
+	Game.update_game_difficulty(Game.game_difficulty)
 	_player.magic_ball_shoot.connect(_on_player_magic_ball_shoot)
 	_player_health_bar.max_value = Game.PLAYER_MAX_HEALTH
 	_player_health_bar.value = Game.player_health
