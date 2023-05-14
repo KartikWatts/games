@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dg3duhds5q7rv"]
+[gd_scene load_steps=11 format=3 uid="uid://dg3duhds5q7rv"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_5vljs"]
 [ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="1_shn21"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://gtiinsvvpdoy" path="res://assets/Background/settings.png" id="5_rfmnk"]
 [ext_resource type="Texture2D" uid="uid://b6lky1g4ho282" path="res://assets/Background/menu.png" id="6_43r47"]
 [ext_resource type="Texture2D" uid="uid://c84xs0pr5vwrl" path="res://assets/Background/ahimsa-4205200_640.png" id="9_wqigx"]
+[ext_resource type="PackedScene" uid="uid://djdc4rlwrwair" path="res://assets/sounds.tscn" id="10_bolpg"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5vljs")
@@ -115,6 +116,8 @@ theme_override_font_sizes/font_size = 15
 text = "Developed with ❤️ for Go Godot Jam 4"
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="Sounds" parent="." instance=ExtResource("10_bolpg")]
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]

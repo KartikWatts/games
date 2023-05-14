@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpyk6a6fjyrj1"]
+[gd_scene load_steps=11 format=3 uid="uid://dpyk6a6fjyrj1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_crrva"]
 [ext_resource type="FontFile" uid="uid://cvd206xxwx6q3" path="res://assets/vinque rg.otf" id="2_nfef8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://chogqqng8xccr" path="res://assets/Background/back.png" id="7_db3xk"]
 [ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="8_wqnrr"]
 [ext_resource type="Texture2D" uid="uid://c84xs0pr5vwrl" path="res://assets/Background/ahimsa-4205200_640.png" id="9_feyiw"]
+[ext_resource type="PackedScene" uid="uid://djdc4rlwrwair" path="res://assets/sounds.tscn" id="9_svd4h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvmdl"]
 bg_color = Color(0.0470588, 0.623529, 1, 0.45098)
@@ -221,6 +222,8 @@ theme_override_styles/pressed = ExtResource("4_1egxd")
 text = "Play"
 icon = ExtResource("5_2np7q")
 expand_icon = true
+
+[node name="Sounds" parent="." instance=ExtResource("9_svd4h")]
 
 [connection signal="item_selected" from="Difficulty" to="." method="_on_difficulty_item_selected"]
 [connection signal="item_selected" from="Sound" to="." method="_on_sound_item_selected"]

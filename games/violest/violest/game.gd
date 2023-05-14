@@ -10,11 +10,12 @@ const MAX_DIFFICULT_LEVEL := 2.0
 
 @export var game_difficulty := BALANCED_DIFFICULTY_LEVEL
 
-@export var player_health := 50000.0
+@export var player_health := 4.0
 @export var player_speed := 180.0
 @export var player_jump_velocity := -408.0 
 @export var player_attack_launch_time := 1.0
 @export var player_face_direction := 1
+@export var player_global_position := Vector2(30 , 30)
 
 @export var magic_balls_count := 20
 @export var magic_ball_speed := 400
@@ -24,6 +25,7 @@ const MAX_DIFFICULT_LEVEL := 2.0
 @export var snake_speed := 150.0
 @export var snake_attack_range := 550.0
 @export var snake_attack_launch_time := 2
+	
 
 func update_game_difficulty(difficulty_value):
 	if difficulty_value > MAX_DIFFICULT_LEVEL:

@@ -233,7 +233,8 @@ script = ExtResource("1_yo214")
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(-727.5, -163.75)
 scale = Vector2(12.5, 12.5)
-limit_left = 0
+limit_left = 5
+limit_bottom = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cim72")

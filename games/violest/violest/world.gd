@@ -5,8 +5,10 @@ extends Node2D
 @onready var _player_health_bar = $UILabel.get_node("PlayerHealthBar")
 @onready var _game_sound_btn = $UILabel.get_node("Sound")
 @onready var _game_no_sound_btn = $UILabel.get_node("NoSound")
+@onready var _sounds = $Sounds
 
 func _ready():
+	_sounds.play_bgm()
 	Game.update_game_difficulty(Game.game_difficulty)
 	_player.magic_ball_shoot.connect(_on_player_magic_ball_shoot)
 	_player_health_bar.max_value = Game.PLAYER_MAX_HEALTH
@@ -16,7 +18,7 @@ func _ready():
 	else:
 		_game_sound_btn.hide()
 		
-func _physics_process(delta):
+func _process(_delta):
 	_player_health_bar.value = Game.player_health
 
 func _on_player_magic_ball_shoot(magic_ball_scene, location, direction):

@@ -31,12 +31,15 @@ var is_hurting = false
 var is_dead = false
 
 func _ready():
+	self.global_position = Game.player_global_position
 	set_wand_marker_position(1)
 	_attack_progress.position = _collision_shape.position - Vector2(_collision_shape.shape.get_rect().size.x/2, _collision_shape.shape.get_rect().size.y/2 + WAND_MAGIC_MARGIN)
 	_magic_ball.hide()
 	_shoot_timer.wait_time = Game.player_attack_launch_time
 		
 func _process(delta):
+	if self.global_position.y > 500:
+		Game.load_game()
 	if Input.is_action_just_pressed("player_attack"):
 		if not is_attack_initiated:
 			var tween = get_tree().create_tween()
@@ -131,7 +134,7 @@ func set_wand_marker_position(direction):
 	
 func set_camera_position(direction):
 	var tween = get_tree().create_tween()
-	tween.tween_property(_main_camera, "position", Vector2(CAMERA_MARGIN * direction, 0), CAMERA_SHIFT_TIME)
+	tween.tween_property(_main_camera, "position", Vector2(CAMERA_MARGIN * direction, -65), CAMERA_SHIFT_TIME)
 
 func shoot():
 	magic_ball_shoot.emit(magic_ball, _wand_marker.global_position, face_direction)

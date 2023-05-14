@@ -52,8 +52,8 @@ motion_scale = Vector2(0.125, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Pine1"]
-position = Vector2(577.432, 450)
-scale = Vector2(1.67568, 1.67568)
+position = Vector2(575.433, 450)
+scale = Vector2(1.68149, 1.67568)
 texture = ExtResource("4_fh0vi")
 
 [node name="Pine2" type="ParallaxLayer" parent="."]
@@ -61,6 +61,6 @@ motion_scale = Vector2(0.1, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Pine2"]
-position = Vector2(577.638, 560)
-scale = Vector2(1.67839, 1.67839)
+position = Vector2(576.502, 560)
+scale = Vector2(1.68169, 1.67839)
 texture = ExtResource("5_j8jom")
