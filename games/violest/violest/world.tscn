@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://rqdfcdplc5nt"]
+[gd_scene load_steps=19 format=3 uid="uid://rqdfcdplc5nt"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_2i1q4"]
 [ext_resource type="PackedScene" uid="uid://dpyxjvkwhg81l" path="res://player/player.tscn" id="1_e28uy"]
@@ -8,6 +8,11 @@
 [ext_resource type="Script" path="res://Label.gd" id="5_rkelv"]
 [ext_resource type="PackedScene" uid="uid://qeckl4fceqn1" path="res://mobs/snake.tscn" id="5_seoy4"]
 [ext_resource type="PackedScene" uid="uid://bumsvvhcmgpmv" path="res://world/parallax_background.tscn" id="6_5s4in"]
+[ext_resource type="Script" path="res://world/hostility_level.gd" id="8_3hcb4"]
+[ext_resource type="Texture2D" uid="uid://clomtqru0pdlt" path="res://assets/Background/sound.png" id="8_rbn85"]
+[ext_resource type="Texture2D" uid="uid://chogqqng8xccr" path="res://assets/Background/back.png" id="9_5ti2h"]
+[ext_resource type="Texture2D" uid="uid://3rhe5kyv61yv" path="res://assets/Background/replay.png" id="10_235bn"]
+[ext_resource type="Texture2D" uid="uid://d3ne76udifhn" path="res://assets/Background/sound_off.png" id="10_wkruq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfheq"]
 texture = ExtResource("2_1e7e2")
@@ -2343,7 +2348,11 @@ sources/1 = SubResource("TileSetAtlasSource_ufjis")
 bg_color = Color(0.898039, 0.415686, 0.584314, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3243"]
-bg_color = Color(0.960784, 0, 0.12549, 1)
+bg_color = Color(0.866667, 0.298039, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_2i1q4")
@@ -2393,6 +2402,55 @@ offset_bottom = 50.0
 text = "x 10"
 script = ExtResource("5_rkelv")
 
+[node name="HostilityLevel" type="Label" parent="UILabel"]
+offset_left = 422.769
+offset_top = 24.0
+offset_right = 504.769
+offset_bottom = 50.0
+text = "Hostility: 1.0"
+script = ExtResource("8_3hcb4")
+
+[node name="Back" type="Button" parent="UILabel"]
+offset_left = 898.462
+offset_top = -1.538
+offset_right = 961.462
+offset_bottom = 61.462
+icon = ExtResource("9_5ti2h")
+flat = true
+expand_icon = true
+
+[node name="Restart" type="Button" parent="UILabel"]
+offset_left = 958.462
+offset_top = -1.538
+offset_right = 1021.46
+offset_bottom = 61.462
+icon = ExtResource("10_235bn")
+flat = true
+expand_icon = true
+
+[node name="NoSound" type="Button" parent="UILabel"]
+offset_left = 1018.46
+offset_top = -1.53846
+offset_right = 1081.46
+offset_bottom = 61.4615
+icon = ExtResource("10_wkruq")
+flat = true
+expand_icon = true
+
+[node name="Sound" type="Button" parent="UILabel"]
+offset_left = 1018.46
+offset_top = -1.53846
+offset_right = 1081.46
+offset_bottom = 61.4615
+icon = ExtResource("8_rbn85")
+flat = true
+expand_icon = true
+
 [node name="ParallaxBackground" parent="." instance=ExtResource("6_5s4in")]
 offset = Vector2(0, -400)
 transform = Transform2D(1, 0, 0, 1, 0, -400)
+
+[connection signal="pressed" from="UILabel/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="UILabel/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="UILabel/NoSound" to="." method="_on_no_sound_pressed"]
+[connection signal="pressed" from="UILabel/Sound" to="." method="_on_sound_pressed"]

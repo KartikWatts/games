@@ -1,8 +1,13 @@
 extends Node
 
 const PLAYER_MAX_HEALTH := 5.0
+const SOFT_DIFFICULTY_LEVEL := 0.5
+const BALANCED_DIFFICULTY_LEVEL := 1.0
+const HARSH_DIFFICULTY_LEVEL := 2.0
 
-@export var game_difficulty := 1.0
+@export var has_game_sound := true
+
+@export var game_difficulty := BALANCED_DIFFICULTY_LEVEL
 
 @export var player_health := 50000.0
 @export var player_speed := 180.0

@@ -222,5 +222,7 @@ text = "Play"
 icon = ExtResource("5_2np7q")
 expand_icon = true
 
+[connection signal="item_selected" from="Difficulty" to="." method="_on_difficulty_item_selected"]
+[connection signal="item_selected" from="Sound" to="." method="_on_sound_item_selected"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
