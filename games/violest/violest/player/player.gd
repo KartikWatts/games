@@ -31,7 +31,7 @@ var is_hurting = false
 var is_dead = false
 
 func _ready():
-	self.global_position = Game.player_global_position
+	self.global_position = Game.player_spawn_position
 	set_wand_marker_position(1)
 	_attack_progress.position = _collision_shape.position - Vector2(_collision_shape.shape.get_rect().size.x/2, _collision_shape.shape.get_rect().size.y/2 + WAND_MAGIC_MARGIN)
 	_magic_ball.hide()
@@ -153,7 +153,7 @@ func hurt():
 			die()
 		else:
 			is_hurting = true
-			position = position + Vector2(-40 * face_direction, -30)
+#			position = position + Vector2(-40 * face_direction, -30)
 			self.modulate.a = 0.5
 			await get_tree().create_timer(0.2).timeout
 			self.modulate.a = 1
@@ -169,3 +169,4 @@ func die():
 	_animation_player.play("die")
 	await _animation_player.animation_finished
 	queue_free()
+	Game.load_game()	

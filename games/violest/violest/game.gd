@@ -10,14 +10,16 @@ const MAX_DIFFICULT_LEVEL := 2.0
 
 @export var game_difficulty := BALANCED_DIFFICULTY_LEVEL
 
-@export var player_health := 4.0
+@export var player_spawn_position := Vector2(60 , 30)
+#@export var player_spawn_position := Vector2(4500 , 30)
+
+@export var player_health := 5.0
 @export var player_speed := 180.0
 @export var player_jump_velocity := -408.0 
 @export var player_attack_launch_time := 1.0
 @export var player_face_direction := 1
-@export var player_global_position := Vector2(30 , 30)
 
-@export var magic_balls_count := 20
+@export var magic_balls_count := 50
 @export var magic_ball_speed := 400
 @export var poison_stream_speed := 350
 
@@ -51,6 +53,8 @@ func update_game_difficulty(difficulty_value):
 	snake_attack_range = 550.0 * difficulty_value
 
 func load_game():
+	player_health = 5.0
+	magic_balls_count = 50
 	get_tree().change_scene_to_file("res://world.tscn")
 
 func load_main_menu():

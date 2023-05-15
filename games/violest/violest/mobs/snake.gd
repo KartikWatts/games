@@ -80,16 +80,21 @@ func hurt():
 	if not is_hurting:
 		print("MOB HURT")
 		is_hurting = true
-		position = position + Vector2(40 * direction, -10)
-		self.modulate.a = 0.5
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 1
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 0.5
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 1
-		await get_tree().create_timer(0.5).timeout
-		is_hurting = false
+		snake_health -= 1
+		Game.game_difficulty += 1
+		if snake_health <= 0:
+			die()
+		else:
+			position = position + Vector2(40 * direction, -10)
+			self.modulate.a = 0.5
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 1
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 0.5
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 1
+			await get_tree().create_timer(0.5).timeout
+			is_hurting = false
 
 func die():
 	is_dead = true
