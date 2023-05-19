@@ -34,7 +34,9 @@ func _physics_process(delta):
 
 	if not is_dead:
 		if _player_check_ray.is_colliding():
-			if _attack_timer.time_left == 0:
+			if is_on_wall():
+				direction *= -1
+			elif _attack_timer.time_left == 0:
 				_attack_timer.start()
 				velocity.x = 0
 				_animation_player.play("attack")
@@ -48,7 +50,6 @@ func _physics_process(delta):
 			_attack_timer.stop()
 			velocity.x = direction * snake_speed
 			_animation_player.play("walk")
-
 
 		if direction == 0:
 			direction = -Game.player_face_direction

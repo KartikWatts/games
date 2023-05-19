@@ -10,8 +10,8 @@ const MAX_DIFFICULT_LEVEL := 2.0
 
 @export var game_difficulty := BALANCED_DIFFICULTY_LEVEL
 
-@export var player_spawn_position := Vector2(60 , 30)
-#@export var player_spawn_position := Vector2(4500 , 30)
+#@export var player_spawn_position := Vector2(60 , 200)
+@export var player_spawn_position := Vector2(4500 , 200)
 
 @export var player_health := 5.0
 @export var player_speed := 180.0
