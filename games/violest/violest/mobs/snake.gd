@@ -82,7 +82,7 @@ func hurt():
 		print("MOB HURT")
 		is_hurting = true
 		snake_health -= 1
-		Game.game_difficulty += 1
+		Game.game_difficulty += .1
 		if snake_health <= 0:
 			die()
 		else:

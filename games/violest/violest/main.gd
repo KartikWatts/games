@@ -4,11 +4,11 @@ extends Node2D
 
 func _ready():
 	if self.has_node("Difficulty"):
-		if Game.game_difficulty == Game.SOFT_DIFFICULTY_LEVEL:
+		if Game.selected_difficulty_level == Game.SOFT_DIFFICULTY_LEVEL:
 			$Difficulty.select(0)
-		if Game.game_difficulty == Game.BALANCED_DIFFICULTY_LEVEL:
+		if Game.selected_difficulty_level == Game.BALANCED_DIFFICULTY_LEVEL:
 			$Difficulty.select(1)
-		if Game.game_difficulty == Game.HARSH_DIFFICULTY_LEVEL:
+		if Game.selected_difficulty_level == Game.HARSH_DIFFICULTY_LEVEL:
 			$Difficulty.select(2)
 	
 	if self.has_node("Sound"):
@@ -53,11 +53,11 @@ func _on_sound_item_selected(index):
 func _on_difficulty_item_selected(index):
 	await _sounds.play_click_sound()
 	if index == 0:
-		Game.game_difficulty = Game.SOFT_DIFFICULTY_LEVEL
+		Game.selected_difficulty_level = Game.SOFT_DIFFICULTY_LEVEL
 		Game.update_game_difficulty(Game.SOFT_DIFFICULTY_LEVEL)
 	if index == 1:
-		Game.game_difficulty = Game.BALANCED_DIFFICULTY_LEVEL
+		Game.selected_difficulty_level = Game.BALANCED_DIFFICULTY_LEVEL
 		Game.update_game_difficulty(Game.BALANCED_DIFFICULTY_LEVEL)
 	if index == 2:
-		Game.game_difficulty = Game.HARSH_DIFFICULTY_LEVEL
+		Game.selected_difficulty_level = Game.HARSH_DIFFICULTY_LEVEL
 		Game.update_game_difficulty(Game.HARSH_DIFFICULTY_LEVEL)

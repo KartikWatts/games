@@ -9,9 +9,10 @@ const MAX_DIFFICULT_LEVEL := 2.0
 @export var has_game_sound := true
 
 @export var game_difficulty := BALANCED_DIFFICULTY_LEVEL
+@export var selected_difficulty_level := BALANCED_DIFFICULTY_LEVEL
 
-#@export var player_spawn_position := Vector2(60 , 200)
-@export var player_spawn_position := Vector2(4500 , 200)
+@export var player_spawn_position := Vector2(60 , 200)
+#@export var player_spawn_position := Vector2(4500 , 200)
 
 @export var player_health := 5.0
 @export var player_speed := 180.0
@@ -30,13 +31,14 @@ const MAX_DIFFICULT_LEVEL := 2.0
 	
 
 func update_game_difficulty(difficulty_value):
+	Game.game_difficulty = difficulty_value
 	if difficulty_value > MAX_DIFFICULT_LEVEL:
 		difficulty_value = MAX_DIFFICULT_LEVEL
 	
 	if Game.game_difficulty >= Game.HARSH_DIFFICULTY_LEVEL:
 		player_speed = 170.0
 		player_jump_velocity = -408.0
-		snake_attack_launch_time = 2.0
+		snake_attack_launch_time = 1.85
 	elif Game.game_difficulty >= Game.BALANCED_DIFFICULTY_LEVEL:
 		player_speed = 180.0
 		player_jump_velocity = -408.0
@@ -48,8 +50,8 @@ func update_game_difficulty(difficulty_value):
 				
 	snake_health = 0 + difficulty_value
 	snake_speed = 150.0 * difficulty_value
-	if snake_speed >= player_speed - 10:
-		snake_speed = player_speed - 10
+	if snake_speed >= player_speed + 50:
+		snake_speed = player_speed + 50
 	snake_attack_range = 550.0 * difficulty_value
 
 func load_game():
