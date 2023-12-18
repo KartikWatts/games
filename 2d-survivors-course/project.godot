@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameEvents="*res://scenes/autoload/game_events.tscn"
+
 [display]
 
 window/size/viewport_width=640
@@ -56,8 +60,8 @@ move_down={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="EnemyCollision"
+2d_physics/layer_5="PlayerPickup"
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-2d/snap/snap_2d_transforms_to_pixel=true
