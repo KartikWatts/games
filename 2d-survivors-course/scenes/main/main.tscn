@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnfotfwbqn61p"]
+[gd_scene load_steps=9 format=3 uid="uid://cnfotfwbqn61p"]
 
 [ext_resource type="TileSet" uid="uid://wiluhbm2cyyi" path="res://resources/tileset.tres" id="1_3sopq"]
 [ext_resource type="PackedScene" uid="uid://c2o7ggmbuyq3b" path="res://scenes/game_object/player/player.tscn" id="1_6q4rs"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c07mahaevgbud" path="res://scenes/ui/arena_time_ui.tscn" id="1_ni4o4"]
 [ext_resource type="PackedScene" uid="uid://c4jyynk4gcgoj" path="res://scenes/manager/arena_time_manager.tscn" id="2_owxx1"]
 [ext_resource type="PackedScene" uid="uid://b0l3ryye8rljn" path="res://scenes/manager/experience_manager.tscn" id="4_b7oit"]
+[ext_resource type="PackedScene" uid="uid://dlsoablcbbnbn" path="res://scenes/game_object/basic_enemy/basic_enemy.tscn" id="8_c5r5x"]
 
 [node name="Main" type="Node"]
 
@@ -29,3 +30,5 @@ layer_0/tile_data = PackedInt32Array(1835056, 0, 4, 1769520, 0, 4, 1703984, 0, 4
 
 [node name="Player" parent="." instance=ExtResource("1_6q4rs")]
 position = Vector2(318, 185)
+
+[node name="BasicEnemy" parent="." instance=ExtResource("8_c5r5x")]
