@@ -19,7 +19,7 @@ export function DrawSection({
       g.drawRect(section.start.x * scale, section.start.y * scale, 20, 20);
       g.endFill();
     },
-    [section, scale]
+    [section, scale],
   );
 
   return <Graphics draw={draw} />;

@@ -1,23 +1,23 @@
-import { styled } from "styled-components"
-import { useAtomValue } from "jotai"
-import { $players, $yourPlayerId, $playerInfos } from "../../state/state.ts"
-import { rel } from "../../lib/rel.ts"
-import noAvatar from "./noAvatar.png"
-import background from "./background.jpg"
-import { useMemo } from "react"
-import { pickFreeColor } from "../../logic/pickFreeColor.ts"
-import { Skull } from "./Skull.tsx"
-import { Clock } from "./Clock.tsx"
-import { deathRevealDelayMs } from "../BoardScreen/drawConfig.ts"
+import { styled } from "styled-components";
+import { useAtomValue } from "jotai";
+import { $players, $yourPlayerId, $playerInfos } from "../../state/state.ts";
+import { rel } from "../../lib/rel.ts";
+import noAvatar from "./noAvatar.png";
+import background from "./background.jpg";
+import { useMemo } from "react";
+import { pickFreeColor } from "../../logic/pickFreeColor.ts";
+import { Skull } from "./Skull.tsx";
+import { Clock } from "./Clock.tsx";
+import { deathRevealDelayMs } from "../BoardScreen/drawConfig.ts";
 
 export function Header() {
-  const playerInfos = useAtomValue($playerInfos)
+  const playerInfos = useAtomValue($playerInfos);
   const playerInfosDelayed = useAtomValue($playerInfos, {
     delay: deathRevealDelayMs,
-  })
+  });
 
-  const players = useAtomValue($players)
-  const yourPlayerId = useAtomValue($yourPlayerId)
+  const players = useAtomValue($players);
+  const yourPlayerId = useAtomValue($yourPlayerId);
 
   const invite = useMemo(
     () =>
@@ -25,14 +25,14 @@ export function Header() {
         ? { color: pickFreeColor(playerInfos) }
         : null,
     [playerInfos, players],
-  )
+  );
 
   const playerInfosCombined = useMemo(
     () =>
       playerInfos.map(({ playerId, color, score, state }) => {
         const playerInfoDelayed = playerInfosDelayed.find(
           (p) => p.playerId === playerId,
-        )
+        );
 
         return {
           playerId,
@@ -40,10 +40,10 @@ export function Header() {
           ...(playerInfoDelayed
             ? { score: playerInfoDelayed.score, state: playerInfoDelayed.state }
             : { score, state }),
-        }
+        };
       }),
     [playerInfos, playerInfosDelayed],
-  )
+  );
 
   return (
     <Root>
@@ -73,7 +73,7 @@ export function Header() {
         </PlayerContainer>
       )}
     </Root>
-  )
+  );
 }
 
 const Root = styled.div`
@@ -81,7 +81,7 @@ const Root = styled.div`
     url("${background}") no-repeat center center / cover,
     black;
   display: flex;
-`
+`;
 
 const PlayerContainer = styled.div<{ $center?: boolean }>`
   height: ${rel(80)};
@@ -90,7 +90,7 @@ const PlayerContainer = styled.div<{ $center?: boolean }>`
   align-items: center;
   justify-content: ${({ $center }) => ($center ? "center" : "flex-end")};
   flex-direction: column;
-`
+`;
 
 const Avatar = styled.img<{ $playerColor: string }>`
   width: ${rel(36)};
@@ -98,7 +98,7 @@ const Avatar = styled.img<{ $playerColor: string }>`
   border-radius: 50%;
   border: ${rel(2)} solid ${({ $playerColor }) => $playerColor};
   box-shadow: 0 0 ${rel(15)} ${rel(3)} ${({ $playerColor }) => $playerColor};
-`
+`;
 
 const Name = styled.div<{ $playerColor: string }>`
   margin-top: ${rel(-4)};
@@ -109,18 +109,18 @@ const Name = styled.div<{ $playerColor: string }>`
   box-shadow: 0 0 ${rel(15)} ${rel(3)} ${({ $playerColor }) => $playerColor};
 
   font-size: ${rel(9)};
-`
+`;
 
 const Invite = styled(Name)`
   font-size: ${rel(14)};
-`
+`;
 
 const Score = styled.div<{ $playerColor: string }>`
   color: ${({ $playerColor }) => $playerColor};
   text-shadow: 0 0 ${rel(15)} ${({ $playerColor }) => $playerColor};
 
   font-size: ${rel(24)};
-`
+`;
 
 const DarkCircle = styled.div<{ $playerColor: string }>`
   width: ${rel(36)};
@@ -131,4 +131,4 @@ const DarkCircle = styled.div<{ $playerColor: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;

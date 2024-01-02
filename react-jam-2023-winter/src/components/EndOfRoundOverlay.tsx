@@ -1,36 +1,36 @@
-import { useAtomValue } from "jotai"
+import { useAtomValue } from "jotai";
 import {
   $lastRoundWinnerId,
   $players,
   $yourPlayerId,
   $winnerColor,
-} from "../state/state.ts"
-import { styled } from "styled-components"
-import { rel } from "../lib/rel.ts"
-import { colors } from "../logic/logicConfig.ts"
-import { useState, useEffect } from "react"
+} from "../state/state.ts";
+import { styled } from "styled-components";
+import { rel } from "../lib/rel.ts";
+import { colors } from "../logic/logicConfig.ts";
+import { useState, useEffect } from "react";
 import {
   endOfRoundRevealDelayMs,
   defaultTransitionMs,
-} from "./BoardScreen/drawConfig.ts"
+} from "./BoardScreen/drawConfig.ts";
 
-const winnerString = "Winner"
+const winnerString = "Winner";
 
 export function EndOfRoundOverlay() {
-  const lastRoundWinnerId = useAtomValue($lastRoundWinnerId)
-  const players = useAtomValue($players)
-  const yourPlayerId = useAtomValue($yourPlayerId)
-  const winnerColor = useAtomValue($winnerColor)
-  const [visible, setVisible] = useState(false)
+  const lastRoundWinnerId = useAtomValue($lastRoundWinnerId);
+  const players = useAtomValue($players);
+  const yourPlayerId = useAtomValue($yourPlayerId);
+  const winnerColor = useAtomValue($winnerColor);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setVisible(true))
-    return () => cancelAnimationFrame(handle)
-  }, [])
+    const handle = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(handle);
+  }, []);
 
-  const winner = lastRoundWinnerId ? players[lastRoundWinnerId] : null
+  const winner = lastRoundWinnerId ? players[lastRoundWinnerId] : null;
 
-  if (!winner || !winnerColor) return null
+  if (!winner || !winnerColor) return null;
 
   return (
     <Root style={{ opacity: visible ? 1 : 0 }}>
@@ -51,7 +51,7 @@ export function EndOfRoundOverlay() {
         <Points>1 Point</Points>
       </Box>
     </Root>
-  )
+  );
 }
 
 const Root = styled.div`
@@ -65,7 +65,7 @@ const Root = styled.div`
   align-items: center;
   transition: opacity ${defaultTransitionMs}ms ${endOfRoundRevealDelayMs}ms
     ease-out;
-`
+`;
 
 const Box = styled.div`
   background-color: black;
@@ -79,20 +79,20 @@ const Box = styled.div`
   > :not(:first-child) {
     margin-top: ${rel(15)};
   }
-`
+`;
 
 const User = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const Avatar = styled.img<{ $playerColor: string }>`
   width: ${rel(72)};
   height: ${rel(72)};
   border-radius: 50%;
   border: ${rel(4)} solid ${({ $playerColor }) => $playerColor};
-`
+`;
 
 const Name = styled.div<{ $playerColor: string }>`
   font-size: ${rel(20)};
@@ -100,16 +100,16 @@ const Name = styled.div<{ $playerColor: string }>`
   background-color: ${({ $playerColor }) => $playerColor};
   border-radius: ${rel(20)};
   margin-top: ${rel(-9)};
-`
+`;
 
 const Winner = styled.div`
   font-size: ${rel(56)};
   letter-spacing: ${rel(-2)};
   text-transform: uppercase;
-`
+`;
 
 const Points = styled.div`
   font-size: ${rel(20)};
   color: white;
   text-transform: uppercase;
-`
+`;

@@ -1,9 +1,9 @@
-import { Section, Turning } from "../types.ts"
-import { turnDegreesPerTick, movePixelsPerTick } from "../logicConfig.ts"
-import { degreesToRad } from "../../lib/degreesToRad.ts"
+import { Section, Turning } from "../types.ts";
+import { turnDegreesPerTick, movePixelsPerTick } from "../logicConfig.ts";
+import { degreesToRad } from "../../lib/degreesToRad.ts";
 
 export const arcRadius =
-  (180 * movePixelsPerTick) / (Math.PI * turnDegreesPerTick)
+  (180 * movePixelsPerTick) / (Math.PI * turnDegreesPerTick);
 
 export function getNextSection(
   previousSection: Section,
@@ -17,18 +17,18 @@ export function getNextSection(
       endAngle: previousSection.endAngle,
       gap: isPlacingGap,
       turning: "none",
-    }
+    };
   } else {
-    const turningModifier = turning === "right" ? 1 : -1
+    const turningModifier = turning === "right" ? 1 : -1;
 
     const angleToCenter =
       previousSection.endAngle +
-      (+90 + turnDegreesPerTick / 2) * turningModifier
+      (+90 + turnDegreesPerTick / 2) * turningModifier;
 
     const startAngle = degreesToRad(
       previousSection.endAngle +
         (-90 + turnDegreesPerTick / 2) * turningModifier,
-    )
+    );
 
     return {
       start: { ...previousSection.end },
@@ -48,6 +48,6 @@ export function getNextSection(
         startAngle: startAngle,
         endAngle: startAngle,
       },
-    }
+    };
   }
 }

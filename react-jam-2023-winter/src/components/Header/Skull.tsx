@@ -57,5 +57,5 @@ export function Skull({ size, color }: { size: string; color: string }) {
         fill={color}
       />
     </svg>
-  )
+  );
 }

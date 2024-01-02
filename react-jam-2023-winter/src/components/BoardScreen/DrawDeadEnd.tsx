@@ -1,15 +1,15 @@
-import { Point } from "../../logic/types.ts"
-import { useCallback, useState } from "react"
-import { Graphics as PixiGraphics } from "@pixi/graphics"
+import { Point } from "../../logic/types.ts";
+import { useCallback, useState } from "react";
+import { Graphics as PixiGraphics } from "@pixi/graphics";
 import {
   avatarRadius,
   deathRevealDelayMs,
   defaultTransitionMs,
-} from "./drawConfig.ts"
-import { Container, Graphics, Sprite, useTick } from "@pixi/react"
-import { easeOutCubic } from "../../lib/easeOutCubic.ts"
-import { clamp } from "../../lib/clamp.ts"
-import { remap } from "../../lib/remap.ts"
+} from "./drawConfig.ts";
+import { Container, Graphics, Sprite, useTick } from "@pixi/react";
+import { easeOutCubic } from "../../lib/easeOutCubic.ts";
+import { clamp } from "../../lib/clamp.ts";
+import { remap } from "../../lib/remap.ts";
 
 export function DrawDeadEnd({
   point,
@@ -17,29 +17,29 @@ export function DrawDeadEnd({
   scale,
   diedAt,
 }: {
-  point: Point
-  color: string
-  scale: number
-  diedAt: number | undefined
+  point: Point;
+  color: string;
+  scale: number;
+  diedAt: number | undefined;
 }) {
-  const [alpha, setAlpha] = useState(0)
+  const [alpha, setAlpha] = useState(0);
 
   const draw = useCallback(
     (g: PixiGraphics) => {
-      g.clear()
+      g.clear();
 
-      g.beginFill(color, 1)
+      g.beginFill(color, 1);
 
-      g.drawCircle(0, 0, avatarRadius * scale)
+      g.drawCircle(0, 0, avatarRadius * scale);
 
-      g.endFill()
+      g.endFill();
     },
     [color, scale],
-  )
+  );
 
   useTick(() => {
     if (!diedAt || alpha === 1) {
-      return
+      return;
     }
 
     setAlpha(
@@ -56,8 +56,8 @@ export function DrawDeadEnd({
           [0, 1],
         ),
       ),
-    )
-  })
+    );
+  });
 
   return (
     <Container alpha={alpha} x={point.x * scale} y={point.y * scale}>
@@ -70,5 +70,5 @@ export function DrawDeadEnd({
         tint={0x000000}
       />
     </Container>
-  )
+  );
 }

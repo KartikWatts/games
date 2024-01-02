@@ -1,36 +1,36 @@
-import { useState } from "react"
-import { Graphics, useTick } from "@pixi/react"
-import { Graphics as PixiGraphics } from "@pixi/graphics"
-import { easeOutCubic } from "../../lib/easeOutCubic.ts"
-import { clamp } from "../../lib/clamp.ts"
-import { remap } from "../../lib/remap.ts"
+import { useState } from "react";
+import { Graphics, useTick } from "@pixi/react";
+import { Graphics as PixiGraphics } from "@pixi/graphics";
+import { easeOutCubic } from "../../lib/easeOutCubic.ts";
+import { clamp } from "../../lib/clamp.ts";
+import { remap } from "../../lib/remap.ts";
 
-const loopInterval = 1000
-const loopDuration = 3000
+const loopInterval = 1000;
+const loopDuration = 3000;
 
 export function DrawLoops({
   color,
   scale,
   timerStartedAt,
 }: {
-  color: string
-  scale: number
-  timerStartedAt: number
+  color: string;
+  scale: number;
+  timerStartedAt: number;
 }) {
-  const [render, setRender] = useState(0)
+  const [render, setRender] = useState(0);
 
   useTick(() => {
-    setRender(render + 1)
-  })
+    setRender(render + 1);
+  });
 
   const draw = (g: PixiGraphics) => {
-    g.clear()
+    g.clear();
 
     const loops =
-      Math.floor((Rune.gameTime() - timerStartedAt) / loopInterval) + 1
+      Math.floor((Rune.gameTime() - timerStartedAt) / loopInterval) + 1;
 
     for (let i = 0; i < loops; i++) {
-      const msStart = i * loopInterval
+      const msStart = i * loopInterval;
 
       const x = easeOutCubic(
         clamp(
@@ -41,13 +41,13 @@ export function DrawLoops({
           ),
           [0, 1],
         ),
-      )
+      );
 
-      g.lineStyle(scale, color, 1 - x)
+      g.lineStyle(scale, color, 1 - x);
 
-      g.drawCircle(0, 0, 30 * x)
+      g.drawCircle(0, 0, 30 * x);
     }
-  }
+  };
 
-  return <Graphics draw={draw} />
+  return <Graphics draw={draw} />;
 }
