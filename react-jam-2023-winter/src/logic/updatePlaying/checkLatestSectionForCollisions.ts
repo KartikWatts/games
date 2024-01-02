@@ -1,11 +1,17 @@
-import { Point, PlayerInfo, GameState, CollisionGrid, Snake } from "../types.ts"
+import {
+  Point,
+  PlayerInfo,
+  GameState,
+  CollisionGrid,
+  Snake,
+} from "../types.ts";
 import {
   collisionToGlobalPoint,
   globalToCollisionPoint,
-} from "../collisionGridHelpers.ts"
-import { isLatestSectionOutOfBounds } from "../isLatestSectionOutOfBounds.ts"
-import { checkWinnersAndGameOver } from "../checkWinnersAndGameOver.ts"
-import { allowedCollisionPoints } from "../logicConfig.ts"
+} from "../collisionGridHelpers.ts";
+import { isLatestSectionOutOfBounds } from "../isLatestSectionOutOfBounds.ts";
+import { checkWinnersAndGameOver } from "../checkWinnersAndGameOver.ts";
+import { allowedCollisionPoints } from "../logicConfig.ts";
 
 function markCollisionGrid(
   collisionGrid: CollisionGrid,
@@ -15,10 +21,10 @@ function markCollisionGrid(
   //Initialize collision grid if it does not exist yet
 
   if (!collisionGrid[collisionPoint.x]) {
-    collisionGrid[collisionPoint.x] = {}
+    collisionGrid[collisionPoint.x] = {};
   }
 
-  collisionGrid[collisionPoint.x][collisionPoint.y] = true
+  collisionGrid[collisionPoint.x][collisionPoint.y] = true;
 
   //Check to make sure we don't push same value in multiple times
   if (!isCollisionPointRecentlyVisitedBySnake(snake, collisionPoint)) {
@@ -26,7 +32,7 @@ function markCollisionGrid(
     snake.lastCollisionGridPoints = [
       collisionPoint,
       ...snake.lastCollisionGridPoints.slice(0, allowedCollisionPoints - 1),
-    ]
+    ];
   }
 }
 
@@ -40,7 +46,7 @@ function isCollisionPointRecentlyVisitedBySnake(
     (recentPoint) =>
       recentPoint.x === currentCollisionPoint.x &&
       recentPoint.y === currentCollisionPoint.y,
-  )
+  );
 }
 
 export function checkLatestSectionForCollisions(
@@ -48,16 +54,16 @@ export function checkLatestSectionForCollisions(
   player: PlayerInfo,
   game: GameState,
 ) {
-  const snake = game.snakes[player.playerId]
-  const latestSection = snake.sections[snake.sections.length - 1]
-  const { collisionGrid } = game
+  const snake = game.snakes[player.playerId];
+  const latestSection = snake.sections[snake.sections.length - 1];
+  const { collisionGrid } = game;
 
-  const prevCollisionPoint = globalToCollisionPoint(previousEnd)
-  const currentCollisionPoint = globalToCollisionPoint(latestSection.end)
+  const prevCollisionPoint = globalToCollisionPoint(previousEnd);
+  const currentCollisionPoint = globalToCollisionPoint(latestSection.end);
 
   const isSameCollisionPointAsBefore =
     currentCollisionPoint.x === prevCollisionPoint.x &&
-    currentCollisionPoint.y === prevCollisionPoint.y
+    currentCollisionPoint.y === prevCollisionPoint.y;
 
   if (
     //If snake is out of bounds or
@@ -69,12 +75,12 @@ export function checkLatestSectionForCollisions(
       //This point was not recently visited by this snake
       !isCollisionPointRecentlyVisitedBySnake(snake, currentCollisionPoint))
   ) {
-    player.state = "dead"
-    player.diedAt = Rune.gameTime()
-    checkWinnersAndGameOver(game)
+    player.state = "dead";
+    player.diedAt = Rune.gameTime();
+    checkWinnersAndGameOver(game);
   } else if (!latestSection.gap) {
-    const prevGlobalPoint = collisionToGlobalPoint(prevCollisionPoint)
-    const currentGlobalPoint = collisionToGlobalPoint(currentCollisionPoint)
+    const prevGlobalPoint = collisionToGlobalPoint(prevCollisionPoint);
+    const currentGlobalPoint = collisionToGlobalPoint(currentCollisionPoint);
 
     //Diagonal line check
     if (
@@ -101,7 +107,7 @@ export function checkLatestSectionForCollisions(
           : {
               x: prevGlobalPoint.x,
               y: currentGlobalPoint.y,
-            }
+            };
 
       const latestSectionLineEquation = {
         a:
@@ -111,14 +117,14 @@ export function checkLatestSectionForCollisions(
           latestSection.end.y -
           (latestSection.end.x * (latestSection.end.y - previousEnd.y)) /
             (latestSection.end.x - previousEnd.x),
-      }
+      };
 
       const pointAboveLine =
         point.y >
-        latestSectionLineEquation.a * point.x + latestSectionLineEquation.b
+        latestSectionLineEquation.a * point.x + latestSectionLineEquation.b;
 
-      const latestSectionGoingDown = latestSection.end.y > previousEnd.y
-      const latestSectionGoingRight = latestSection.end.x > previousEnd.x
+      const latestSectionGoingDown = latestSection.end.y > previousEnd.y;
+      const latestSectionGoingRight = latestSection.end.x > previousEnd.x;
 
       if (
         (latestSectionGoingDown && latestSectionGoingRight && pointAboveLine) ||
@@ -137,7 +143,7 @@ export function checkLatestSectionForCollisions(
             y: currentGlobalPoint.y,
           }),
           snake,
-        )
+        );
       } else {
         markCollisionGrid(
           collisionGrid,
@@ -146,10 +152,10 @@ export function checkLatestSectionForCollisions(
             y: prevGlobalPoint.y,
           }),
           snake,
-        )
+        );
       }
     }
 
-    markCollisionGrid(collisionGrid, currentCollisionPoint, snake)
+    markCollisionGrid(collisionGrid, currentCollisionPoint, snake);
   }
 }

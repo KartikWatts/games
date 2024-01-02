@@ -37,7 +37,7 @@ function DrawOptimistic({
 
       g.endFill();
     },
-    [color, scale]
+    [color, scale],
   );
 
   return (
@@ -113,7 +113,7 @@ export function DrawPlayer({
               {snake.sections.map((section, index) =>
                 section.gap ? null : (
                   <DrawSection section={latestSection} scale={scale} />
-                )
+                ),
               )}
             </>
           )}

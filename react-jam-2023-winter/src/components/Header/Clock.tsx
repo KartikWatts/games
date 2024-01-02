@@ -15,5 +15,5 @@ export function Clock({ size, color }: { size: string; color: string }) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }

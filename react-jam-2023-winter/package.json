@@ -9,7 +9,8 @@
     "build": "npm run lint && tsc && vite build",
     "deploy": "../../scripts/copy-assets.sh neon-snake && yarn build && rune upload dist",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
     "@pixi/react": "^7.1.1",

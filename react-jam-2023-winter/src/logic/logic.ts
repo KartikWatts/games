@@ -30,7 +30,7 @@ Rune.initLogic({
             lastCollisionGridPoints: [],
           },
         }),
-        {}
+        {},
       ),
       collisionGrid: {},
       countdownTimer: countdownDurationSeconds,
@@ -71,7 +71,7 @@ Rune.initLogic({
     },
     playerLeft: (playerId, { game }) => {
       const playerIndex = game.players.findIndex(
-        (p) => p.playerId === playerId
+        (p) => p.playerId === playerId,
       );
 
       if (!~playerIndex) throw Rune.invalidAction();

@@ -1,38 +1,38 @@
-import { styled } from "styled-components"
-import { InputTracker } from "./InputTracker.tsx"
-import { Header } from "../Header/Header.tsx"
-import { BoardCanvas } from "./BoardCanvas.tsx"
-import { useEffect, useRef, useState } from "react"
-import { boardSize } from "../../logic/logicConfig.ts"
+import { styled } from "styled-components";
+import { InputTracker } from "./InputTracker.tsx";
+import { Header } from "../Header/Header.tsx";
+import { BoardCanvas } from "./BoardCanvas.tsx";
+import { useEffect, useRef, useState } from "react";
+import { boardSize } from "../../logic/logicConfig.ts";
 
 export function BoardScreen() {
-  const canvasContainerRef = useRef<HTMLDivElement>(null)
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
 
-  const [canvasScale, setCanvasScale] = useState(1)
-  const [renderCanvas, setRenderCanvas] = useState(false)
+  const [canvasScale, setCanvasScale] = useState(1);
+  const [renderCanvas, setRenderCanvas] = useState(false);
 
   useEffect(() => {
     function adjustSize() {
-      if (!canvasContainerRef.current) return
+      if (!canvasContainerRef.current) return;
 
-      const containerWidth = canvasContainerRef.current.clientWidth
-      const containerHeight = canvasContainerRef.current.clientHeight
+      const containerWidth = canvasContainerRef.current.clientWidth;
+      const containerHeight = canvasContainerRef.current.clientHeight;
 
-      const widthScale = containerWidth / boardSize.width
-      const heightScale = containerHeight / boardSize.height
+      const widthScale = containerWidth / boardSize.width;
+      const heightScale = containerHeight / boardSize.height;
 
-      const newScale = Math.min(widthScale, heightScale)
+      const newScale = Math.min(widthScale, heightScale);
 
-      setCanvasScale(newScale > 0 ? newScale : 1)
-      setRenderCanvas(true)
+      setCanvasScale(newScale > 0 ? newScale : 1);
+      setRenderCanvas(true);
     }
 
-    adjustSize()
+    adjustSize();
 
-    window.addEventListener("resize", adjustSize)
+    window.addEventListener("resize", adjustSize);
 
-    return () => window.removeEventListener("resize", adjustSize)
-  }, [])
+    return () => window.removeEventListener("resize", adjustSize);
+  }, []);
 
   return (
     <>
@@ -44,7 +44,7 @@ export function BoardScreen() {
         </CanvasContainer>
       </CanvasOuterContainer>
     </>
-  )
+  );
 }
 
 const CanvasOuterContainer = styled.div`
@@ -52,9 +52,9 @@ const CanvasOuterContainer = styled.div`
   flex: 1 1 auto;
   position: relative;
   background-color: black;
-`
+`;
 
-const minWallSize = 5
+const minWallSize = 5;
 
 const CanvasContainer = styled.div`
   position: absolute;
@@ -68,4 +68,4 @@ const CanvasContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
