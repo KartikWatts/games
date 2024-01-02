@@ -1,13 +1,13 @@
-import { GameStage, PlayerInfo, Snake } from "../../logic/types.ts"
-import { Container, Graphics, Sprite } from "@pixi/react"
-import { DrawSection } from "./DrawSection.tsx"
-import { DrawArrow } from "./DrawArrow.tsx"
-import { DrawDeadEnd } from "./DrawDeadEnd.tsx"
-import { useCallback, useMemo } from "react"
-import { getOptimisticStartSection } from "./getOptimisticStartSection.ts"
-import { Graphics as PixiGraphics } from "@pixi/graphics"
-import { avatarRadius } from "./drawConfig.ts"
-import { DrawLoops } from "./DrawLoops.tsx"
+import { GameStage, PlayerInfo, Snake } from "../../logic/types.ts";
+import { Container, Graphics, Sprite } from "@pixi/react";
+import { DrawSection } from "./DrawSection.tsx";
+import { DrawArrow } from "./DrawArrow.tsx";
+import { DrawDeadEnd } from "./DrawDeadEnd.tsx";
+import { useCallback, useMemo } from "react";
+import { getOptimisticStartSection } from "./getOptimisticStartSection.ts";
+import { Graphics as PixiGraphics } from "@pixi/graphics";
+import { avatarRadius } from "./drawConfig.ts";
+import { DrawLoops } from "./DrawLoops.tsx";
 
 function DrawOptimistic({
   color,
@@ -17,37 +17,32 @@ function DrawOptimistic({
   avatar,
   timerStartedAt,
 }: {
-  snake: Snake
-  color: string
-  scale: number
-  isOpponent: boolean
-  avatar: string
-  timerStartedAt: number
+  snake: Snake;
+  color: string;
+  scale: number;
+  isOpponent: boolean;
+  avatar: string;
+  timerStartedAt: number;
 }) {
   const optimisticSection = useMemo(() => {
-    return getOptimisticStartSection(snake)
-  }, [snake])
+    return getOptimisticStartSection(snake);
+  }, [snake]);
 
   const draw = useCallback(
     (g: PixiGraphics) => {
-      g.clear()
+      g.clear();
 
-      g.beginFill(color, 1)
-      g.drawCircle(0, 0, avatarRadius * scale)
+      g.beginFill(color, 1);
+      g.drawCircle(0, 0, avatarRadius * scale);
 
-      g.endFill()
+      g.endFill();
     },
-    [color, scale],
-  )
+    [color, scale]
+  );
 
   return (
     <>
-      <DrawSection
-        section={optimisticSection}
-        color={color}
-        scale={scale}
-        isOpponent={isOpponent}
-      />
+      <DrawSection section={optimisticSection} scale={scale} />
       <DrawArrow
         point={optimisticSection.end}
         angle={optimisticSection.endAngle}
@@ -74,7 +69,7 @@ function DrawOptimistic({
         />
       </Container>
     </>
-  )
+  );
 }
 
 export function DrawPlayer({
@@ -86,18 +81,18 @@ export function DrawPlayer({
   avatar,
   timerStartedAt,
 }: {
-  stage: GameStage
-  player: PlayerInfo
-  snake: Snake
-  scale: number
-  isOpponent: boolean
-  avatar: string
-  timerStartedAt: number
+  stage: GameStage;
+  player: PlayerInfo;
+  snake: Snake;
+  scale: number;
+  isOpponent: boolean;
+  avatar: string;
+  timerStartedAt: number;
 }) {
-  const latestSection = snake.sections.at(-1)
+  const latestSection = snake.sections.at(-1);
 
   if (!player || player.state === "pending") {
-    return
+    return;
   }
 
   return (
@@ -113,16 +108,14 @@ export function DrawPlayer({
         />
       ) : (
         <>
-          {snake.sections.map((section, index) =>
-            section.gap ? null : (
-              <DrawSection
-                section={section}
-                color={player.color}
-                key={index}
-                scale={scale}
-                isOpponent={isOpponent}
-              />
-            ),
+          {latestSection && (
+            <>
+              {snake.sections.map((section, index) =>
+                section.gap ? null : (
+                  <DrawSection section={latestSection} scale={scale} />
+                )
+              )}
+            </>
           )}
           {!latestSection ? null : player.state === "alive" ? (
             <DrawArrow
@@ -142,5 +135,5 @@ export function DrawPlayer({
         </>
       )}
     </Container>
-  )
+  );
 }
