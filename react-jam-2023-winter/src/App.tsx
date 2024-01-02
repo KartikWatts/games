@@ -1,29 +1,49 @@
-import { useMemo } from "react";
-import "./App.css";
-import { BlurFilter } from "pixi.js";
-import { Container, Sprite, Stage, Text } from "@pixi/react";
+import "./base.css"
+import { styled } from "styled-components"
+import { useAtomValue } from "jotai"
+import { $stage } from "./state/state.ts"
+import { GettingReadyScreen } from "./components/GettingReadyScreen/GettingReadyScreen.tsx"
+import { CountdownOverlay } from "./components/CountdownOverlay.tsx"
+import { EndOfRoundOverlay } from "./components/EndOfRoundOverlay.tsx"
+import { BoardScreen } from "./components/BoardScreen/BoardScreen.tsx"
+import { gridBackground } from "./lib/gridBackground.ts"
+import { useEffect } from "react"
+import { playSound } from "./sounds.ts"
 
-function App() {
-  const blurFilter = useMemo(() => new BlurFilter(4), []);
+export function App() {
+  const stage = useAtomValue($stage)
+
+  useEffect(() => {
+    const listener = () => {
+      playSound("background")
+    }
+
+    //Try to play background music. If it fails, wait for user to interact with website.
+    //This should only be necessary in browser.
+    playSound("background", true).catch(() => {
+      document.addEventListener("click", listener)
+    })
+
+    return () => {
+      document.removeEventListener("click", listener)
+    }
+  }, [])
 
   return (
-    <Stage>
-      <Sprite
-        image='https://pixijs.io/pixi-react/img/bunny.png'
-        x={400}
-        y={270}
-        anchor={{ x: 0.5, y: 0.5 }}
-      />
-
-      <Container x={400} y={330}>
-        <Text
-          text='Hello World'
-          anchor={{ x: 0.5, y: 0.5 }}
-          filters={[blurFilter]}
-        />
-      </Container>
-    </Stage>
-  );
+    <>
+      <Root>
+        {stage === "gettingReady" ? <GettingReadyScreen /> : <BoardScreen />}
+        {stage === "countdown" && <CountdownOverlay />}
+        {stage === "endOfRound" && <EndOfRoundOverlay />}
+      </Root>
+    </>
+  )
 }
 
-export default App;
+const Root = styled.div`
+  width: 100%;
+  height: 100%;
+  ${gridBackground};
+  display: flex;
+  flex-direction: column;
+`
