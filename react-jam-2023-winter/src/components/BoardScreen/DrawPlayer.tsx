@@ -37,17 +37,15 @@ function DrawOptimistic({
 
       g.endFill();
     },
-    [color, scale],
+    [color, scale]
   );
 
   return (
     <>
-      <DrawSection section={optimisticSection} scale={scale} />
-      <DrawArrow
-        point={optimisticSection.end}
-        angle={optimisticSection.endAngle}
-        color={color}
+      <DrawSection
+        section={optimisticSection}
         scale={scale}
+        point={snake.point}
       />
       <Container
         x={optimisticSection.start.x * scale}
@@ -108,29 +106,18 @@ export function DrawPlayer({
         />
       ) : (
         <>
-          {latestSection && (
+          {latestSection && snake && (
             <>
               {snake.sections.map((section, index) =>
                 section.gap ? null : (
-                  <DrawSection section={latestSection} scale={scale} />
-                ),
+                  <DrawSection
+                    section={latestSection}
+                    scale={scale}
+                    point={snake.point}
+                  />
+                )
               )}
             </>
-          )}
-          {!latestSection ? null : player.state === "alive" ? (
-            <DrawArrow
-              point={latestSection.end}
-              angle={latestSection.endAngle}
-              color={player.color}
-              scale={scale}
-            />
-          ) : (
-            <DrawDeadEnd
-              point={latestSection.end}
-              diedAt={player.diedAt}
-              color={player.color}
-              scale={scale}
-            />
           )}
         </>
       )}

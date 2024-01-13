@@ -36,7 +36,9 @@ export function BoardScreen() {
 
   return (
     <>
-      <InputTracker />
+      {canvasContainerRef?.current && (
+        <InputTracker containerRef={canvasContainerRef} scale={canvasScale} />
+      )}
       <Header />
       <CanvasOuterContainer>
         <CanvasContainer ref={canvasContainerRef}>

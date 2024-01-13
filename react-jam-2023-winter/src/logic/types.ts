@@ -18,6 +18,7 @@ export interface GameState {
 
 export type GameActions = {
   setTurning(turning: Turning): void;
+  setPoint(point: Point): void;
   setReady(): void;
 };
 
@@ -59,6 +60,7 @@ export type PlayerInfo = {
 export type Snake = {
   gapCounter: number;
   turning: "left" | "right" | "none";
+  point: Point;
   sections: [Section, ...Section[]];
   lastCollisionGridPoints: Point[];
 };
