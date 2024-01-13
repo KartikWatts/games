@@ -28,9 +28,10 @@ Rune.initLogic({
             turning: "none",
             sections: [getRandomInitialSection()],
             lastCollisionGridPoints: [],
+            point: { x: 0, y: 0 },
           },
         }),
-        {},
+        {}
       ),
       collisionGrid: {},
       countdownTimer: countdownDurationSeconds,
@@ -44,6 +45,9 @@ Rune.initLogic({
     setTurning(turning, { game, playerId }) {
       game.snakes[playerId].turning = turning;
     },
+    setPoint(point, { game, playerId }) {
+      game.snakes[playerId].point = point;
+    },
     setReady(_, { game }) {
       if (game.stage !== "gettingReady") throw Rune.invalidAction();
       newRound(game);
@@ -51,7 +55,7 @@ Rune.initLogic({
   },
   update: ({ game }) => {
     if (game.stage === "countdown") updateCountdown(game);
-    // if (game.stage === "playing") updatePlaying(game);
+    if (game.stage === "playing") updatePlaying(game);
     if (game.stage === "endOfRound") updateEndOfRound(game);
   },
   events: {
@@ -65,13 +69,14 @@ Rune.initLogic({
       game.snakes[playerId] = {
         gapCounter: 0,
         turning: "none",
+        point: { x: 0, y: 0 },
         sections: [getRandomInitialSection()],
         lastCollisionGridPoints: [],
       };
     },
     playerLeft: (playerId, { game }) => {
       const playerIndex = game.players.findIndex(
-        (p) => p.playerId === playerId,
+        (p) => p.playerId === playerId
       );
 
       if (!~playerIndex) throw Rune.invalidAction();

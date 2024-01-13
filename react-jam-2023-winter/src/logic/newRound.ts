@@ -16,6 +16,7 @@ export function newRound(game: GameState) {
 
     snake.sections = [getRandomInitialSection()];
     snake.turning = "none";
+    snake.point = { x: 0, y: 0 };
     snake.gapCounter = 0;
   }
 }
