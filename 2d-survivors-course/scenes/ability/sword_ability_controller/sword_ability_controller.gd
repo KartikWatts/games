@@ -7,7 +7,6 @@ extends Node
 var damage = 5
 var base_wait_time
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	base_wait_time = timer.wait_time
 	#get_node("Timer")
