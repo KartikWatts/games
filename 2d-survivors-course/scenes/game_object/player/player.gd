@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var _damage_interval_timer: Timer = $DamageIntervalTimer
 @onready var _health_bar: ProgressBar = $HealthBar
 @onready var _abilities = $Abilities
+@onready var _animation_player = $AnimationPlayer
+@onready var _visuals = $Visuals
 
 const MAX_SPEED = 125
 const ACCELERATION_SMOOTHING = 25
@@ -28,6 +30,15 @@ func _process(delta):
 	velocity = velocity.lerp(target_velocity, 1 - exp(-delta * ACCELERATION_SMOOTHING))
 	move_and_slide()
 	
+	if movement_vector.x !=0 or movement_vector.y!=0:
+		_animation_player.play("walk")
+	else:
+		_animation_player.play("RESET")
+
+	var move_sign = sign(movement_vector.x)
+	if move_sign != 0:
+		_visuals.scale = Vector2(move_sign, 1)
+
 
 func get_movement_vector():
 	#var movement_vector = Vector2.ZERO
