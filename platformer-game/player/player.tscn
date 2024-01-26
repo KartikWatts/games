@@ -639,7 +639,7 @@ limit_left = 0
 limit_top = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Idle"
 libraries = {
 "": SubResource("AnimationLibrary_25pas")
 }
+autoplay = "Idle"
