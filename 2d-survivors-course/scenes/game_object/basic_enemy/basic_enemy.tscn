@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dlsoablcbbnbn"]
+[gd_scene load_steps=22 format=3 uid="uid://dlsoablcbbnbn"]
 
 [ext_resource type="Script" path="res://scenes/game_object/basic_enemy/basic_enemy.gd" id="1_btoq0"]
 [ext_resource type="Texture2D" uid="uid://c4wr81m8ifp8g" path="res://scenes/game_object/basic_enemy/basic_enemy.png" id="1_tp3eb"]
@@ -9,6 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://bq1vvw48qq8jf" path="res://scenes/components/velocity_component.tscn" id="4_quu7f"]
 [ext_resource type="Shader" path="res://scenes/components/hit_flash_component.gdshader" id="6_6ykum"]
 [ext_resource type="PackedScene" uid="uid://y7fu5m6xj717" path="res://scenes/components/hit_flash_component.tscn" id="8_7vpqb"]
+[ext_resource type="PackedScene" uid="uid://c32pljffjpik" path="res://scenes/components/random_stream_player_2d_component.tscn" id="9_meok5"]
+[ext_resource type="AudioStream" uid="uid://dxp4pv4dwcl5e" path="res://assets/audio/footstep_carpet_000.ogg" id="10_hve7r"]
+[ext_resource type="AudioStream" uid="uid://c5lnxdxs83f6h" path="res://assets/audio/footstep_carpet_001.ogg" id="11_mpore"]
+[ext_resource type="AudioStream" uid="uid://bq2fagxx83sc2" path="res://assets/audio/footstep_carpet_002.ogg" id="12_cxk2j"]
+[ext_resource type="AudioStream" uid="uid://nm01pjyoq4lx" path="res://assets/audio/footstep_carpet_003.ogg" id="13_m2kxo"]
+[ext_resource type="AudioStream" uid="uid://d1dhc71p4ekjl" path="res://assets/audio/footstep_carpet_004.ogg" id="14_8nw4u"]
 
 [sub_resource type="Animation" id="Animation_u4rlb"]
 length = 0.001
@@ -111,6 +117,11 @@ hit_flash_material = SubResource("ShaderMaterial_q55gy")
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_ghoxd")]
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
+
+[node name="HitRandomAudioPlayerComponent" parent="." instance=ExtResource("9_meok5")]
+autoplay = true
+max_distance = 300.0
+streams = Array[AudioStream]([ExtResource("10_hve7r"), ExtResource("11_mpore"), ExtResource("12_cxk2j"), ExtResource("13_m2kxo"), ExtResource("14_8nw4u")])
 
 [node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_dclov")]
 health_component = NodePath("../HealthComponent")
