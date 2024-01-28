@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var _description_label: Label = %DescriptionLabel
 @onready var panel_container = %PanelContainer
 
+
 func _ready():
 	panel_container.pivot_offset = panel_container.size/2
 	var tween = create_tween()
@@ -22,7 +23,14 @@ func _ready():
 func set_defeat():
 	_title_label.text = "Defeat"
 	_description_label.text = "You lost!"
+	play_jingle(true)
 
+
+func play_jingle(defeat: bool = false):
+	if defeat:
+		$DefeatStreamPlayer.play()
+	else:
+		$VictoryStreamPlayer.play()
 
 func on_restart_button_pressed():
 	get_tree().paused = false	

@@ -1,7 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccr2pyjml5e3f"]
+[gd_scene load_steps=15 format=3 uid="uid://ccr2pyjml5e3f"]
 
 [ext_resource type="Texture2D" uid="uid://c4wr81m8ifp8g" path="res://scenes/game_object/basic_enemy/basic_enemy.png" id="1_uqrhc"]
 [ext_resource type="Script" path="res://scenes/components/death_component.gd" id="1_ytloj"]
+[ext_resource type="PackedScene" uid="uid://c32pljffjpik" path="res://scenes/components/random_stream_player_2d_component.tscn" id="3_m7mpf"]
+[ext_resource type="AudioStream" uid="uid://dxp4pv4dwcl5e" path="res://assets/audio/footstep_carpet_000.ogg" id="4_suwub"]
+[ext_resource type="AudioStream" uid="uid://c5lnxdxs83f6h" path="res://assets/audio/footstep_carpet_001.ogg" id="5_88qjr"]
+[ext_resource type="AudioStream" uid="uid://bq2fagxx83sc2" path="res://assets/audio/footstep_carpet_002.ogg" id="6_rngsk"]
+[ext_resource type="AudioStream" uid="uid://nm01pjyoq4lx" path="res://assets/audio/footstep_carpet_003.ogg" id="7_gv5nx"]
+[ext_resource type="AudioStream" uid="uid://d1dhc71p4ekjl" path="res://assets/audio/footstep_carpet_004.ogg" id="8_xbejx"]
 
 [sub_resource type="Animation" id="Animation_gqtrg"]
 length = 0.001
@@ -88,3 +94,8 @@ lifetime = 0.5
 one_shot = true
 fixed_fps = 0
 interpolate = false
+
+[node name="HitRandomAudioPlayerComponent" parent="." instance=ExtResource("3_m7mpf")]
+autoplay = true
+max_distance = 300.0
+streams = Array[AudioStream]([ExtResource("4_suwub"), ExtResource("5_88qjr"), ExtResource("6_rngsk"), ExtResource("7_gv5nx"), ExtResource("8_xbejx")])
