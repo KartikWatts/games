@@ -4,6 +4,7 @@ const SPAWN_RADIUS = 350
 
 @export var basic_enemy_scene: PackedScene
 @export var wizard_enemy_scene: PackedScene
+@export var bat_enemy_scene: PackedScene
 @export var arena_time_manager: ArenaTimeManager
 
 @onready var _timer = $Timer
@@ -27,8 +28,9 @@ func get_spawn_position():
 	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
 	for i in 4:
 		spawn_position = player.global_position + (random_direction * SPAWN_RADIUS)
+		var additional_spawn_offset = 20 * random_direction
 		
-		var query_parameters = PhysicsRayQueryParameters2D.create(player.global_position, spawn_position, 1)
+		var query_parameters = PhysicsRayQueryParameters2D.create(player.global_position, spawn_position + additional_spawn_offset, 1)
 		var result =  get_tree().root.world_2d.direct_space_state.intersect_ray(query_parameters)
 		
 		if result.is_empty():
@@ -58,4 +60,6 @@ func on_arena_difficulty_increased(arena_difficulty: int):
 	_timer.wait_time = base_spawn_time - time_off
 
 	if arena_difficulty == 6:
-		enemy_table.add_item(wizard_enemy_scene, 20)
+		enemy_table.add_item(wizard_enemy_scene, 15)
+	elif arena_difficulty == 180:
+		enemy_table.add_item(bat_enemy_scene, 10)		
