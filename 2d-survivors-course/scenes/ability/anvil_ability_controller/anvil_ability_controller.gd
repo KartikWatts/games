@@ -2,6 +2,7 @@ extends Node
 
 const BASE_DAMAGE = 15
 const SPAWN_RADIUS = 100
+const SPAWN_DISTANCE = 25
 
 @export var anvil_ability_scene: PackedScene
 
@@ -21,7 +22,7 @@ func on_timer_timeout():
 	
 	var spawn_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
 	var spawn_angle = 360.0/(additional_anvil_count + 1) 
-	var spawn_position_variation =  randf_range(0, SPAWN_RADIUS)
+	var spawn_position_variation =  randf_range(SPAWN_DISTANCE, SPAWN_RADIUS)
 	
 	for i in additional_anvil_count + 1:
 		var adjusted_spawn_direction = spawn_direction.rotated(deg_to_rad(i * spawn_angle))
