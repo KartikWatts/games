@@ -61,5 +61,5 @@ func on_arena_difficulty_increased(arena_difficulty: int):
 
 	if arena_difficulty == 6:
 		enemy_table.add_item(wizard_enemy_scene, 15)
-	elif arena_difficulty == 180:
+	elif arena_difficulty == 12:
 		enemy_table.add_item(bat_enemy_scene, 10)		
