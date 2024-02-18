@@ -28,6 +28,12 @@ func on_quit_pressed():
 
 
 func on_upgrades_pressed():
+	#ScreenTransition.skip_emit = false
+	#ScreenTransition.transition()
+	#await ScreenTransition.transitioned_halfway
+	##if to_be_paused:
+	##get_tree().paused = false
+	#get_tree().change_scene_to_file("res://scenes/ui/meta_menu.tscn")
 	ScreenTransition.transition_to_scene("res://scenes/ui/meta_menu.tscn")
 
 

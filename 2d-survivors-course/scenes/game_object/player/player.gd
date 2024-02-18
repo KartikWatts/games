@@ -9,17 +9,20 @@ extends CharacterBody2D
 @onready var _visuals = $Visuals
 @onready var velocity_component = $VelocityComponent
 
+@export var arena_time_manager: ArenaTimeManager
 
 var number_colliding_bodies = 0
 var base_speed = 0
 
 
 func _ready():
+	arena_time_manager.arena_difficulty_increased.connect(on_arena_difficulty_increased)
 	base_speed = velocity_component.max_speed
 	
 	_collision_area.body_entered.connect(on_body_entered)
 	_collision_area.body_exited.connect(on_body_exited)
 	_damage_interval_timer.timeout.connect(on_damage_interval_timer_timeout)
+	_health_component.health_decreased.connect(on_health_decreased)
 	_health_component.health_changed.connect(on_health_changed)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
 	update_health_display()
@@ -72,10 +75,15 @@ func on_damage_interval_timer_timeout():
 	check_deal_damage()
 
 
-func on_health_changed():
+func on_health_decreased():
 	GameEvents.emit_player_damaged()
-	update_health_display()
+	update_health_display()	
 	$RandomStreamPlayer2DComponent.play_random()
+
+
+func on_health_changed():
+	update_health_display()
+
 
 func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary):
 	if ability_upgrade is Ability:
@@ -83,3 +91,13 @@ func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades:
 		_abilities.add_child(ability.ability_controller_scene.instantiate())
 	elif ability_upgrade.id == "player_speed":
 		velocity_component.max_speed = base_speed + (base_speed * (current_upgrades["player_speed"]["quantity"] * 0.1))
+
+
+func on_arena_difficulty_increased(arena_difficulty):
+	var is_difficulty_increased_by_30 = arena_difficulty % 6 == 0
+	
+	if is_difficulty_increased_by_30:
+		#print("regenerates health at time:", arena_difficulty * 5)
+		var health_regeneration_count = MetaProgression.get_upgrade_count("health_regeneration")
+		_health_component.heal(health_regeneration_count)
+		update_health_display()

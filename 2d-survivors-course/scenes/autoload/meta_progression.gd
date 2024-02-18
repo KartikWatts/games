@@ -11,6 +11,8 @@ var save_data: Dictionary = {
 func _ready() -> void:
 	GameEvents.experience_vial_collected.connect(on_experience_collected)
 	load_save_file()
+#FOR TESTING UPDGRADES
+	#on_experience_collected(2000)
 	
 
 func load_save_file():

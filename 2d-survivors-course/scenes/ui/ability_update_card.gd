@@ -42,6 +42,7 @@ func select_card():
 	await $AnimationPlayer.animation_finished
 	selected.emit()
 
+
 func on_gui_input(event: InputEvent):
 	if disabled:
 		return
