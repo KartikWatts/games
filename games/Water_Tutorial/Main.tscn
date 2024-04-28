@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://7xu56g80wj65"]
+
+[ext_resource type="PackedScene" uid="uid://cynjoefuws357" path="res://Scenes/Water_Body.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://bi1ouicontna8" path="res://Sprites/scene.png" id="2"]
+[ext_resource type="Script" path="res://Main.gd" id="3"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("3")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2")
+centered = false
+offset = Vector2(0, -15)
+
+[node name="Water_Body" parent="." instance=ExtResource("1")]
+z_index = 1
+position = Vector2(-9.21958, 116.238)
+spread = 0.5
+distance_between_springs = 24
+spring_number = 30
+border_thickness = 1.0
