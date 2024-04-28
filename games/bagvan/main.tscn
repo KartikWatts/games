@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dynakmpjm46yj"]
+
+[ext_resource type="PackedScene" uid="uid://mhkxkxkp8vf7" path="res://environment/water/water_body.tscn" id="1_2xtsq"]
+
+[node name="Main" type="Node2D"]
+
+[node name="WaterBody" parent="." instance=ExtResource("1_2xtsq")]
+position = Vector2(474, 340)
