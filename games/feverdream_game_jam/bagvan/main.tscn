@@ -1,15 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dynakmpjm46yj"]
 
-[ext_resource type="Texture2D" uid="uid://bow5qgpwh5s1u" path="res://assets/environment/level.svg" id="1_0vx78"]
 [ext_resource type="Shader" path="res://environment/water/water.gdshader" id="1_7ltqv"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vw87e"]
-texture = ExtResource("1_0vx78")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_hq12j"]
-sources/0 = SubResource("TileSetAtlasSource_vw87e")
+[ext_resource type="Texture2D" uid="uid://4gu8t1mgpalf" path="res://assets/environment/level.png" id="1_m0so5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcbpr"]
 shader = ExtResource("1_7ltqv")
@@ -20,21 +12,38 @@ shader_parameter/tide = 0.1
 shader_parameter/foamthickness = 0.05
 shader_parameter/timescale = 0.5
 shader_parameter/waterdeep = 0.3
-shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
-shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/WATER_COL = Color(0.137255, 0.537255, 0.854902, 1)
+shader_parameter/WATER2_COL = Color(0.0588235, 0.368627, 0.611765, 1)
 shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_okge0"]
+texture = ExtResource("1_m0so5")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2tk7v"]
+sources/0 = SubResource("TileSetAtlasSource_okge0")
 
 [node name="Main" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_hq12j")
-rendering_quadrant_size = 64
-format = 2
-layer_0/tile_data = PackedInt32Array(1376257, 0, 0, 1441793, 0, 0, 1507329, 0, 0, 1572865, 0, 0, 1638401, 0, 0, 1703937, 0, 0, 1769473, 0, 0, 1835009, 0, 0, 1900545, 0, 0, 1966081, 0, 0, 2031617, 0, 0, 2097153, 0, 0, 2162689, 0, 0, 2228225, 0, 0, 2293761, 0, 0, 2359297, 0, 0, 2424833, 0, 0, 2490369, 0, 0, 2555905, 0, 0, 2621441, 0, 0, 2686977, 0, 0, 2752513, 0, 0, 2818049, 0, 0, 2883585, 0, 0, 2949121, 0, 0, 3014657, 0, 0, 3080193, 0, 0, 3145729, 0, 0, 3145730, 0, 0, 3145731, 0, 0, 3145732, 0, 0, 3145733, 0, 0, 3145734, 0, 0, 3145735, 0, 0, 3145736, 0, 0, 3145737, 0, 0, 3145738, 0, 0, 3145739, 0, 0, 3145740, 0, 0, 3145741, 0, 0, 3145742, 0, 0, 3145743, 0, 0, 3145744, 0, 0, 3145745, 0, 0, 3145746, 0, 0, 3145747, 0, 0, 3145748, 0, 0, 3145749, 0, 0, 3145750, 0, 0, 3145751, 0, 0, 3145752, 0, 0, 3145753, 0, 0, 3145754, 0, 0, 3145755, 0, 0, 3145756, 0, 0, 3145757, 0, 0, 3145758, 0, 0, 3145759, 0, 0, 3145760, 0, 0, 3145761, 0, 0, 3145762, 0, 0, 3145763, 0, 0, 3145764, 0, 0, 3145765, 0, 0, 3145766, 0, 0, 3145767, 0, 0, 3145768, 0, 0, 3145769, 0, 0, 3145770, 0, 0, 3145771, 0, 0, 3145772, 0, 0, 3145773, 0, 0, 3145774, 0, 0, 3145775, 0, 0, 3145776, 0, 0, 3145777, 0, 0, 3145778, 0, 0, 3145779, 0, 0, 3145780, 0, 0, 3145781, 0, 0, 3145782, 0, 0, 3145783, 0, 0, 3145784, 0, 0, 3145785, 0, 0, 3145786, 0, 0, 3145787, 0, 0, 3145788, 0, 0, 3145789, 0, 0, 3145790, 0, 0, 2883646, 0, 0, 2818110, 0, 0, 2752574, 0, 0, 2687038, 0, 0, 2621502, 0, 0, 2555966, 0, 0, 2490430, 0, 0, 2424894, 0, 0, 2359358, 0, 0, 2293822, 0, 0, 2228286, 0, 0, 2162750, 0, 0, 2097214, 0, 0, 2031678, 0, 0, 1966142, 0, 0, 1900606, 0, 0, 1835070, 0, 0, 1769534, 0, 0, 1703998, 0, 0, 1638462, 0, 0, 1572926, 0, 0, 1507390, 0, 0, 1441854, 0, 0, 1376318, 0, 0, 1310782, 0, 0)
-
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_gcbpr")
-offset_left = 56.0
-offset_top = 532.0
-offset_right = 968.0
-offset_bottom = 744.0
+offset_left = -449.0
+offset_top = 308.0
+offset_right = 2839.0
+offset_bottom = 1051.0
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(321, -207)
+tile_set = SubResource("TileSet_2tk7v")
+rendering_quadrant_size = 64
+format = 2
+layer_0/tile_data = PackedInt32Array(1835015, 0, 0, 2031623, 0, 1, 2293767, 0, 2, 1835019, 65536, 0, 1835023, 131072, 0, 2097163, 65536, 1, 2097167, 131072, 1, 2359307, 65536, 2, 2359311, 131072, 2, 2359303, 0, 2)
