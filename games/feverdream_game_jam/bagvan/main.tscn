@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://environment/water/water.gdshader" id="1_7ltqv"]
 [ext_resource type="Texture2D" uid="uid://4gu8t1mgpalf" path="res://assets/environment/level.png" id="1_m0so5"]
-[ext_resource type="Texture2D" uid="uid://bjt4sbyy7ggng" path="res://assets/characters/tadpole_final.png" id="3_gl210"]
+[ext_resource type="PackedScene" uid="uid://cr57qlup7np6p" path="res://players/tadpole.tscn" id="3_ubir0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcbpr"]
 shader = ExtResource("1_7ltqv")
@@ -194,10 +194,4 @@ tile_set = SubResource("TileSet_2tk7v")
 format = 2
 layer_0/tile_data = PackedInt32Array(524292, 4, 0, 589828, 4, 1, 655364, 4, 2, 524293, 65540, 0, 589829, 65540, 1, 655365, 65540, 2, 524294, 131076, 0, 589830, 131076, 1, 655366, 131076, 2)
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(160, 524)
-texture = ExtResource("3_gl210")
-hframes = 4
-vframes = 3
-
-[node name="Camera2D" type="Camera2D" parent="Sprite2D2"]
+[node name="Tadpole" parent="." instance=ExtResource("3_ubir0")]
