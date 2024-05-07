@@ -1,8 +1,12 @@
-extends Node2D
+extends CharacterBody2D
 
-const NORMAL_SPEED := 500.0
-const BOOST_SPEED := 1400.0
+const NORMAL_SPEED := 350.0
+const BOOST_SPEED := 700.0
 const STEERING_FACTOR := 3.0
+const WATER_GRAVITY := 1.0
+const AIR_GRAVITY := 80.0
+const WATER_LEVEL := 140.0
+
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -11,12 +15,12 @@ const STEERING_FACTOR := 3.0
 
 var special_ability_applied := false
 var max_speed  := NORMAL_SPEED
-var velocity := Vector2.ZERO
+
 
 func _ready() -> void:
 	idle_timer.timeout.connect(_on_idle_timer_timeout)
 	special_timer.timeout.connect(_on_special_timer_timeout)
-
+	
 
 func _process(delta: float) -> void:
 	var direction := Vector2.ZERO
@@ -38,7 +42,18 @@ func _process(delta: float) -> void:
 	var steering_vector = desired_velocity - velocity
 	
 	velocity += steering_vector * STEERING_FACTOR * delta
-	position += velocity * delta
+	
+# SETTING GRAVITY FOR CHARACTER
+	var gravity_factor := WATER_GRAVITY
+	
+	if position.y < WATER_LEVEL:
+		gravity_factor = AIR_GRAVITY
+		if special_ability_applied:
+			gravity_factor /= 6.0
+		
+	velocity += Vector2.DOWN * gravity_factor
+	
+	move_and_slide()
 	
 #ADJUST SPRITE FLIP BASED ON VELOCITY
 	sprite_2d.flip_v = velocity.x < 0
@@ -63,3 +78,4 @@ func _on_idle_timer_timeout():
 func _on_special_timer_timeout() -> void:
 	max_speed = NORMAL_SPEED
 	special_ability_applied = false
+	animation_player.play("move")
