@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dynakmpjm46yj"]
+[gd_scene load_steps=9 format=3 uid="uid://dynakmpjm46yj"]
 
 [ext_resource type="Shader" path="res://environment/water/water.gdshader" id="1_7ltqv"]
 [ext_resource type="Texture2D" uid="uid://4gu8t1mgpalf" path="res://assets/environment/level.png" id="1_m0so5"]
 [ext_resource type="PackedScene" uid="uid://cr57qlup7np6p" path="res://players/tadpole.tscn" id="3_ubir0"]
 [ext_resource type="PackedScene" uid="uid://b6d6b3m841cvq" path="res://mobs/mob_1.tscn" id="4_2x7cm"]
+[ext_resource type="PackedScene" uid="uid://bsapohqxq2ggn" path="res://mobs/mob_2.tscn" id="5_1l3si"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcbpr"]
 shader = ExtResource("1_7ltqv")
@@ -261,7 +262,7 @@ layer_0/tile_data = PackedInt32Array(589812, 327684, 0, 655348, 327684, 0, 58981
 metadata/_edit_lock_ = true
 
 [node name="Tadpole" parent="." instance=ExtResource("3_ubir0")]
-position = Vector2(3333, 607)
+position = Vector2(11072, 288)
 
 [node name="Mobs" type="Node" parent="."]
 
@@ -273,3 +274,6 @@ position = Vector2(6043, 599)
 
 [node name="Mob3" parent="Mobs" instance=ExtResource("4_2x7cm")]
 position = Vector2(8059, 141)
+
+[node name="Mob4" parent="Mobs" instance=ExtResource("5_1l3si")]
+position = Vector2(11017, -862)

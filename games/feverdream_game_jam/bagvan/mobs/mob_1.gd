@@ -3,6 +3,7 @@ extends CharacterBody2D
 const MOVEMENT_SPEED := 150.0
 const ATTACK_SPEED := 250.0
 const STEERING_FACTOR := 3.0
+const WAIT_TIME := 2.0
 
 enum Stance {NORMAL, ATTACK, DIE}
 
@@ -59,7 +60,7 @@ func accelerate_in_direction(direction: Vector2):
 
 func turn_movement_direction(old_direction: Vector2):
 	movement_direction = Vector2.ZERO
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(WAIT_TIME).timeout
 	movement_direction = old_direction * -1
 
 
