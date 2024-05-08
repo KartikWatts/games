@@ -1,24 +1,30 @@
 extends CharacterBody2D
 
-#TODO:: CUSTOMISE FOR MOB_2-> BIRD
+const MOVEMENT_SPEED := 350.0
+const ATTACK_SPEED := 1000.0
+const POUNCE_SPEED := 1500.0
+const POUNCE_RANGE := 200.0
+const STEERING_FACTOR := 5.0
+const WAIT_TIME := 1.0
+const DISTANCE_MARGIN := 100.0
 
-const MOVEMENT_SPEED := 150.0
-const ATTACK_SPEED := 250.0
-const STEERING_FACTOR := 3.0
-
-enum Stance {NORMAL, ATTACK, DIE}
+enum Stance {NORMAL, ATTACK, TRAVEL_BACK, DIE}
 
 @onready var move_timer: Timer = $MoveTimer
 @onready var area_2d: Area2D = $Area2D
 
 var stance := Stance.NORMAL
 var movement_direction := Vector2.LEFT
-
+var initial_position := Vector2.ZERO
+var player
 
 func _ready() -> void:
+	initial_position = global_position
+	player = get_tree().get_first_node_in_group("player") as Node2D
+	
 	move_timer.timeout.connect(_on_move_timer_timeout)
 	area_2d.area_entered.connect(_on_area_entered)
-	area_2d.area_exited.connect(_on_area_exited)
+	#area_2d.area_exited.connect(_on_area_exited)
 
 
 func _process(_delta: float) -> void:
@@ -26,10 +32,12 @@ func _process(_delta: float) -> void:
 		normal_process()
 	elif stance == Stance.ATTACK:
 		attack_process()
+	elif stance == Stance.TRAVEL_BACK:
+		travel_back_process()
 	
-	if position.y < Game.WATER_LEVEL:
-		velocity += Vector2.DOWN * Game.AIR_GRAVITY
-
+	if position.y > Game.WATER_LEVEL - DISTANCE_MARGIN:
+		stance = Stance.TRAVEL_BACK
+		
 	move_and_slide()
 
 
@@ -41,7 +49,6 @@ func normal_process():
 
 
 func attack_process():
-	var player = get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
 		return
 	
@@ -54,14 +61,24 @@ func attack_process():
 	accelerate_in_direction(direction)
 
 
+func travel_back_process():
+	if global_position.y <= initial_position.y + DISTANCE_MARGIN :
+		stance = Stance.NORMAL
+	else:
+		accelerate_in_direction(Vector2.UP)
+
+
 func accelerate_in_direction(direction: Vector2):
+	var speed := ATTACK_SPEED
+	if player and player.global_position.y - global_position.y < POUNCE_RANGE:
+		speed = POUNCE_SPEED
 	var desired_velocity = direction * ATTACK_SPEED
 	velocity = velocity.lerp(desired_velocity, 1 - exp(-STEERING_FACTOR * get_process_delta_time()))
 
 
 func turn_movement_direction(old_direction: Vector2):
 	movement_direction = Vector2.ZERO
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(WAIT_TIME).timeout
 	movement_direction = old_direction * -1
 
 
@@ -72,10 +89,12 @@ func _on_move_timer_timeout():
 
 func _on_area_entered(area_entered: Area2D):
 	if area_entered.get_parent().is_in_group("player"):
-		stance = Stance.ATTACK
+		if stance != Stance.TRAVEL_BACK:
+			stance = Stance.ATTACK
 
-
-func _on_area_exited(area_exited: Area2D):
-	if area_exited.get_parent().is_in_group("player"):
-		move_timer.start()
-		stance = Stance.NORMAL
+#
+#func _on_area_exited(area_exited: Area2D):
+	#if area_exited.get_parent().is_in_group("player"):
+		#if stance != Stance.TRAVEL_BACK:
+			#move_timer.start()
+			#stance = Stance.NORMAL
