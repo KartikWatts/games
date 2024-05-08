@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cr57qlup7np6p"]
+[gd_scene load_steps=10 format=3 uid="uid://cr57qlup7np6p"]
 
 [ext_resource type="Script" path="res://players/tadpole.gd" id="1_c60ds"]
 [ext_resource type="Texture2D" uid="uid://bjt4sbyy7ggng" path="res://assets/characters/tadpole_final.png" id="1_ry176"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_eaq8n"]
+radius = 131.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vabp"]
-radius = 30.0
-height = 180.0
+radius = 35.0
+height = 192.0
 
 [sub_resource type="Animation" id="Animation_e351q"]
 length = 0.001
@@ -78,14 +81,20 @@ _data = {
 "special": SubResource("Animation_aw4wg")
 }
 
-[node name="Tadpole" type="CharacterBody2D"]
-collision_mask = 4
+[node name="Tadpole" type="CharacterBody2D" groups=["player"]]
+collision_mask = 7
 script = ExtResource("1_c60ds")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ry176")
 hframes = 4
 vframes = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_eaq8n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)

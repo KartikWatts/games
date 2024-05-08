@@ -3,15 +3,12 @@ extends CharacterBody2D
 const NORMAL_SPEED := 350.0
 const BOOST_SPEED := 700.0
 const STEERING_FACTOR := 3.0
-const WATER_GRAVITY := 1.0
-const AIR_GRAVITY := 80.0
-const WATER_LEVEL := 140.0
-
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var idle_timer: Timer = $IdleTimer
 @onready var special_timer: Timer = $SpecialTimer
+@onready var area_2d: Area2D = $Area2D
 
 var special_ability_applied := false
 var max_speed  := NORMAL_SPEED
@@ -20,7 +17,7 @@ var max_speed  := NORMAL_SPEED
 func _ready() -> void:
 	idle_timer.timeout.connect(_on_idle_timer_timeout)
 	special_timer.timeout.connect(_on_special_timer_timeout)
-	
+
 
 func _process(delta: float) -> void:
 	var direction := Vector2.ZERO
@@ -44,10 +41,10 @@ func _process(delta: float) -> void:
 	velocity += steering_vector * STEERING_FACTOR * delta
 	
 # SETTING GRAVITY FOR CHARACTER
-	var gravity_factor := WATER_GRAVITY
+	var gravity_factor := Game.WATER_GRAVITY
 	
-	if position.y < WATER_LEVEL:
-		gravity_factor = AIR_GRAVITY
+	if position.y < Game.WATER_LEVEL:
+		gravity_factor = Game.AIR_GRAVITY
 		if special_ability_applied:
 			gravity_factor /= 6.0
 		
