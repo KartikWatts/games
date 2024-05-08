@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+#TODO:: CUSTOMISE FOR MOB_2-> BIRD
+
 const MOVEMENT_SPEED := 150.0
 const ATTACK_SPEED := 250.0
 const STEERING_FACTOR := 3.0
