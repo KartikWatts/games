@@ -9,6 +9,8 @@ const STEERING_FACTOR := 3.0
 @onready var idle_timer: Timer = $IdleTimer
 @onready var special_timer: Timer = $SpecialTimer
 @onready var area_2d: Area2D = $Area2D
+@onready var camera_2d: Camera2D = $Camera2D
+@onready var checkpoints: Node = %Checkpoints
 
 var special_ability_applied := false
 var max_speed  := NORMAL_SPEED
@@ -17,6 +19,8 @@ var max_speed  := NORMAL_SPEED
 func _ready() -> void:
 	idle_timer.timeout.connect(_on_idle_timer_timeout)
 	special_timer.timeout.connect(_on_special_timer_timeout)
+	Game.camera_action_triggered.connect(_on_camera_action_triggered)
+	Game.checkpoint_reached.connect(_on_checkpoint_reached)
 
 
 func _process(delta: float) -> void:
@@ -76,3 +80,15 @@ func _on_special_timer_timeout() -> void:
 	max_speed = NORMAL_SPEED
 	special_ability_applied = false
 	animation_player.play("move")
+
+
+func _on_camera_action_triggered(camera_action: Game.CameraAction, action_value: float):
+	Game.process_camera_action(camera_2d, camera_action, action_value)
+
+
+func _on_checkpoint_reached(checkpoint_id: int):
+	for checkpoint_node: Checkpoint in checkpoints.get_children():
+		if checkpoint_node.checkpoint_id == checkpoint_id:
+			Game.set_player_spawn_position(checkpoint_node.position)
+			checkpoint_node.queue_free()
+			break

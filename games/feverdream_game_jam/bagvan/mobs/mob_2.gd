@@ -5,7 +5,6 @@ const ATTACK_SPEED := 1000.0
 const POUNCE_SPEED := 1500.0
 const POUNCE_RANGE := 200.0
 const STEERING_FACTOR := 5.0
-const WAIT_TIME := 1.0
 const DISTANCE_MARGIN := 100.0
 
 enum Stance {NORMAL, ATTACK, TRAVEL_BACK, DIE}
@@ -21,7 +20,9 @@ var player
 func _ready() -> void:
 	initial_position = global_position
 	player = get_tree().get_first_node_in_group("player") as Node2D
+	await get_tree().create_timer(randf_range(0,2)).timeout
 	
+	move_timer.wait_time = randf_range(4,5)
 	move_timer.timeout.connect(_on_move_timer_timeout)
 	area_2d.area_entered.connect(_on_area_entered)
 	#area_2d.area_exited.connect(_on_area_exited)
@@ -78,7 +79,8 @@ func accelerate_in_direction(direction: Vector2):
 
 func turn_movement_direction(old_direction: Vector2):
 	movement_direction = Vector2.ZERO
-	await get_tree().create_timer(WAIT_TIME).timeout
+	var wait_time = randf_range(1, 1.5)
+	await get_tree().create_timer(wait_time).timeout
 	movement_direction = old_direction * -1
 
 

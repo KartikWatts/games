@@ -7,9 +7,11 @@ radius = 111.0
 height = 380.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y34s"]
-size = Vector2(20, 32.7677)
+size = Vector2(14.2125, 26.1662)
 
 [node name="Mob2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_k38eg")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -34,7 +36,7 @@ scale = Vector2(639.336, 474.841)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.220541, 1.07738)
+position = Vector2(0.233836, 0.840455)
 scale = Vector2(0.0623998, 0.0717786)
 shape = SubResource("RectangleShape2D_4y34s")
 debug_color = Color(0.932654, 2.41616e-05, 0.647861, 0.42)

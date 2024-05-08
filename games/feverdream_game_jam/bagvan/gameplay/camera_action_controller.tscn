@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://v2c8o7gfu27l"]
+
+[ext_resource type="Script" path="res://gameplay/camera_action_controller.gd" id="1_611kj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_heurb"]
+size = Vector2(333, 1681)
+
+[node name="CameraActionController" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_611kj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(156.5, -115.5)
+shape = SubResource("RectangleShape2D_heurb")

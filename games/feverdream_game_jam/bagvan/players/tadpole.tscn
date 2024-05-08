@@ -118,3 +118,5 @@ one_shot = true
 limit_left = 0
 limit_top = -1000
 limit_bottom = 1000
+limit_smoothed = true
+position_smoothing_enabled = true
