@@ -10,15 +10,19 @@ enum MobType {CHASER, STORMER}
 enum Stance {NORMAL, ATTACK, DIE}
 
 @export var mob_type:MobType = MobType.CHASER
+@export var show_property_logs := false
 
 @onready var move_timer: Timer = $MoveTimer
-@onready var chaser_sense: Area2D = $ChaserSense
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var hitbox: Area2D = $Components/Hitbox
+@onready var chaser_sense: Area2D = $Components/ChaserSense
 @onready var chaser_collision: CollisionShape2D = %ChaserCollision
-@onready var stormer_sense: Area2D = $StormerSense
+@onready var stormer_sense: Area2D = $Components/StormerSense
 @onready var stormer_collision: CollisionShape2D = %StormerCollision
-@onready var hitbox: Area2D = $Hitbox
+@onready var components: Node2D = $Components
 
-
+var rotated_components := false
 var stance := Stance.NORMAL
 var movement_direction := Vector2.LEFT
 var storm_target_position := Vector2.ZERO
@@ -41,6 +45,16 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#print(movement_direction, velocity.x)
+	if movement_direction.x > 0:
+		sprite_2d.flip_h = true
+		if not rotated_components:
+			components.scale = Vector2.ONE * -1
+			rotated_components = true
+	elif movement_direction.x < 0:
+		sprite_2d.flip_h = false
+		components.scale = Vector2.ONE		
+		rotated_components = false
+			
 	if stance == Stance.NORMAL:
 		normal_process()
 	elif stance == Stance.ATTACK:
@@ -71,9 +85,9 @@ func attack_process():
 		
 	
 	if direction.x >= 0:
-		movement_direction = Vector2.LEFT
-	else:
 		movement_direction = Vector2.RIGHT
+	else:
+		movement_direction = Vector2.LEFT
 	
 	accelerate_in_direction(direction)
 
@@ -91,10 +105,11 @@ func turn_movement_direction(old_direction: Vector2):
 	await get_tree().create_timer(WAIT_TIME).timeout
 	movement_direction = old_direction * -1
 	#print("TURNING MOVEMENT FROM ", old_direction, "TO ", movement_direction)
-	rotate(PI)
 
 
 func _on_move_timer_timeout():
+	if show_property_logs:
+		print("MOVE_TIMER")
 	var old_direction := movement_direction
 	turn_movement_direction(old_direction)
 
@@ -102,20 +117,23 @@ func _on_move_timer_timeout():
 func _on_area_entered(area_entered: Area2D):
 	#print(area_entered)
 	if area_entered.get_parent().is_in_group("player"):
+		move_timer.stop()		
 		stance = Stance.ATTACK
-	if mob_type == MobType.STORMER:
-		storm_target_position = (area_entered.global_position - global_position).normalized()
-		move_timer.stop()
-		await get_tree().create_timer(2.0).timeout
-		rotate(PI)
-		move_timer.start()
-		stance = Stance.NORMAL
+		animation_player.play("attack")
+		
+		if mob_type == MobType.STORMER:
+			storm_target_position = (area_entered.global_position - global_position).normalized()
+			await get_tree().create_timer(2.0).timeout
+			move_timer.start()
+			stance = Stance.NORMAL
+			animation_player.play("normal")		
 
 
 func _on_area_exited(area_exited: Area2D):
 	if area_exited.get_parent().is_in_group("player"):
 		move_timer.start()
 		stance = Stance.NORMAL
+		animation_player.play("normal")
 
 
 func _on_stormer_body_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int):
