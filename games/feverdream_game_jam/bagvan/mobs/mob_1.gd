@@ -90,7 +90,7 @@ func turn_movement_direction(old_direction: Vector2):
 	movement_direction = Vector2.ZERO
 	await get_tree().create_timer(WAIT_TIME).timeout
 	movement_direction = old_direction * -1
-	print("TURNING MOVEMENT FROM ", old_direction, "TO ", movement_direction)
+	#print("TURNING MOVEMENT FROM ", old_direction, "TO ", movement_direction)
 	rotate(PI)
 
 
