@@ -1,42 +1,73 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6d6b3m841cvq"]
+[gd_scene load_steps=6 format=3 uid="uid://b6d6b3m841cvq"]
 
 [ext_resource type="Script" path="res://mobs/mob_1.gd" id="1_itc1a"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vaaiu"]
 radius = 111.0
-height = 380.0
+height = 364.815
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qpkc2"]
+radius = 159.013
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcg18"]
 radius = 15.7669
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0hnr"]
+size = Vector2(30.3802, 6.54277)
+
 [node name="Mob1" type="CharacterBody2D"]
+position = Vector2(-1, -1)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 20
 script = ExtResource("1_itc1a")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -15.0
-offset_top = -10.0
-offset_right = 145.0
-offset_bottom = 90.0
-scale = Vector2(2.00644, 1.51738)
+offset_left = -130.0
+offset_top = -100.0
+offset_right = 130.0
+offset_bottom = 100.0
 color = Color(0.936174, 0.321036, 0.0913738, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(147, 67)
 rotation = -1.5708
+scale = Vector2(1, 1.08)
 shape = SubResource("CapsuleShape2D_vaaiu")
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-93, 0)
+scale = Vector2(0.818926, 0.695577)
+shape = SubResource("CircleShape2D_qpkc2")
+
+[node name="ChaserSense" type="Area2D" parent="."]
+position = Vector2(-146, -8)
 scale = Vector2(639.336, 474.841)
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.222105, 0.138994)
+[node name="ChaserCollision" type="CollisionShape2D" parent="ChaserSense"]
+unique_name_in_owner = true
 scale = Vector2(0.0623998, 0.0717786)
 shape = SubResource("CircleShape2D_lcg18")
+debug_color = Color(0.932654, 2.41616e-05, 0.647861, 0.42)
+
+[node name="StormerSense" type="Area2D" parent="."]
+position = Vector2(-74, -56)
+scale = Vector2(639.336, 474.841)
+collision_layer = 2
+collision_mask = 17
+
+[node name="StormerCollision" type="CollisionShape2D" parent="StormerSense"]
+unique_name_in_owner = true
+position = Vector2(-0.625649, 0.121093)
+scale = Vector2(0.0623998, 0.0717786)
+shape = SubResource("RectangleShape2D_d0hnr")
+disabled = true
 debug_color = Color(0.932654, 2.41616e-05, 0.647861, 0.42)

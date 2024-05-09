@@ -8,7 +8,6 @@ const STEERING_FACTOR := 3.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var idle_timer: Timer = $IdleTimer
 @onready var special_timer: Timer = $SpecialTimer
-@onready var area_2d: Area2D = $Area2D
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var checkpoints: Node = %Checkpoints
 

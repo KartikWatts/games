@@ -10,4 +10,4 @@ func _ready() -> void:
 func _on_area_entered(area_entered: Area2D):
 	if area_entered.get_parent().is_in_group("player"):
 		Game.trigger_camera_action(camera_action, action_value)
-		queue_free()
+		#queue_free()

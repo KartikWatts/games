@@ -25,7 +25,7 @@ func process_camera_action(camera_node: Camera2D, camera_action: CameraAction, a
 		CameraAction.BOTTOM_LIMIT:
 			camera_node.limit_bottom = action_value
 			var tween = create_tween()
-			tween.tween_property(camera_node, "offset:y", camera_node.position.y + 250.0, 1)
+			tween.tween_property(camera_node, "offset:y", camera_node.position.y + 250.0, 4.0)
 
 func trigger_camera_action(camera_action: CameraAction, action_value: float):
 	camera_action_triggered.emit(camera_action, action_value)
