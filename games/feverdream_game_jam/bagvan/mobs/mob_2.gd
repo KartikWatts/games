@@ -36,6 +36,9 @@ func _process(_delta: float) -> void:
 	elif stance == Stance.TRAVEL_BACK:
 		travel_back_process()
 	
+	if is_on_floor():
+		stance = Stance.TRAVEL_BACK	
+	
 	if position.y > Game.WATER_LEVEL - DISTANCE_MARGIN:
 		stance = Stance.TRAVEL_BACK
 		
