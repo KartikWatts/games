@@ -33,4 +33,8 @@ func trigger_camera_action(camera_action: CameraAction, action_value: float):
 
 func set_checkpoint(checkpoint_id: int):
 	checkpoint_reached.emit(checkpoint_id)
-	
+
+
+func play_audio(stream_player: Node, audio_stream: AudioStream):
+	stream_player.stream = audio_stream
+	stream_player.play()

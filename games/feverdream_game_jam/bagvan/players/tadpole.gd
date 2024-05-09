@@ -10,6 +10,10 @@ const STEERING_FACTOR := 3.0
 @onready var special_timer: Timer = $SpecialTimer
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var checkpoints: Node = %Checkpoints
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
+var jump_music = preload("res://assets/music/jump.mp3")
+var special_music = preload("res://assets/music/special.mp3")
 
 var special_ability_applied := false
 var max_speed  := NORMAL_SPEED
@@ -30,6 +34,7 @@ func _process(delta: float) -> void:
 		direction = direction.normalized()
 	
 	if Input.is_action_just_pressed("special_ability"):
+		Game.play_audio(audio_stream_player, special_music)
 		max_speed = BOOST_SPEED
 		special_timer.start()
 		special_ability_applied = true
@@ -47,6 +52,7 @@ func _process(delta: float) -> void:
 	var gravity_factor := Game.WATER_GRAVITY
 	
 	if position.y < Game.WATER_LEVEL:
+		Game.play_audio(audio_stream_player, jump_music)
 		gravity_factor = Game.AIR_GRAVITY
 		if special_ability_applied:
 			gravity_factor /= 6.0
