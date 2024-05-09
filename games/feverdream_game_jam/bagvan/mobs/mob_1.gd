@@ -21,6 +21,11 @@ enum Stance {NORMAL, ATTACK, DIE}
 @onready var stormer_sense: Area2D = $Components/StormerSense
 @onready var stormer_collision: CollisionShape2D = %StormerCollision
 @onready var components: Node2D = $Components
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+var attack_music = preload("res://assets/music/attack.mp3")
+var growl_music = preload("res://assets/music/growl.mp3")
+var watched_music = preload("res://assets/music/watched.mp3")
 
 var rotated_components := false
 var stance := Stance.NORMAL
@@ -56,6 +61,8 @@ func _process(_delta: float) -> void:
 		rotated_components = false
 			
 	if stance == Stance.NORMAL:
+		if audio_stream_player_2d.playing == false:
+			Game.play_audio(audio_stream_player_2d, growl_music)
 		normal_process()
 	elif stance == Stance.ATTACK:
 		attack_process()
@@ -117,7 +124,9 @@ func _on_move_timer_timeout():
 func _on_area_entered(area_entered: Area2D):
 	#print(area_entered)
 	if area_entered.get_parent().is_in_group("player"):
-		move_timer.stop()		
+		move_timer.stop()
+		Game.play_audio(audio_stream_player_2d, watched_music)
+		Game.play_audio(audio_stream_player_2d, attack_music)		
 		stance = Stance.ATTACK
 		animation_player.play("attack")
 		

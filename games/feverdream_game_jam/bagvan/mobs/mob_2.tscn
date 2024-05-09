@@ -1,10 +1,84 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsapohqxq2ggn"]
+[gd_scene load_steps=10 format=3 uid="uid://bsapohqxq2ggn"]
 
 [ext_resource type="Script" path="res://mobs/mob_2.gd" id="1_k38eg"]
+[ext_resource type="Texture2D" uid="uid://b4lfp335ypsg0" path="res://assets/mobs/bird.png" id="2_0gjdk"]
+
+[sub_resource type="Animation" id="Animation_nfwsv"]
+resource_name = "normal"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_3xfbd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_tw0uh"]
+resource_name = "attack"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_gcfdd"]
+resource_name = "pounce"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_51sae"]
+_data = {
+"RESET": SubResource("Animation_3xfbd"),
+"attack": SubResource("Animation_tw0uh"),
+"normal": SubResource("Animation_nfwsv"),
+"pounce": SubResource("Animation_gcfdd")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_njos7"]
-radius = 111.0
-height = 380.0
+radius = 165.0
+height = 444.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y34s"]
 size = Vector2(14.2125, 26.1662)
@@ -14,7 +88,20 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_k38eg")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(172, 76)
+texture = ExtResource("2_0gjdk")
+hframes = 3
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_51sae")
+}
+autoplay = "normal"
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -15.0
 offset_top = -10.0
 offset_right = 145.0
@@ -23,6 +110,7 @@ scale = Vector2(2.00644, 1.51738)
 color = Color(0.936174, 0.321036, 0.0913738, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(147, 67)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_njos7")
@@ -32,11 +120,15 @@ wait_time = 4.0
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 scale = Vector2(639.336, 474.841)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 position = Vector2(0.233836, 0.840455)
 scale = Vector2(0.0623998, 0.0717786)
 shape = SubResource("RectangleShape2D_4y34s")
 debug_color = Color(0.932654, 2.41616e-05, 0.647861, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

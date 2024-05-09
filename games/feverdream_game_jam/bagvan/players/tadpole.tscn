@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cr57qlup7np6p"]
+[gd_scene load_steps=11 format=3 uid="uid://cr57qlup7np6p"]
 
 [ext_resource type="Script" path="res://players/tadpole.gd" id="1_c60ds"]
 [ext_resource type="Texture2D" uid="uid://bjt4sbyy7ggng" path="res://assets/characters/tadpole_final.png" id="1_ry176"]
@@ -73,9 +73,26 @@ tracks/0/keys = {
 "values": [8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_811ke"]
+resource_name = "die"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkna5"]
 _data = {
 "RESET": SubResource("Animation_e351q"),
+"die": SubResource("Animation_811ke"),
 "idle": SubResource("Animation_uecfg"),
 "move": SubResource("Animation_28b71"),
 "special": SubResource("Animation_aw4wg")
@@ -122,3 +139,5 @@ limit_top = -1000
 limit_bottom = 1000
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

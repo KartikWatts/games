@@ -143,3 +143,5 @@ scale = Vector2(0.0623998, 0.0717786)
 shape = SubResource("RectangleShape2D_d0hnr")
 disabled = true
 debug_color = Color(0.932654, 2.41616e-05, 0.647861, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
