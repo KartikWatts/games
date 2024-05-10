@@ -1,24 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6d6b3m841cvq"]
+[gd_scene load_steps=12 format=3 uid="uid://b6d6b3m841cvq"]
 
 [ext_resource type="Script" path="res://mobs/mob_1.gd" id="1_itc1a"]
 [ext_resource type="Texture2D" uid="uid://w4gdmhmxyxq7" path="res://assets/mobs/fish.png" id="2_telfa"]
-
-[sub_resource type="Animation" id="Animation_4awol"]
-resource_name = "normal"
-length = 0.9
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
 
 [sub_resource type="Animation" id="Animation_whkou"]
 length = 0.001
@@ -52,10 +35,57 @@ tracks/0/keys = {
 "values": [3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_dy3m7"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4awol"]
+resource_name = "normal"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sfx02"]
 _data = {
 "RESET": SubResource("Animation_whkou"),
 "attack": SubResource("Animation_tjfgy"),
+"die": SubResource("Animation_dy3m7"),
 "normal": SubResource("Animation_4awol")
 }
 
@@ -72,7 +102,7 @@ radius = 15.7669
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0hnr"]
 size = Vector2(30.3802, 6.54277)
 
-[node name="Mob1" type="CharacterBody2D"]
+[node name="Mob1" type="CharacterBody2D" groups=["fish", "mob"]]
 position = Vector2(-1, -1)
 collision_layer = 2
 collision_mask = 20
@@ -89,15 +119,6 @@ libraries = {
 "": SubResource("AnimationLibrary_sfx02")
 }
 autoplay = "normal"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-offset_left = -130.0
-offset_top = -100.0
-offset_right = 130.0
-offset_bottom = 100.0
-color = Color(0.936174, 0.321036, 0.0913738, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708

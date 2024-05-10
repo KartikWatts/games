@@ -1,3 +1,4 @@
+class_name BirdMob
 extends CharacterBody2D
 
 const MOVEMENT_SPEED := 350.0

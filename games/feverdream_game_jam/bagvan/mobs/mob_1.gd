@@ -1,3 +1,4 @@
+class_name FishMob
 extends CharacterBody2D
 
 const MOVEMENT_SPEED := 150.0
@@ -23,9 +24,10 @@ enum Stance {NORMAL, ATTACK, DIE}
 @onready var components: Node2D = $Components
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-var attack_music = preload("res://assets/music/attack.mp3")
+var attack_music = preload("res://assets/music/fish.mp3")
 var growl_music = preload("res://assets/music/growl.mp3")
 var watched_music = preload("res://assets/music/watched.mp3")
+var bonus_music = preload("res://assets/music/bonus.mp3")
 
 var rotated_components := false
 var stance := Stance.NORMAL
@@ -50,15 +52,16 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#print(movement_direction, velocity.x)
-	if movement_direction.x > 0:
-		sprite_2d.flip_h = true
-		if not rotated_components:
-			components.scale = Vector2.ONE * -1
-			rotated_components = true
-	elif movement_direction.x < 0:
-		sprite_2d.flip_h = false
-		components.scale = Vector2.ONE		
-		rotated_components = false
+	if hitbox.monitoring == true:
+		if movement_direction.x > 0:
+			sprite_2d.flip_h = true
+			if not rotated_components:
+				components.scale = Vector2.ONE * -1
+				rotated_components = true
+		elif movement_direction.x < 0:
+			sprite_2d.flip_h = false
+			components.scale = Vector2.ONE		
+			rotated_components = false
 			
 	if stance == Stance.NORMAL:
 		if audio_stream_player_2d.playing == false:
@@ -113,6 +116,15 @@ func turn_movement_direction(old_direction: Vector2):
 	movement_direction = old_direction * -1
 	#print("TURNING MOVEMENT FROM ", old_direction, "TO ", movement_direction)
 
+
+func die():
+	stormer_collision.disabled = false
+	chaser_collision.disabled = false
+	hitbox.monitorable = false
+	hitbox.monitoring = false
+	Game.play_audio(audio_stream_player_2d, bonus_music)
+	animation_player.play("die")
+	
 
 func _on_move_timer_timeout():
 	if show_property_logs:
