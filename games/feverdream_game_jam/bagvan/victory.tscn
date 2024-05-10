@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://2pw77evnonto"]
+
+[ext_resource type="Script" path="res://victory.gd" id="1_onu8w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtng4"]
+size = Vector2(2005, 874)
+
+[node name="Victory" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_onu8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(482.5, 427)
+shape = SubResource("RectangleShape2D_wtng4")

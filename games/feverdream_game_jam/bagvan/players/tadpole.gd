@@ -1,3 +1,4 @@
+class_name Tadpole
 extends CharacterBody2D
 
 const NORMAL_SPEED := 350.0
@@ -11,9 +12,12 @@ const STEERING_FACTOR := 3.0
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var checkpoints: Node = %Checkpoints
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var area_2d: Area2D = $Area2D
 
 var jump_music = preload("res://assets/music/jump.mp3")
 var special_music = preload("res://assets/music/special.mp3")
+var death_music = preload("res://assets/music/death.mp3")
+var freezed := false
 
 var special_ability_applied := false
 var max_speed  := NORMAL_SPEED
@@ -22,11 +26,15 @@ var max_speed  := NORMAL_SPEED
 func _ready() -> void:
 	idle_timer.timeout.connect(_on_idle_timer_timeout)
 	special_timer.timeout.connect(_on_special_timer_timeout)
+	area_2d.area_entered.connect(_on_area_entered)
 	Game.camera_action_triggered.connect(_on_camera_action_triggered)
 	Game.checkpoint_reached.connect(_on_checkpoint_reached)
 
 
 func _process(delta: float) -> void:
+	if freezed:
+		return
+	
 	var direction := Vector2.ZERO
 	direction.x = Input.get_axis("move_left", "move_right")
 	direction.y = Input.get_axis("move_up", "move_down")
@@ -76,6 +84,36 @@ func _process(delta: float) -> void:
 		if idle_timer.is_stopped():
 			idle_timer.start()
 
+
+func die():
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", Game.player_spawn_position, 1)
+	area_2d.monitoring = false
+	area_2d.monitorable = false
+	Game.play_audio(audio_stream_player, death_music)
+	animation_player.play("die")
+	await tween.finished
+	get_tree().reload_current_scene()
+
+
+func _on_area_entered(area_entered: Area2D):
+	if area_entered.name != "Hitbox":
+		return
+
+	var node = area_entered.owner
+	if not node.is_in_group("mob"):
+		return
+
+	if node.is_in_group("fish"):
+		var fish_node = node as FishMob
+		if fish_node.mob_type == FishMob.MobType.CHASER and special_ability_applied:
+			fish_node.die()
+		else:
+			die() 
+	
+	if node.is_in_group("bird"):
+		die()
+	
 
 func _on_idle_timer_timeout():
 	animation_player.play("idle")
